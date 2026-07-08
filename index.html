@@ -513,7 +513,7 @@ var sud = [
 ];
 
 var nc = [
- {nn:'J1',date:'ven. 24 avril',pl:'Arrivée Nouméa',emoji:'🌴',grad:['#c2743a','#8a4d20'],photo:'Noumea capital of New Caledonia (5780603683).jpg',
+ {nn:'J1',date:'sam. 24 avril',pl:'Arrivée Nouméa',emoji:'🌴',grad:['#c2743a','#8a4d20'],photo:'Noumea capital of New Caledonia (5780603683).jpg',
   route:'Vol depuis Christchurch via Auckland',
   visit:['Arrivée à La Tontouta ; transfert vers Nouméa.','<b>Retirer des XPF en espèces</b> (distributeurs rares sur les îles).','Première soirée baie des Citrons / Anse Vata.'],
   stay:'<b>Nouméa</b> — hôtel bord de mer (ou transfert direct Île des Pins selon horaires) · <span class="price">~120-180 €</span>'},
@@ -523,4 +523,70 @@ var nc = [
   stay:'<b>Île des Pins (3-4 nuits)</b> — Gîte Nataïwatch (authentique, ~budget) ou Le Méridien (resort) · <span class="todo">à contacter en direct</span>'},
  {nn:'J5-7',date:'28-30 avril',pl:'Îlot Maître',emoji:'🐠',grad:['#1f8cae','#0f5068'],photo:'Plage est de l\'îlot maître, spot de kitesurf.jpg',
   route:'Retour Nouméa → navette Îlot Maître (~20 min / 4 km)',
-  visit:['<b>Suite Escapade sur pilotis</b> (65 m², la seule de l\'hôtel, pointe de l\'île) — ✅ RÉSERVÉE.','Snorkeling depuis la terrasse, tortues et raies dans 
+  visit:['<b>Suite Escapade sur pilotis</b> (65 m², la seule de l\'hôtel, pointe de l\'île) — ✅ RÉSERVÉE.','Snorkeling depuis la terrasse, tortues et raies dans le lagon (réserve marine).','Paddle, kite, farniente ; couchers de soleil sur Nouméa.','1 journée <b>Grande Terre / Tjibaou</b> (voir ci-dessous).'],
+  stay:'<b>✅ Îlot Maître — suite pilotis RÉSERVÉE</b> (remboursable jusqu\'au 21 avril 2027) · check-out 1er mai'}
+];
+
+/* ---------- RENDER ---------- */
+function card(s){
+  var g='linear-gradient(135deg,'+s.grad[0]+','+s.grad[1]+')';
+  var vis=s.visit.map(function(v){return '<li>'+v+'</li>';}).join('');
+  var lotr=s.lotr?'<div class="lotr">🎯 Temps fort LOTR — '+s.lotr+'</div>':'';
+  var ph=s.photo?'<img class="ph" src="'+img(s.photo)+'" alt="'+s.pl+'" loading="lazy" onerror="this.remove()">':'';
+  return '<div class="stop">'+
+    '<div class="banner" style="background:'+g+'">'+ph+
+      '<div class="ov"></div><div class="bemoji">'+s.emoji+'</div>'+
+      '<div class="btxt"><span class="nn">'+s.nn+' · '+s.date+'</span><div class="pl">'+s.pl+'</div></div>'+
+    '</div>'+
+    '<div class="body"><div class="route">🚗 '+s.route+'</div>'+
+      '<h4>À voir / à faire</h4><ul>'+vis+'</ul>'+lotr+
+      '<div class="stay">🛏️ '+s.stay+'</div>'+
+    '</div></div>';
+}
+function seg(label,color){return '<div class="seg"><span class="bar" style="background:'+color+'"></span>'+label+'</div>';}
+
+document.getElementById('nord-list').innerHTML =
+  seg('Arrivée &amp; récupération','#b06a3c')+card(nord[0])+card(nord[1])+
+  seg('Terre du Milieu &amp; géothermie','#b06a3c')+card(nord[2])+card(nord[3])+card(nord[4])+card(nord[5])+
+  seg('Wellington','#b06a3c')+card(nord[6])+card(nord[7]);
+
+document.getElementById('sud-list').innerHTML =
+  seg('Kaikōura','#2f7d8c')+card(sud[0])+card(sud[1])+
+  seg('Vers Queenstown (liaison découpée)','#2f7d8c')+card(sud[2])+
+  seg('Queenstown &amp; Fiordland','#2f7d8c')+card(sud[3])+card(sud[4])+card(sud[5])+card(sud[6])+
+  seg('Mount Cook &amp; retour','#2f7d8c')+card(sud[7])+card(sud[8])+card(sud[9]);
+
+document.getElementById('nc-list').innerHTML = nc.map(card).join('');
+
+/* ---------- MAP ---------- */
+var map = L.map('map', {scrollWheelZoom:true}).setView([-41.5,172.5], 5);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+var NORTH='#b06a3c',SOUTH='#2f7d8c',FERRY='#2f7d8c',GOLD='#b8862f';
+var stops=[
+ [-36.848,174.763,'N1-2 · Auckland',NORTH,false],
+ [-37.809,175.746,'N3 · Hobbiton',GOLD,true],
+ [-38.137,176.249,'N3-4 · Rotorua',NORTH,false],
+ [-39.198,175.545,'N5-6 · Tongariro (Mordor)',GOLD,true],
+ [-41.286,174.776,'N7-8 · Wellington (Kaitoke + Weta)',GOLD,true],
+ [-41.290,174.001,'Ferry · Picton',FERRY,false],
+ [-42.400,173.680,'N9-10 · Kaikōura',SOUTH,false],
+ [-44.190,170.130,'N11 · Lac Pūkaki / Ōmarama',SOUTH,false],
+ [-45.031,168.662,'N12-13 · Queenstown',SOUTH,false],
+ [-44.847,168.383,'N13 · Glenorchy (Isengard)',GOLD,true],
+ [-45.414,167.717,'N14-15 · Te Anau',SOUTH,false],
+ [-44.671,167.926,'N15 · Milford Sound',SOUTH,false],
+ [-43.735,170.097,'N16-17 · Mount Cook',SOUTH,false],
+ [-44.006,170.477,'Arrêt · Lac Tekapo',SOUTH,false],
+ [-43.531,172.637,'N18 · Christchurch',SOUTH,false]
+];
+stops.forEach(function(s){
+  L.circleMarker([s[0],s[1]],{radius:s[4]?9:7,color:'#fff',weight:2,fillColor:s[3],fillOpacity:1})
+   .addTo(map).bindPopup('<b>'+s[2]+'</b>').bindTooltip(s[2],{direction:'top',offset:[0,-6]});
+});
+L.polyline([[-36.848,174.763],[-37.809,175.746],[-38.137,176.249],[-39.198,175.545],[-41.286,174.776]],{color:NORTH,weight:4,opacity:.85}).addTo(map);
+L.polyline([[-41.286,174.776],[-41.290,174.001]],{color:FERRY,weight:3,opacity:.8,dashArray:'8,8'}).addTo(map);
+L.polyline([[-41.290,174.001],[-42.400,173.680],[-44.190,170.130],[-45.031,168.662],[-44.847,168.383],[-45.031,168.662],[-45.414,167.717],[-44.671,167.926],[-45.414,167.717],[-43.735,170.097],[-44.006,170.477],[-43.531,172.637]],{color:SOUTH,weight:4,opacity:.85}).addTo(map);
+map.fitBounds(L.latLngBounds(stops.map(function(s){return [s[0],s[1]];})).pad(0.12));
+</script>
+</body>
+</html>
