@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coins bonus — pépites nature de Nouvelle-Zélande</title>
+<title>Coins bonus — pépites nature NZ &amp; Nouvelle-Calédonie</title>
 <link rel="preconnect" href="https://commons.wikimedia.org">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -94,6 +94,7 @@
   <a href="#carte">🗺️ Carte</a>
   <a href="#nord">🌋 Île du Nord</a>
   <a href="#sud">🏔️ Île du Sud</a>
+  <a href="#nc">🏝️ Nouvelle-Calédonie</a>
 </div></nav>
 
 <section id="carte"><div class="wrap">
@@ -103,6 +104,7 @@
   <div class="legend">
     <span><span class="dot" style="background:#b06a3c"></span> Île du Nord</span>
     <span><span class="dot" style="background:#2f7d8c"></span> Île du Sud</span>
+    <span><span class="dot" style="background:#c2743a"></span> Nouvelle-Calédonie</span>
     <span><span class="dot" style="width:18px;height:18px;background:#777"></span> gros = à portée · petit = détour</span>
   </div>
   <div class="note"><b>Comment lire :</b> « à portée » = un simple crochet depuis une étape existante. « détour » = joli mais hors du tracé actuel (plutôt pour un prochain voyage). Les spots de baignade chaude / marée dépendent de la <b>marée basse (±2h)</b> — à vérifier le jour même.</div>
@@ -120,6 +122,13 @@
   <p class="lead">Eaux turquoise, badlands d'argile et rochers surréalistes.</p>
   <div class="seg"><span class="bar" style="background:var(--south)"></span>Pépites du Sud</div>
   <div id="sud-bonus"></div>
+</div></section>
+
+<section id="nc" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🏝️</span> Nouvelle-Calédonie</h2>
+  <p class="lead">Cœur de mangrove, terre rouge du Grand Sud et lagon transparent.</p>
+  <div class="seg"><span class="bar" style="background:var(--nc)"></span>Pépites de Calédonie</div>
+  <div id="nc-bonus"></div>
 </div></section>
 
 <footer><div class="wrap">Coins bonus — complément du <a href="index.html">guide voyage de noces NZ &amp; NC</a> · photos Wikimedia Commons · infos à reconfirmer</div></footer>
@@ -185,7 +194,25 @@ var spots=[
   tip:'<b>Sur la route Cardrona (Wānaka ↔ Queenstown).</b> Gratuit, arrêt photo. <span class="tag std">à portée</span>'},
  {name:'Cathedral Caves (Catlins)',region:'Île du Sud',near:false,emoji:'🕳️',grad:['#2f6d8c','#1c4256'],photo:'Cathedral Caves Catlins.jpg',lat:-46.610,lng:169.360,
   desc:'D\'immenses <b>cavernes marines</b> de 30 m de haut, accessibles <b>uniquement à marée basse</b> — écho impressionnant sous la voûte.',
-  tip:'<b>Catlins (détour sud, côte sauvage).</b> Marée basse ±1h ; petit péage d\'accès. <span class="tag opt">détour</span>'}
+  tip:'<b>Catlins (détour sud, côte sauvage).</b> Marée basse ±1h ; petit péage d\'accès. <span class="tag opt">détour</span>'},
+ {name:'Cœur de Voh',region:'Nouvelle-Calédonie',near:false,emoji:'💚',grad:['#1f7d5a','#0f4a34'],photo:'Coeur de Voh.jpg',lat:-20.950,lng:164.620,
+  desc:'Une <b>clairière en forme de cœur</b> dessinée naturellement dans la mangrove — rendue célèbre par Yann Arthus-Bertrand. Le spot le plus romantique de l\'archipel.',
+  tip:'<b>Nord de la Grande Terre (détour, ou survol en ULM).</b> Belvédère après ~1 h de marche. <span class="tag opt">détour</span>'},
+ {name:'Îlot Amédée',region:'Nouvelle-Calédonie',near:true,emoji:'🗼',grad:['#1f8cae','#0f5068'],photo:'Amedee Lighthouse New Caledonia.jpg',lat:-22.478,lng:166.468,
+  desc:'Un <b>phare blanc du XIXᵉ</b> planté sur un îlot corallien ; snorkeling avec tortues et tricots rayés dans un lagon transparent.',
+  tip:'<b>Excursion à la journée depuis Nouméa</b> (~45 min de bateau). <span class="tag std">à portée</span>'},
+ {name:'Parc de la Rivière Bleue',region:'Nouvelle-Calédonie',near:true,emoji:'🌲',grad:['#8a4436','#5a2a20'],photo:'Riviere Bleue New Caledonia.jpg',lat:-22.100,lng:166.700,
+  desc:'Terre rouge, <b>forêt noyée du lac de Yaté</b> (arbres morts dans l\'eau) et le <b>cagou</b>, oiseau endémique qui aboie et ne vole pas.',
+  tip:'<b>Grand Sud, ~1h30 de Nouméa (journée).</b> Entrée régulée, vélo possible. <span class="tag std">à portée</span>'},
+ {name:'Chutes de la Madeleine',region:'Nouvelle-Calédonie',near:true,emoji:'💦',grad:['#2f7d8c','#1c5260'],photo:'Chutes de la Madeleine.jpg',lat:-22.250,lng:166.880,
+  desc:'Une cascade qui s\'étale sur la <b>terre rouge du Grand Sud</b>, entourée d\'une flore endémique unique (fougères, plantes carnivores).',
+  tip:'<b>Grand Sud, route de Yaté (journée depuis Nouméa).</b> Petit sentier aménagé. <span class="tag std">à portée</span>'},
+ {name:'La Roche Percée & Baie des Tortues',region:'Nouvelle-Calédonie',near:false,emoji:'🐢',grad:['#c2743a','#8a4d20'],photo:'Roche Percee Bourail.jpg',lat:-21.617,lng:165.415,
+  desc:'Une <b>arche rocheuse</b> et le « Bonhomme » dominant une baie où viennent <b>pondre les tortues</b>. Couchers de soleil spectaculaires.',
+  tip:'<b>Bourail, côte ouest (~2h30 de Nouméa, détour).</b> <span class="tag opt">détour</span>'},
+ {name:'La Poule de Hienghène',region:'Nouvelle-Calédonie',near:false,emoji:'🪨',grad:['#3a3a42','#1c1c22'],photo:'Hienghene New Caledonia.jpg',lat:-20.688,lng:164.942,
+  desc:'Des <b>falaises noires</b> dont une en forme de « poule couveuse » émergeant du lagon — l\'un des paysages les plus photographiés de la côte est.',
+  tip:'<b>Hienghène, côte est (loin — plutôt prochain voyage).</b> <span class="tag opt">détour</span>'}
 ];
 
 function card(s){
@@ -193,7 +220,7 @@ function card(s){
   var ph=s.photo?'<img class="ph" src="'+img(s.photo)+'" alt="'+s.name+'" loading="lazy" onerror="this.remove()">':'';
   return '<div class="stop">'+
     '<div class="banner" style="background:'+g+'">'+ph+
-      '<div class="ov"></div><div class="bemoji">'+s.emoji+'</div>'+
+      '<div class="ov"></div>'+
       '<div class="btxt"><span class="nn">'+s.region+'</span><div class="pl">'+s.name+'</div></div>'+
     '</div>'+
     '<div class="body"><p>'+s.desc+'</p><div class="stay">📍 '+s.tip+'</div></div>'+
@@ -202,12 +229,13 @@ function card(s){
 
 document.getElementById('nord-bonus').innerHTML = spots.filter(function(s){return s.region==='Île du Nord';}).map(card).join('');
 document.getElementById('sud-bonus').innerHTML  = spots.filter(function(s){return s.region==='Île du Sud';}).map(card).join('');
+document.getElementById('nc-bonus').innerHTML   = spots.filter(function(s){return s.region==='Nouvelle-Calédonie';}).map(card).join('');
 
 var map = L.map('map',{scrollWheelZoom:true}).setView([-41,173],5);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 var pts=[];
 spots.forEach(function(s){
-  var color=s.region==='Île du Nord'?'#b06a3c':'#2f7d8c';
+  var color=s.region==='Île du Nord'?'#b06a3c':(s.region==='Nouvelle-Calédonie'?'#c2743a':'#2f7d8c');
   L.circleMarker([s.lat,s.lng],{radius:s.near?10:6,color:'#fff',weight:2,fillColor:color,fillOpacity:1})
    .addTo(map).bindPopup('<b>'+s.emoji+' '+s.name+'</b><br>'+s.tip.replace(/<span[^>]*>.*?<\/span>/g,''))
    .bindTooltip(s.name,{direction:'top',offset:[0,-6]});
