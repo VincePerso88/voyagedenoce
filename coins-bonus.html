@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coins bonus — pépites nature de Nouvelle-Zélande</title>
+<link rel="preconnect" href="https://commons.wikimedia.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root{
+    --green:#1f4d3a; --green2:#2e6b50; --sand:#f4efe4;
+    --paper:#faf7f0; --ink:#22271f; --muted:#6b7264;
+    --north:#b06a3c; --ferry:#2f7d8c; --south:#2f7d8c; --nc:#c2743a;
+    --gold:#b8862f; --line:#e6e0d0; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--paper);line-height:1.6;font-size:16px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+
+  header.hero{position:relative;color:#fff;padding:56px 22px 44px;text-align:center;overflow:hidden;
+    background:linear-gradient(135deg,#173d2e,#245740 45%,#2f7d8c 120%)}
+  header.hero::after{content:"";position:absolute;inset:0;opacity:.16;
+    background:radial-gradient(circle at 20% 30%,#fff 0,transparent 8%),radial-gradient(circle at 70% 60%,#fff 0,transparent 6%),radial-gradient(circle at 85% 20%,#fff 0,transparent 5%)}
+  .hero h1{margin:0 0 8px;font-size:40px;letter-spacing:.5px;position:relative;z-index:1;font-weight:800}
+  .hero .sub{opacity:.95;font-size:19px;margin-bottom:6px;position:relative;z-index:1}
+  .hero .meta{opacity:.85;font-size:15px;position:relative;z-index:1}
+
+  nav.sticky{position:sticky;top:0;z-index:1000;background:rgba(250,247,240,.94);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:9px 0}
+  nav.sticky .wrap{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+  nav.sticky a{color:var(--green);text-decoration:none;font-size:13.5px;font-weight:600;padding:6px 13px;border-radius:16px;border:1px solid var(--line);transition:.15s}
+  nav.sticky a:hover{background:var(--green);color:#fff;border-color:var(--green)}
+  nav.sticky a.back{background:var(--sand)}
+
+  section{padding:40px 0}
+  h2{font-size:28px;color:var(--green);margin:0 0 6px;display:flex;align-items:center;gap:12px}
+  h2 .ic{font-size:30px}
+  .lead{color:var(--muted);font-size:15.5px;margin:0 0 8px}
+
+  #map{height:520px;border-radius:16px;border:1px solid var(--line);margin-top:18px;box-shadow:0 6px 26px rgba(0,0,0,.08)}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;font-size:13.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+
+  .seg{margin:34px 0 4px;font-size:14px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--green2);display:flex;align-items:center;gap:10px}
+  .seg .bar{width:32px;height:5px;border-radius:3px}
+
+  .stop{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:20px 0;
+    box-shadow:0 4px 20px rgba(0,0,0,.05);display:grid;grid-template-columns:300px 1fr}
+  .stop .banner{position:relative;min-height:200px;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .stop .banner .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .stop .banner .ov{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.55))}
+  .stop .banner .bemoji{position:absolute;top:14px;left:16px;font-size:40px;z-index:3;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+  .stop .banner .btxt{position:relative;z-index:3;padding:16px;width:100%}
+  .stop .banner .nn{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);font-size:12px;font-weight:700;padding:2px 9px;border-radius:9px;margin-bottom:6px;backdrop-filter:blur(3px)}
+  .stop .banner .pl{font-size:22px;font-weight:800;line-height:1.15;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .stop .body{padding:18px 22px}
+  .stop .body p{margin:0 0 8px;font-size:14.5px}
+  .stay{margin-top:12px;font-size:14px;background:var(--sand);border-radius:11px;padding:11px 14px;border:1px solid var(--line)}
+  .stay b{color:var(--green)}
+  .tag{font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;margin-left:6px}
+  .tag.std{background:#dfeadf;color:#2e6b50}.tag.opt{background:#e6e6ea;color:#555}
+  @media(max-width:760px){.stop{grid-template-columns:1fr}.stop .banner{min-height:180px}#map{height:420px}.hero h1{font-size:30px}}
+
+  .note{background:#fff8e8;border:1px solid #ecd9a6;border-radius:13px;padding:15px 18px;margin:16px 0;font-size:14.5px}
+  .note b{color:#8a6a12}
+  .note.blue{background:#e7f1f3;border-color:#a9d2da}.note.blue b{color:#1f6473}
+
+  footer{background:var(--green);color:#fff;padding:30px 0;margin-top:24px;font-size:13.5px;text-align:center;opacity:.96}
+  footer a{color:#fff}
+  @media(max-width:760px){
+    body{font-size:15px}.wrap{padding:0 15px}section{padding:30px 0}
+    h2{font-size:22px}h2 .ic{font-size:24px}
+    header.hero{padding:44px 18px 34px}.hero h1{font-size:28px}.hero .sub{font-size:16px}
+    nav.sticky a{font-size:12.5px;padding:5px 10px}
+    .stop .body{padding:15px 16px}
+  }
+  @media(max-width:440px){.hero h1{font-size:23px}h2{font-size:19px}#map{height:330px}.stop .banner{min-height:150px}.stop .banner .pl{font-size:19px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>✨ Coins bonus</h1>
+  <div class="sub">Pépites nature &amp; curiosités hors des sentiers battus</div>
+  <div class="meta">Idées d'extensions et de crochets — certaines sont à portée de l'itinéraire, d'autres pour un prochain voyage.</div>
+</header>
+
+<nav class="sticky"><div class="wrap">
+  <a class="back" href="index.html">← Retour au guide</a>
+  <a href="#carte">🗺️ Carte</a>
+  <a href="#nord">🌋 Île du Nord</a>
+  <a href="#sud">🏔️ Île du Sud</a>
+</div></nav>
+
+<section id="carte"><div class="wrap">
+  <h2><span class="ic">🗺️</span> La carte des pépites</h2>
+  <p class="lead">Points colorés par île · les gros points = <b>à portée de votre itinéraire</b>, les petits = détour / prochain voyage.</p>
+  <div id="map"></div>
+  <div class="legend">
+    <span><span class="dot" style="background:#b06a3c"></span> Île du Nord</span>
+    <span><span class="dot" style="background:#2f7d8c"></span> Île du Sud</span>
+    <span><span class="dot" style="width:18px;height:18px;background:#777"></span> gros = à portée · petit = détour</span>
+  </div>
+  <div class="note"><b>Comment lire :</b> « à portée » = un simple crochet depuis une étape existante. « détour » = joli mais hors du tracé actuel (plutôt pour un prochain voyage). Les spots de baignade chaude / marée dépendent de la <b>marée basse (±2h)</b> — à vérifier le jour même.</div>
+</div></section>
+
+<section id="nord" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🌋</span> Île du Nord</h2>
+  <p class="lead">Sable noir, rivières chaudes et curiosités volcaniques.</p>
+  <div class="seg"><span class="bar" style="background:var(--north)"></span>Pépites du Nord</div>
+  <div id="nord-bonus"></div>
+</div></section>
+
+<section id="sud"><div class="wrap">
+  <h2><span class="ic">🏔️</span> Île du Sud</h2>
+  <p class="lead">Eaux turquoise, badlands d'argile et rochers surréalistes.</p>
+  <div class="seg"><span class="bar" style="background:var(--south)"></span>Pépites du Sud</div>
+  <div id="sud-bonus"></div>
+</div></section>
+
+<footer><div class="wrap">Coins bonus — complément du <a href="index.html">guide voyage de noces NZ &amp; NC</a> · photos Wikimedia Commons · infos à reconfirmer</div></footer>
+
+<script>
+var FP='https://commons.wikimedia.org/wiki/Special:FilePath/';
+function img(f){return FP+encodeURIComponent(f)+'?width=800';}
+
+var spots=[
+ {name:'Kawhia — Hot Water Beach',region:'Île du Nord',near:false,emoji:'♨️',grad:['#3a3a42','#1c1c22'],photo:'Ocean Beach Kawhia.jpg',lat:-38.100,lng:174.790,
+  desc:'La plage de <b>sable noir</b> où l\'on creuse son propre bain chaud à marée basse — quasi confidentielle, souvent la plage pour vous seuls. C\'est <b>celle-ci</b> (sable noir) dont on parlait.',
+  tip:'<b>Côte ouest, ~1 h de Hamilton.</b> Marée basse ±2h obligatoire. Pelle prêtée au camping de Kawhia. <span class="tag opt">détour ouest</span>'},
+ {name:'Kerosene Creek',region:'Île du Nord',near:true,emoji:'♨️',grad:['#2e6b50','#194030'],photo:'Kerosene Creek.jpg',lat:-38.312,lng:176.373,
+  desc:'Une <b>rivière chaude naturelle</b> avec petite cascade, baignade <b>gratuite</b> en pleine forêt géothermale. Un des plus beaux « hot pools » sauvages du pays.',
+  tip:'<b>Entre Rotorua et Taupo (sur votre route N5 !).</b> Gratuit. Pierres glissantes, laisser les objets de valeur. <span class="tag std">à portée</span>'},
+ {name:'Hot Water Beach (Coromandel)',region:'Île du Nord',near:false,emoji:'🏖️',grad:['#c2743a','#8a4d20'],photo:'Hot Water Beach.jpg',lat:-36.888,lng:175.822,
+  desc:'LA plage « creuse ton spa » la plus connue (sable doré) : l\'eau géothermale monte à <b>64 °C</b> sous le sable. Plus spectaculaire mais bien plus fréquentée que Kawhia.',
+  tip:'<b>Coromandel (détour nord-est d\'Auckland).</b> Marée basse ±2h ; pelle louable ~10 NZD. <span class="tag opt">détour</span>'},
+ {name:'Cathedral Cove',region:'Île du Nord',near:false,emoji:'⛵',grad:['#2f7d8c','#1c5260'],photo:'Cathedral Cove.jpg',lat:-36.828,lng:175.790,
+  desc:'L\'<b>arche calcaire</b> iconique (le Narnia du cinéma) reliant deux plages de sable blanc. À pied (~45 min) ou en kayak.',
+  tip:'<b>Coromandel, près de Hahei.</b> Accès piéton régulé selon la saison ; superbe tôt le matin. <span class="tag opt">détour</span>'},
+ {name:'Piha',region:'Île du Nord',near:false,emoji:'🏄',grad:['#3a3a42','#20202a'],photo:'Piha Beach.jpg',lat:-36.955,lng:174.468,
+  desc:'Plage de <b>sable noir</b> sauvage dominée par le Lion Rock — spot de surf mythique, couchers de soleil sur l\'océan.',
+  tip:'<b>~45 min à l\'ouest d\'Auckland.</b> Courants forts : baignade prudente, entre les drapeaux. <span class="tag opt">détour</span>'},
+ {name:'Clay Cliffs (Ōmarama)',region:'Île du Sud',near:true,emoji:'🏜️',grad:['#c07a2a','#8a4d18'],photo:'Clay Cliffs Omarama.jpg',lat:-44.530,lng:169.800,
+  desc:'Des <b>pinacles et ravines d\'argile</b> façon « badlands », sculptés par l\'érosion — magiques dans la lumière dorée de fin de journée.',
+  tip:'<b>~15 min de votre étape N11 (Ōmarama) !</b> Piste + petit péage privé (~5 NZD). <span class="tag std">à portée</span>'},
+ {name:'Moeraki Boulders',region:'Île du Sud',near:false,emoji:'🪨',grad:['#2f6d8c','#1c4256'],photo:'Moeraki Boulders.jpg',lat:-45.345,lng:170.826,
+  desc:'Des <b>boulders sphériques géants</b> posés sur la plage, presque extraterrestres — spectaculaires à marée basse et à l\'aube.',
+  tip:'<b>Côte d\'Otago (crochet si vous descendez vers Dunedin).</b> Marée basse pour les voir dégagés. <span class="tag opt">détour</span>'},
+ {name:'Blue Pools (Haast)',region:'Île du Sud',near:false,emoji:'💧',grad:['#1f8cae','#0f5068'],photo:'Blue Pools Track.jpg',lat:-44.100,lng:169.280,
+  desc:'Des bassins d\'eau glaciaire <b>turquoise translucide</b>, accessibles par une passerelle en forêt de hêtres.',
+  tip:'<b>Sur la route du col de Haast (côte ouest)</b> — hors de votre tracé Est. <span class="tag opt">détour</span>'},
+ {name:'That Wānaka Tree',region:'Île du Sud',near:true,emoji:'🌳',grad:['#3f7d3a','#245a20'],photo:'That Wanaka Tree.jpg',lat:-44.697,lng:169.128,
+  desc:'Le <b>saule solitaire</b> planté dans le lac Wānaka — la photo la plus « instagrammée » de Nouvelle-Zélande, sublime au lever/coucher.',
+  tip:'<b>Wānaka, ~1 h de Queenstown.</b> Gratuit ; niveau du lac variable. <span class="tag std">à portée</span>'},
+ {name:'Onsen Hot Pools (Arthurs Point)',region:'Île du Sud',near:true,emoji:'♨️',grad:['#2f6d9c','#1c4266'],photo:'',lat:-44.980,lng:168.680,
+  desc:'Des <b>bains chauds privés en cèdre</b> avec baie vitrée ouverte sur le canyon de la rivière Shotover — une parenthèse « lune de miel » parfaite.',
+  tip:'<b>~10 min de Queenstown (vos étapes N12-13).</b> Sur réservation, payant. <span class="tag std">à portée</span>'}
+];
+
+function card(s){
+  var g='linear-gradient(135deg,'+s.grad[0]+','+s.grad[1]+')';
+  var ph=s.photo?'<img class="ph" src="'+img(s.photo)+'" alt="'+s.name+'" loading="lazy" onerror="this.remove()">':'';
+  return '<div class="stop">'+
+    '<div class="banner" style="background:'+g+'">'+ph+
+      '<div class="ov"></div><div class="bemoji">'+s.emoji+'</div>'+
+      '<div class="btxt"><span class="nn">'+s.region+'</span><div class="pl">'+s.name+'</div></div>'+
+    '</div>'+
+    '<div class="body"><p>'+s.desc+'</p><div class="stay">📍 '+s.tip+'</div></div>'+
+  '</div>';
+}
+
+document.getElementById('nord-bonus').innerHTML = spots.filter(function(s){return s.region==='Île du Nord';}).map(card).join('');
+document.getElementById('sud-bonus').innerHTML  = spots.filter(function(s){return s.region==='Île du Sud';}).map(card).join('');
+
+var map = L.map('map',{scrollWheelZoom:true}).setView([-41,173],5);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+var pts=[];
+spots.forEach(function(s){
+  var color=s.region==='Île du Nord'?'#b06a3c':'#2f7d8c';
+  L.circleMarker([s.lat,s.lng],{radius:s.near?10:6,color:'#fff',weight:2,fillColor:color,fillOpacity:1})
+   .addTo(map).bindPopup('<b>'+s.emoji+' '+s.name+'</b><br>'+s.tip.replace(/<span[^>]*>.*?<\/span>/g,''))
+   .bindTooltip(s.name,{direction:'top',offset:[0,-6]});
+  pts.push([s.lat,s.lng]);
+});
+map.fitBounds(L.latLngBounds(pts).pad(0.15));
+</script>
+
+</body>
+</html>
