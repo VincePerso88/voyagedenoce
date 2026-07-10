@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variante Île du Sud — via Dunedin</title>
+<link rel="preconnect" href="https://commons.wikimedia.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root{--green:#1f4d3a;--green2:#2e6b50;--sand:#f4efe4;--paper:#faf7f0;--ink:#22271f;--muted:#6b7264;
+    --north:#b06a3c;--south:#2f7d8c;--nc:#c2743a;--gold:#b8862f;--line:#e6e0d0;--card:#ffffff}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;font-size:16px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  header.hero{position:relative;color:#fff;padding:52px 22px 40px;text-align:center;overflow:hidden;background:linear-gradient(135deg,#173d2e,#245740 45%,#2f7d8c 120%)}
+  .hero h1{margin:0 0 8px;font-size:38px;font-weight:800}
+  .hero .sub{opacity:.95;font-size:18px}
+  nav.sticky{position:sticky;top:0;z-index:1000;background:rgba(250,247,240,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:9px 0}
+  nav.sticky .wrap{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+  nav.sticky a{color:var(--green);text-decoration:none;font-size:13.5px;font-weight:600;padding:6px 13px;border-radius:16px;border:1px solid var(--line);transition:.15s}
+  nav.sticky a:hover{background:var(--green);color:#fff;border-color:var(--green)}
+  nav.sticky a.back{background:var(--sand)}
+  section{padding:38px 0}
+  h2{font-size:27px;color:var(--green);margin:0 0 6px;display:flex;align-items:center;gap:12px}
+  h2 .ic{font-size:29px}
+  .lead{color:var(--muted);font-size:15.5px;margin:0 0 8px}
+  #map{height:520px;border-radius:16px;border:1px solid var(--line);margin-top:18px;box-shadow:0 6px 26px rgba(0,0,0,.08)}
+  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.04)}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--green);color:#fff;font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .hl td{background:#efe9f6}
+  .stop{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:20px 0;box-shadow:0 4px 20px rgba(0,0,0,.05);display:grid;grid-template-columns:300px 1fr}
+  .stop .banner{position:relative;min-height:200px;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .stop .banner .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .stop .banner .ov{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.55))}
+  .stop .banner .btxt{position:relative;z-index:3;padding:16px;width:100%}
+  .stop .banner .nn{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);font-size:12px;font-weight:700;padding:2px 9px;border-radius:9px;margin-bottom:6px;backdrop-filter:blur(3px)}
+  .stop .banner .pl{font-size:22px;font-weight:800;line-height:1.15;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .stop .body{padding:18px 22px}
+  .stop .route{font-size:13px;color:var(--south);font-weight:600;margin:0 0 8px}
+  .stop .body h4{margin:12px 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  .stop ul{margin:6px 0;padding-left:19px}.stop li{margin:5px 0;font-size:14.5px}
+  .mass{background:#efe9f6;border:1px solid #d8cbee;color:#5b3f8c;font-size:13.5px;padding:9px 13px;border-radius:11px;margin:0 0 12px;line-height:1.5}
+  .mass b{color:#472e73}
+  .lotr{display:inline-block;background:linear-gradient(90deg,#efe0b6,#e7cf88);color:#6e5310;font-size:12.5px;font-weight:800;padding:3px 11px;border-radius:13px;margin:8px 0 2px}
+  .stay{margin-top:12px;font-size:14px;background:var(--sand);border-radius:11px;padding:11px 14px;border:1px solid var(--line)}
+  .stay b{color:var(--green)}
+  .todo{color:#b23b2e;font-weight:700}
+  .note{background:#fff8e8;border:1px solid #ecd9a6;border-radius:13px;padding:15px 18px;margin:16px 0;font-size:14.5px}
+  .note b{color:#8a6a12}
+  .note.blue{background:#e7f1f3;border-color:#a9d2da}.note.blue b{color:#1f6473}
+  .note.pink{background:#fbeee2;border-color:#e6c39c}.note.pink b{color:#9a5b1a}
+  footer{background:var(--green);color:#fff;padding:28px 0;margin-top:24px;font-size:13.5px;text-align:center}
+  footer a{color:#fff}
+  @media(max-width:760px){.stop{grid-template-columns:1fr}.stop .banner{min-height:170px}#map{height:400px}.hero h1{font-size:28px}h2{font-size:21px}table{display:block;overflow-x:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🔀 Variante Île du Sud — via Dunedin</h1>
+  <div class="sub">Une alternative pour caler la messe latine du dim. 18 + la péninsule d'Otago</div>
+</header>
+
+<nav class="sticky"><div class="wrap">
+  <a class="back" href="index.html">← Retour au guide</a>
+  <a href="#idee">💡 L'idée</a>
+  <a href="#compare">⚖️ Comparatif</a>
+  <a href="#carte">🗺️ Carte</a>
+  <a href="#jours">🗓️ Jour par jour</a>
+</div></nav>
+
+<section id="idee"><div class="wrap">
+  <h2><span class="ic">💡</span> L'idée en deux mots</h2>
+  <p class="lead">Version alternative de l'Île du Sud — <b>le plan actuel n'est pas modifié</b>, c'est juste pour comparer sereinement.</p>
+  <div class="note blue"><b>Ce que ça apporte :</b> vous êtes à <b>Dunedin le dimanche 18</b> → <b>messe FSSP (latin) à 9h</b> (au lieu du Novus Ordo à Queenstown), <b>+ la péninsule d'Otago</b> (albatros royaux de Taiaroa, manchots, otaries) et les <b>Moeraki Boulders</b> en chemin. Résultat : <b>3 dimanches en latin</b> (Whanganui 11, Dunedin 18, Kaiapoi 25).</div>
+  <div class="note"><b>Le prix à payer :</b> à <b>durée identique (11 nuits)</b>, on descend d'abord toute la <b>côte est</b>, donc on <b>raccourcit Mount Cook (1 nuit au lieu de 2)</b> et <b>Christchurch (1 nuit)</b>, et on saute la nuit Ōmarama. Moins de marge météo à Mount Cook (le vol glacier devient « quitte ou double »), et <b>2 grosses journées de route</b> (Kaikōura → côte est ~5h, Dunedin → Te Anau ~3h40).</div>
+  <div class="note pink"><b>En clair :</b> ça vaut le coup <b>si vous voulez Otago/Dunedin pour lui-même</b> (superbe pour une lune de miel) et la messe en bonus. Si c'est <b>uniquement pour la messe</b>, le plan actuel + St Patrick's Arrowtown (11h) reste plus simple.</div>
+</div></section>
+
+<section id="compare" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">⚖️</span> Comparatif</h2>
+  <table>
+    <tr><th>Date</th><th>Plan actuel</th><th>Variante Dunedin</th></tr>
+    <tr><td>mer. 14 – jeu. 15</td><td>Kaikōura (2 n)</td><td>Kaikōura (2 n)</td></tr>
+    <tr><td>ven. 16</td><td>→ Ōmarama (Dark Sky)</td><td>→ <b>Ōamaru / Moeraki</b> (côte est)</td></tr>
+    <tr><td>sam. 17</td><td>→ Queenstown</td><td>→ <b>Dunedin</b></td></tr>
+    <tr class="hl"><td><b>dim. 18</b></td><td>Glenorchy · messe <b>Novus Ordo</b> (Queenstown)</td><td><b>Péninsule d'Otago</b> · messe <b>FSSP latin</b> (Dunedin 9h)</td></tr>
+    <tr><td>lun. 19</td><td>→ Te Anau</td><td>→ Te Anau</td></tr>
+    <tr><td>mar. 20</td><td>Milford</td><td>Milford</td></tr>
+    <tr><td>mer. 21 – jeu. 22</td><td>Mount Cook (2 n)</td><td><b>Queenstown + Glenorchy</b> (2 n)</td></tr>
+    <tr><td>ven. 23</td><td>→ Christchurch</td><td>→ <b>Mount Cook</b> (<span class="todo">1 n</span>)</td></tr>
+    <tr><td>sam. 24</td><td>Christchurch (2ᵉ n)</td><td>→ Tekapo → <b>Christchurch</b> (1 n)</td></tr>
+    <tr><td>dim. 25</td><td colspan="2">Messe <b>FSSP Kaiapoi ~11h</b>, puis envol vers Nouméa <span style="color:var(--muted)">(identique)</span></td></tr>
+    <tr><td><b>Bilan</b></td><td>11 nuits · Mount Cook 2 n (marge météo) · Christchurch 2 n</td><td>11 nuits · <b>+ Otago (2 n) + Moeraki</b> · Mount Cook 1 n · Christchurch 1 n</td></tr>
+  </table>
+</div></section>
+
+<section id="carte"><div class="wrap">
+  <h2><span class="ic">🗺️</span> La boucle</h2>
+  <p class="lead">On descend la côte est (Kaikōura → Moeraki → Dunedin), on file à l'ouest (Fiordland/Queenstown), puis on remonte via Mount Cook &amp; Tekapo vers Christchurch.</p>
+  <div id="map"></div>
+</div></section>
+
+<section id="jours" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🗓️</span> Jour par jour</h2>
+  <div id="days-list"></div>
+</div></section>
+
+<footer><div class="wrap">Variante — complément du <a href="index.html">guide voyage de noces NZ &amp; NC</a> · le plan principal reste inchangé · photos Wikimedia Commons</div></footer>
+
+<script>
+var FP='https://commons.wikimedia.org/wiki/Special:FilePath/';
+function img(f){return f.indexOf('http')===0?f:(FP+encodeURIComponent(f)+'?width=900');}
+var MOERAKI='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Moeraki_Boulders.jpg/960px-Moeraki_Boulders.jpg';
+var DUNEDIN='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Dunedin_from_Little_Paisley.jpg/960px-Dunedin_from_Little_Paisley.jpg';
+var OTAGO='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Taiaroa_Head%2C_Otago_Peninsula%2C_South_Island2.jpg/960px-Taiaroa_Head%2C_Otago_Peninsula%2C_South_Island2.jpg';
+
+var days=[
+ {nn:'V1',date:'mer. 14 avril',pl:'Kaikōura',emoji:'🐋',grad:['#2f7d8c','#1c5260'],photo:'Kaikoura Panorama.jpg',
+  route:'Ferry (~3h30) + Picton → Kaikōura ~155 km / 2h10',
+  visit:['Route côtière, colonie de phoques à Point Kean, installation au lodge.'],
+  stay:'<b>Kaikōura</b> · ~200-300 €'},
+ {nn:'V2',date:'jeu. 15 avril',pl:'Kaikōura',emoji:'🌊',grad:['#276b78','#164450'],photo:'Dusky dolphins, Kaikoura.jpg',
+  route:'Journée mer',
+  visit:['<b>Whale watching</b> (cachalots), dauphins d\'Hector, crayfish local.'],
+  stay:'<b>Kaikōura</b> (2ᵉ nuit)'},
+ {nn:'V3',date:'ven. 16 avril',pl:'Ōamaru / Moeraki',emoji:'🪨',grad:['#2f6d8c','#1c4256'],photo:MOERAKI,
+  route:'Kaikōura → côte est ~430 km / ~5h (via Christchurch) — grosse journée',
+  visit:['<b>Moeraki Boulders</b> (rochers sphériques) en chemin, à marée basse.','<b>Ōamaru</b> : quartier victorien &amp; steampunk, <b>manchots bleus</b> au crépuscule.'],
+  stay:'<b>Ōamaru</b> · ~120-160 €'},
+ {nn:'V4',date:'sam. 17 avril',pl:'Dunedin',emoji:'🏛️',grad:['#3a6f8c','#20415f'],photo:DUNEDIN,
+  route:'Ōamaru → Dunedin ~1h20',
+  visit:['<b>Dunedin</b> : la gare édouardienne, l\'âme écossaise, <b>Larnach Castle</b>, Baldwin Street.','Installation ; repérage pour la messe du lendemain.'],
+  stay:'<b>Dunedin</b> · ~130-170 €'},
+ {nn:'V5',date:'dim. 18 avril',pl:'Péninsule d\'Otago',emoji:'🐧',grad:['#2f6f9c','#1c4468'],photo:OTAGO,
+  mass:'<b>FSSP</b> (latin) · St Joseph\'s Chapel, Rattray St, Dunedin — <b>dim. 9h</b>',
+  route:'Messe FSSP 9h, puis péninsule d\'Otago',
+  visit:['<b>Taiaroa Head</b> : seule colonie continentale d\'<b>albatros royaux</b> au monde.','<b>Manchots</b> (yeux jaunes / petits bleus), otaries, plages sauvages.'],
+  stay:'<b>Dunedin</b> (2ᵉ nuit)'},
+ {nn:'V6',date:'lun. 19 avril',pl:'Te Anau',emoji:'🚤',grad:['#2f6d8c','#1c4256'],photo:'Lake Te Anau.jpg',
+  route:'Dunedin → Te Anau ~290 km / 3h40',
+  visit:['Porte du <b>Fiordland</b>, au bord de son lac ; dernier plein avant Milford.'],
+  stay:'<b>Te Anau</b> · ~120-180 €'},
+ {nn:'V7',date:'mar. 20 avril',pl:'Milford Sound',emoji:'🌊',grad:['#1f5a5a','#123838'],photo:'Milford Sound (New Zealand).JPG',
+  route:'Te Anau ↔ Milford ~120 km / 2h chaque sens · croisière',
+  visit:['<b>Croisière</b> dans le fjord : Mitre Peak, cascades, phoques, dauphins.'],
+  stay:'<b>Te Anau</b> (2ᵉ nuit)'},
+ {nn:'V8',date:'mer. 21 avril',pl:'Queenstown',emoji:'🏔️',grad:['#2f6d9c','#1c4266'],photo:'Queenstown and Lake Wakatipu.JPG',
+  route:'Te Anau → Queenstown ~170 km / 2h · via Arrowtown',
+  visit:['<b>Arrowtown</b> (chercheurs d\'or, scènes LOTR), téléphérique de Bob\'s Peak au coucher du soleil.'],
+  stay:'<b>Queenstown</b> · ~200-350 €'},
+ {nn:'V9',date:'jeu. 22 avril',pl:'Glenorchy &amp; Paradise',emoji:'🌲',grad:['#3f7d3a','#245a20'],photo:'Glenorchy at the Head of Lake Wakatipu.jpg',lotr:'Isengard / Lothlórien',
+  route:'Queenstown ↔ Glenorchy ~45 km / 45 min · journée',
+  visit:['<b>Paradise</b> : forêts de hêtres = Lothlórien &amp; Isengard ; balades tranquilles, kayak.'],
+  stay:'<b>Queenstown</b> (2ᵉ nuit)'},
+ {nn:'V10',date:'ven. 23 avril',pl:'Aoraki / Mount Cook',emoji:'🏔️',grad:['#3a6f9c','#20415f'],photo:'Lake Pukaki and Mt Cook. NZ (49779072228).jpg',
+  route:'Queenstown → Mount Cook ~260 km / 3h20 via Lindis &amp; lac Pūkaki',
+  visit:['<b>Hooker Valley Track</b>, option <b>vol glacier Tasman</b>, ciel étoilé (Dark Sky).','<span class="todo">1 seule nuit ici</span> — moins de marge météo que dans le plan actuel.'],
+  stay:'<b>Mount Cook</b> · ~200-320 €'},
+ {nn:'V11',date:'sam. 24 avril',pl:'Tekapo → Christchurch',emoji:'⛪',grad:['#2f8c9c','#1c5a66'],photo:'Church of the Good Shepherd, Lake Tekapo, New Zealand.jpg',
+  mass:'<b>FSSP</b> (latin) · St Patrick\'s, Kaiapoi — <b>dim. 25 avril, ~11h</b>, juste avant le vol',
+  route:'Mount Cook → Tekapo → Christchurch ~330 km / 4h20',
+  visit:['<b>Lac Tekapo</b> (Church of the Good Shepherd), puis route vers Christchurch.','Nuit à Christchurch ; <b>dim. 25</b> : messe Kaiapoi puis envol vers Nouméa.'],
+  stay:'<b>Christchurch</b> · ~120-160 €'}
+];
+
+function card(s){
+  var g='linear-gradient(135deg,'+s.grad[0]+','+s.grad[1]+')';
+  var vis=s.visit.map(function(v){return '<li>'+v+'</li>';}).join('');
+  var lotr=s.lotr?'<div class="lotr">🎯 Temps fort LOTR — '+s.lotr+'</div>':'';
+  var mass=s.mass?'<div class="mass">⛪ <b>Messe</b> — '+s.mass+'</div>':'';
+  var ph=s.photo?'<img class="ph" src="'+img(s.photo)+'" alt="'+s.pl+'" loading="lazy" onerror="this.remove()">':'';
+  return '<div class="stop"><div class="banner" style="background:'+g+'">'+ph+
+    '<div class="ov"></div><div class="btxt"><span class="nn">'+s.nn+' · '+s.date+'</span><div class="pl">'+s.pl+'</div></div></div>'+
+    '<div class="body"><div class="route">🚗 '+s.route+'</div>'+mass+
+    '<h4>À voir / à faire</h4><ul>'+vis+'</ul>'+lotr+'<div class="stay">🛏️ '+s.stay+'</div></div></div>';
+}
+document.getElementById('days-list').innerHTML = days.map(card).join('');
+
+var map=L.map('map',{scrollWheelZoom:true}).setView([-44.6,170.5],6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+var pts=[
+ [-41.290,174.001,'Ferry · Picton'],[-42.400,173.680,'V1-2 · Kaikōura'],[-45.345,170.826,'V3 · Moeraki / Ōamaru'],
+ [-45.874,170.504,'V4-5 · Dunedin'],[-45.770,170.730,'V5 · Péninsule d\'Otago (albatros)'],[-45.414,167.717,'V6-7 · Te Anau'],
+ [-44.671,167.926,'V7 · Milford Sound'],[-45.031,168.662,'V8-9 · Queenstown'],[-44.847,168.383,'V9 · Glenorchy'],
+ [-43.735,170.097,'V10 · Mount Cook'],[-44.006,170.477,'Tekapo'],[-43.531,172.637,'V11 · Christchurch']
+];
+pts.forEach(function(p){
+  L.circleMarker([p[0],p[1]],{radius:7,color:'#fff',weight:2,fillColor:'#2f7d8c',fillOpacity:1})
+   .addTo(map).bindPopup('<b>'+p[2]+'</b>').bindTooltip(p[2],{direction:'top',offset:[0,-6]});
+});
+L.polyline([[-41.290,174.001],[-42.400,173.680],[-45.345,170.826],[-45.874,170.504],[-45.414,167.717],[-44.671,167.926],[-45.414,167.717],[-45.031,168.662],[-44.847,168.383],[-45.031,168.662],[-43.735,170.097],[-44.006,170.477],[-43.531,172.637]],{color:'#2f7d8c',weight:4,opacity:.85}).addTo(map);
+map.fitBounds(L.latLngBounds(pts.map(function(p){return [p[0],p[1]];})).pad(0.12));
+</script>
+
+</body>
+</html>
