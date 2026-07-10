@@ -71,6 +71,8 @@
   .lotr{display:inline-block;background:linear-gradient(90deg,#efe0b6,#e7cf88);color:#6e5310;font-size:12.5px;font-weight:800;padding:3px 11px;border-radius:13px;margin:8px 0 2px}
   .mass{background:#efe9f6;border:1px solid #d8cbee;color:#5b3f8c;font-size:13.5px;padding:9px 13px;border-radius:11px;margin:0 0 12px;line-height:1.5}
   .mass b{color:#472e73}
+  .dayin{width:100%;margin-top:2px;background:#fffdf6;border:1px dashed var(--gold);border-radius:11px;padding:10px 12px;font-size:14px;font-family:inherit;color:var(--ink);resize:vertical;min-height:58px;outline:none}
+  .dayin:focus{border-style:solid;border-color:var(--green2);background:#fff}
   .stay{margin-top:12px;font-size:14px;background:var(--sand);border-radius:11px;padding:11px 14px;border:1px solid var(--line)}
   .stay b{color:var(--green)}
   .price{font-weight:800}.splurge{color:#9a5b1a}
@@ -231,6 +233,7 @@
 <section id="nc"><div class="wrap">
   <h2><span class="ic">🏝️</span> Nouvelle-Calédonie</h2>
   <p class="lead">6 nuits · Nouméa, Île des Pins puis Îlot Maître · lagon classé UNESCO, culture kanak, farniente absolu.</p>
+  <div class="note blue"><b>🖊️ Un bloc par jour à compléter.</b> Chaque journée a un champ « Vos activités » — notez ce que vous voulez, c'est <b>sauvegardé dans votre navigateur</b> (comme le budget). Les suggestions sont là pour amorcer.</div>
   <div id="nc-list"></div>
 
   <h3 style="color:var(--green);margin:26px 0 6px">🗓️ La journée Grande Terre (depuis l'Îlot Maître)</h3>
@@ -673,18 +676,30 @@ var sud = [
 ];
 
 var nc = [
- {nn:'J1',date:'dim. 25 avril',pl:'Arrivée Nouméa',emoji:'🌴',grad:['#c2743a','#8a4d20'],photo:'Noumea capital of New Caledonia (5780603683).jpg',
-  route:'Vol dim. depuis Christchurch via Auckland (après la messe latine)',
-  visit:['Arrivée dim. soir à La Tontouta ; transfert vers Nouméa.','<b>Retirer des XPF en espèces</b> (distributeurs rares sur les îles).','Première soirée baie des Citrons / Anse Vata.'],
+ {nn:'J1',date:'dim. 25 avril',pl:'Arrivée Nouméa',emoji:'🌴',grad:['#c2743a','#8a4d20'],photo:'Noumea capital of New Caledonia (5780603683).jpg',plan:'nc1',
+  route:'Vol dim. depuis Christchurch via Auckland (arrivée le soir)',
+  visit:['Transfert La Tontouta → Nouméa.','<b>Retirer des XPF en espèces</b> (DAB rares sur les îles).','Première soirée baie des Citrons / Anse Vata.'],
   stay:'<b>Nouméa</b> — hôtel bord de mer (ou transfert direct Île des Pins selon horaires) · <span class="price">~120-180 €</span>'},
- {nn:'J2-3',date:'26-27 avril',pl:'Île des Pins',emoji:'🏝️',grad:['#1f9c8c','#0f5a50'],photo:'Nouméa Ile des Pins Upi.JPG',
-  route:'Betico (ferry ~2h30) ou Air Calédonie · base Kuto/Kanuméra',
-  visit:['<b>Baie d\'Upi en pirogue traditionnelle</b> à voile, puis <b>piscine naturelle de la baie d\'Oro</b> (snorkeling).','Baie de Kuto &amp; Kanuméra (sable blanc, rocher sacré), pins colonnaires.','Grotte de la Reine Hortense ; farniente.','<b>2 nuits seulement</b> — programme resserré, viser la pirogue dès le 1er jour.'],
-  stay:'<b>Île des Pins (2 nuits)</b> — Gîte Nataïwatch (authentique, ~budget) ou Le Méridien (resort) · <span class="todo">à contacter en direct</span>'},
- {nn:'J4-6',date:'28-30 avril',pl:'Îlot Maître',emoji:'🐠',grad:['#1f8cae','#0f5068'],photo:'Plage est de l\'îlot maître, spot de kitesurf.jpg',
-  route:'Retour Nouméa → navette Îlot Maître (~20 min / 4 km)',
-  visit:['<b>Suite Escapade sur pilotis</b> (65 m², la seule de l\'hôtel, pointe de l\'île) — ✅ RÉSERVÉE.','Snorkeling depuis la terrasse, tortues et raies dans le lagon (réserve marine).','Paddle, kite, farniente ; couchers de soleil sur Nouméa.','1 journée <b>Grande Terre / Tjibaou</b> (voir ci-dessous).'],
-  stay:'<b>✅ Îlot Maître — suite pilotis RÉSERVÉE</b> (remboursable jusqu\'au 21 avril 2027) · check-out 1er mai'}
+ {nn:'J2',date:'lun. 26 avril',pl:'Île des Pins',emoji:'🏝️',grad:['#1f9c8c','#0f5a50'],photo:'Nouméa Ile des Pins Upi.JPG',plan:'nc2',
+  route:'Nouméa → Île des Pins · Betico (ferry ~2h30) ou Air Calédonie · base Kuto/Kanuméra',
+  visit:['<b>Baie d\'Upi en pirogue traditionnelle</b> à voile, puis <b>piscine naturelle de la baie d\'Oro</b> (snorkeling) — <b>à viser dès le 1er jour</b>.'],
+  stay:'<b>Île des Pins</b> — Gîte Nataïwatch (authentique) ou Le Méridien (resort) · <span class="todo">à contacter en direct</span>'},
+ {nn:'J3',date:'mar. 27 avril',pl:'Île des Pins',emoji:'🐚',grad:['#1f9c8c','#0f5a50'],photo:'Nouméa Ile des Pins Upi.JPG',plan:'nc3',
+  route:'Journée Île des Pins',
+  visit:['Baie de <b>Kuto &amp; Kanuméra</b> (sable blanc, rocher sacré), pins colonnaires.','Grotte de la <b>Reine Hortense</b> ; snorkeling, farniente.'],
+  stay:'<b>Île des Pins</b> (2ᵉ nuit) · <span class="todo">à contacter en direct</span>'},
+ {nn:'J4',date:'mer. 28 avril',pl:'Îlot Maître',emoji:'🐠',grad:['#1f8cae','#0f5068'],photo:'Plage est de l\'îlot maître, spot de kitesurf.jpg',plan:'nc4',
+  route:'Île des Pins → Nouméa → navette Îlot Maître (~20 min / 4 km)',
+  visit:['Installation <b>suite Escapade sur pilotis</b> (65 m²) — ✅ RÉSERVÉE.','Snorkeling depuis la terrasse : tortues et raies (réserve marine).'],
+  stay:'<b>✅ Îlot Maître — suite pilotis RÉSERVÉE</b>'},
+ {nn:'J5',date:'jeu. 29 avril',pl:'Îlot Maître',emoji:'🐠',grad:['#1f8cae','#0f5068'],photo:'Plage est de l\'îlot maître, spot de kitesurf.jpg',plan:'nc5',
+  route:'Journée lagon · OU escapade Grande Terre',
+  visit:['Paddle, kite, snorkeling, farniente ; coucher de soleil sur Nouméa.','Alternative : <b>journée Grande Terre</b> — Centre culturel <b>Tjibaou</b> (Renzo Piano) + marché de Nouméa.'],
+  stay:'<b>Îlot Maître</b> (2ᵉ nuit)'},
+ {nn:'J6',date:'ven. 30 avril',pl:'Îlot Maître',emoji:'🌅',grad:['#1f8cae','#0f5068'],photo:'Plage est de l\'îlot maître, spot de kitesurf.jpg',plan:'nc6',
+  route:'Dernière journée · check-out 1er mai',
+  visit:['Dernier bain de lagon / Grande Terre &amp; Tjibaou si pas fait.','Derniers achats (marché, artisanat) avant le vol retour.'],
+  stay:'<b>Îlot Maître</b> (3ᵉ nuit) · <b>check-out 1er mai</b> (remboursable jusqu\'au 21 avril 2027)'}
 ];
 
 /* ---------- RENDER ---------- */
@@ -693,6 +708,7 @@ function card(s){
   var vis=s.visit.map(function(v){return '<li>'+v+'</li>';}).join('');
   var lotr=s.lotr?'<div class="lotr">🎯 Temps fort LOTR — '+s.lotr+'</div>':'';
   var mass=s.mass?'<div class="mass">⛪ <b>Messe</b> — '+s.mass+'</div>':'';
+  var plan=s.plan?'<h4 style="margin-top:14px">📝 Vos activités du jour</h4><textarea class="dayin" data-k="'+s.plan+'" rows="3" placeholder="À compléter — sauvegardé dans votre navigateur…"></textarea>':'';
   var ph=s.photo?'<img class="ph" src="'+img(s.photo)+'" alt="'+s.pl+'" loading="lazy" onerror="this.remove()">':'';
   return '<div class="stop">'+
     '<div class="banner" style="background:'+g+'">'+ph+
@@ -701,7 +717,7 @@ function card(s){
     '</div>'+
     '<div class="body"><div class="route">🚗 '+s.route+'</div>'+mass+
       '<h4>À voir / à faire</h4><ul>'+vis+'</ul>'+lotr+
-      '<div class="stay">🛏️ '+s.stay+'</div>'+
+      '<div class="stay">🛏️ '+s.stay+'</div>'+plan+
     '</div></div>';
 }
 function seg(label,color){return '<div class="seg"><span class="bar" style="background:'+color+'"></span>'+label+'</div>';}
@@ -719,6 +735,13 @@ document.getElementById('sud-list').innerHTML =
   seg('Christchurch &amp; départ','#2f7d8c')+card(sud[10]);
 
 document.getElementById('nc-list').innerHTML = nc.map(card).join('');
+(function(){
+  document.querySelectorAll('#nc-list .dayin').forEach(function(t){
+    var k='ncplan_'+t.dataset.k;
+    try{var s=localStorage.getItem(k);if(s!==null)t.value=s;}catch(e){}
+    t.addEventListener('input',function(){try{localStorage.setItem(k,t.value);}catch(e){}});
+  });
+})();
 
 /* ---------- MAP ---------- */
 var map = L.map('map', {scrollWheelZoom:true}).setView([-41.5,172.5], 5);
