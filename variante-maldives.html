@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variante — Fin Maldives</title>
+<link rel="preconnect" href="https://upload.wikimedia.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root{--green:#1f4d3a;--green2:#2e6b50;--sand:#f4efe4;--paper:#faf7f0;--ink:#22271f;--muted:#6b7264;
+    --north:#b06a3c;--south:#2f7d8c;--nc:#c2743a;--mld:#0d8ba1;--gold:#b8862f;--line:#e6e0d0;--card:#ffffff}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;font-size:16px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  header.hero{position:relative;color:#fff;padding:52px 22px 40px;text-align:center;overflow:hidden;background:linear-gradient(135deg,#0a4f5e,#0d8ba1 55%,#25c5c0 120%)}
+  .hero h1{margin:0 0 8px;font-size:38px;font-weight:800}
+  .hero .sub{opacity:.95;font-size:18px}
+  nav.sticky{position:sticky;top:0;z-index:1000;background:rgba(250,247,240,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:9px 0}
+  nav.sticky .wrap{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+  nav.sticky a{color:var(--green);text-decoration:none;font-size:13.5px;font-weight:600;padding:6px 13px;border-radius:16px;border:1px solid var(--line);transition:.15s}
+  nav.sticky a:hover{background:var(--mld);color:#fff;border-color:var(--mld)}
+  nav.sticky a.back{background:var(--sand)}
+  section{padding:38px 0}
+  h2{font-size:27px;color:var(--green);margin:0 0 6px;display:flex;align-items:center;gap:12px}
+  h2 .ic{font-size:29px}
+  h3{font-size:18px;color:var(--mld);margin:22px 0 4px}
+  .lead{color:var(--muted);font-size:15.5px;margin:0 0 8px}
+  #map{height:460px;border-radius:16px;border:1px solid var(--line);margin-top:18px;box-shadow:0 6px 26px rgba(0,0,0,.08)}
+  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.04)}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--green);color:#fff;font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .hl td{background:#e2f4f7}
+  .win{color:#1c7a4a;font-weight:700}
+  .lose{color:#b23b2e;font-weight:700}
+  .price{font-weight:700;color:var(--gold)}
+  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .gal figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 4px 18px rgba(0,0,0,.06);background:#fff}
+  .gal img{width:100%;height:190px;object-fit:cover;display:block}
+  .gal figcaption{padding:9px 12px;font-size:12.5px;color:var(--muted)}
+  .note{background:#fff8e8;border:1px solid #ecd9a6;border-radius:13px;padding:15px 18px;margin:16px 0;font-size:14.5px}
+  .note b{color:#8a6a12}
+  .note.blue{background:#e7f1f3;border-color:#a9d2da}.note.blue b{color:#1f6473}
+  .note.pink{background:#fbeee2;border-color:#e6c39c}.note.pink b{color:#9a5b1a}
+  .note.green{background:#e8f4ec;border-color:#a9d2ba}.note.green b{color:#1c7a4a}
+  .todo{color:#b23b2e;font-weight:700}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  .rc{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.05)}
+  .rc .top{padding:14px 18px;color:#fff;background:linear-gradient(135deg,#0a4f5e,#0d8ba1)}
+  .rc .top .n{font-size:19px;font-weight:800}
+  .rc .top .s{font-size:12.5px;opacity:.9}
+  .rc .b{padding:14px 18px;font-size:14px}
+  .rc ul{margin:8px 0;padding-left:18px}.rc li{margin:5px 0}
+  .verdict{background:var(--sand);border:1px solid var(--line);border-left:5px solid var(--mld);border-radius:11px;padding:12px 15px;margin-top:12px;font-size:13.5px}
+  footer{background:var(--green);color:#fff;padding:28px 0;margin-top:24px;font-size:13.5px;text-align:center}
+  footer a{color:#fff}
+  @media(max-width:760px){.gal{grid-template-columns:1fr}.cards{grid-template-columns:1fr}#map{height:360px}.hero h1{font-size:26px}h2{font-size:21px}table{display:block;overflow-x:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🐠 Variante — Fin Maldives</h1>
+  <div class="sub">Remplacer la Nouvelle-Calédonie par 6 nuits aux Maldives · pilotis, retour coupé en deux</div>
+</header>
+
+<nav class="sticky"><div class="wrap">
+  <a class="back" href="index.html">← Retour au guide</a>
+  <a href="#idee">💡 L'idée</a>
+  <a href="#route">✈️ Le retour</a>
+  <a href="#compare">⚖️ Comparatif</a>
+  <a href="#resorts">🏝️ Les 2 resorts</a>
+  <a href="#budget">💶 Budget</a>
+  <a href="#vigilance">⚠️ Vigilance</a>
+</div></nav>
+
+<section id="idee"><div class="wrap">
+  <h2><span class="ic">💡</span> L'idée en deux mots</h2>
+  <p class="lead"><b>Statut : piste sérieuse, non tranchée.</b> Le plan principal du guide reste la Nouvelle-Calédonie. Cette page existe pour comparer à froid.</p>
+
+  <div class="note pink"><b>Pourquoi la question se pose.</b> Trois cailloux se sont accumulés côté NC : ① <b>le Betico ne dessert pas la fenêtre du 25-30 avril</b> (basse saison = 1 rotation/semaine sam./dim., et les vacances scolaires NC s'arrêtent le 18 avril) → l'Île des Pins n'est joignable que par <b>Air Calédonie</b> ; ② Air Calédonie est <b>en redressement judiciaire</b> depuis le 15 avril 2026 (~10 M XPF/jour de déficit, 180-190k passagers contre 300k à l'équilibre) → sa survie jusqu'en avril 2027 n'est pas acquise ; ③ le <b>référendum sur le nouveau statut</b> reste sans calendrier. Or l'Île des Pins était <b>la</b> raison d'aller en NC.</div>
+
+  <div class="note blue"><b>Ce que les Maldives apportent.</b> ① <b>Le pilotis existe et il est abordable</b> — c'est le seul endroit au monde où l'overwater est un produit de masse, donc en concurrence frontale. ② <b>Le retour est coupé en deux</b> : ~12h Malé→Paris au lieu de ~30h Nouméa→Paris via Bangkok. ③ Le <b>décalage horaire se digère en deux temps</b> (NZ UTC+12 → Maldives UTC+5 → Paris UTC+2) — souvent le vrai tueur du retour. ④ <b>Zéro risque politique</b>, zéro compagnie en faillite, zéro ferry saisonnier.</div>
+
+  <div class="note"><b>Ce que vous perdez.</b> L'exotisme kanak, le Centre culturel Tjibaou, la baie d'Upi en pirogue. Et le côté « territoire français » (pas de change, pas de visa, sécurité sociale). Les Maldives, c'est plus beau et plus simple — mais plus interchangeable.</div>
+
+  <div class="gal">
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Thulhagiri_Bungalows_Row.JPG/960px-Thulhagiri_Bungalows_Row.JPG" alt="Rangée de bungalows sur pilotis aux Maldives"><figcaption>La rangée de pilotis — le produit standard maldivien.</figcaption></figure>
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-09.jpg/960px-Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-09.jpg" alt="Plage et villas sur l'eau aux Maldives"><figcaption>Plage et villas sur l'eau sur la même île — d'où la formule mixte.</figcaption></figure>
+    <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Whale_Shark_AdF.jpg/960px-Whale_Shark_AdF.jpg" alt="Requin-baleine"><figcaption>Requin-baleine — présent toute l'année en <b>atoll d'Ari Sud</b> (Nova), pas à Malé Nord.</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="route" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">✈️</span> Le retour coupé en deux</h2>
+  <p class="lead">C'est l'argument d'origine : depuis Auckland, <b>rentrer c'est aller vers l'ouest</b>. Fidji, la NC, Tahiti et les Cook sont à l'est ou sur le côté — ce sont des détours, pas des escales.</p>
+
+  <table>
+    <tr><th>Segment</th><th>🌴 Plan NC (actuel)</th><th>🐠 Variante Maldives</th></tr>
+    <tr><td>Sortie de NZ</td><td>Christchurch → Nouméa via Auckland · <b>~6h</b></td><td>Christchurch → Auckland → Malé via Singapour · <b>~16h40</b> <span class="lose">(+11h)</span></td></tr>
+    <tr class="hl"><td><b>Retour maison</b></td><td>Nouméa → Paris via Bangkok (Aircalin) · <b>~30h</b></td><td>Malé → Paris via le golfe · <b>~12h</b> <span class="win">(−18h)</span></td></tr>
+    <tr><td><b>Total en vol</b></td><td>~36h</td><td class="win"><b>~29h</b></td></tr>
+    <tr><td>Décalage à encaisser</td><td>NZ (UTC+12) → NC (UTC+11) → Paris · <b>presque tout d'un coup au retour</b></td><td class="win">NZ (UTC+12) → Maldives (UTC+5) → Paris (UTC+2) · <b>−7h puis −3h</b></td></tr>
+    <tr><td>Concurrence sur le leg retour</td><td><b>Aircalin en monopole</b> (le segment le plus cher du billet)</td><td class="win">Malé → Europe : marché très concurrentiel</td></tr>
+  </table>
+
+  <div class="note blue"><b>Le compromis.</b> Vous payez un transit intermédiaire plus long (16h40 au lieu de 6h) — mais il arrive <b>quand vous êtes frais</b>, après 19 nuits de NZ, et pas quand vous êtes lessivés. Le retour, lui, passe de 30h à 12h.</div>
+
+  <div id="map"></div>
+  <p class="lead" style="margin-top:10px">🌴 orange = plan NC actuel · 🐠 cyan = variante Maldives. Les deux partent de Christchurch et finissent à Paris.</p>
+</div></section>
+
+<section id="compare"><div class="wrap">
+  <h2><span class="ic">⚖️</span> Comparatif des 6 nuits</h2>
+  <table>
+    <tr><th></th><th>🌴 Nouvelle-Calédonie</th><th>🐠 Maldives</th></tr>
+    <tr><td><b>Pilotis</b></td><td>Îlot Maître (réservé ✓)</td><td class="win">Oui — c'est le cœur de l'offre</td></tr>
+    <tr><td><b>2ᵉ étape</b></td><td><span class="lose">Île des Pins — inaccessible</span> (pas de Betico, Air Cal en RJ)</td><td class="win">Sans objet — une seule île, zéro transport interne</td></tr>
+    <tr><td><b>Risque politique</b></td><td class="lose">Référendum sans calendrier · assurance « événements connus »</td><td class="win">Nul</td></tr>
+    <tr><td><b>Risque transporteur</b></td><td class="lose">Air Calédonie en redressement judiciaire</td><td class="win">Speedboat resort = aucun</td></tr>
+    <tr><td><b>Météo fin avril</b></td><td>Bonne (sortie de saison chaude)</td><td>Correcte — <b>fin</b> de saison sèche, 5-7 jours de pluie/mois en grains brefs, mer à 30°C</td></tr>
+    <tr><td><b>Repas</b></td><td class="lose">À payer en plus (territoire français, cher)</td><td class="win">All-inclusive possible (voir budget)</td></tr>
+    <tr><td><b>Culture</b></td><td class="win">Kanak, Tjibaou, marché de Nouméa</td><td class="lose">Quasi nulle — on ne sort pas du resort</td></tr>
+    <tr><td><b>Retour</b></td><td class="lose">~30h via Bangkok</td><td class="win">~12h</td></tr>
+    <tr><td><b>Formalités</b></td><td class="win">Territoire français — rien à faire</td><td>Visa gratuit à l'arrivée (30 j)</td></tr>
+  </table>
+  <div class="note"><b>Un vrai renoncement.</b> L'<b>Îlot Maître est déjà réservé</b> (remboursable jusqu'au 21 avril 2027) et la <b>présidentielle française du 2 mai 2027</b> tombe pendant le voyage — la procuration reste nécessaire dans les deux cas.</div>
+</div></section>
+
+<section id="resorts" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🏝️</span> Les deux resorts testés</h2>
+  <p class="lead">Prix relevés sur hotels.com pour <b>26 avril → 2 mai 2027, 6 nuits, 2 personnes</b>. Ce sont de vrais devis sur les vraies dates, pas des estimations.</p>
+
+  <div class="cards">
+    <div class="rc">
+      <div class="top"><div class="n">Nova Maldives</div><div class="s">Vakarufalhi · Atoll d'Ari Sud · 5★ · 76 villas</div></div>
+      <div class="b">
+        <ul>
+          <li><b>Beach Villa 80 m²</b> — <span class="price">601 €/nuit</span> (3 604 € / 6 n) · <b>pension complète, sans boissons</b></li>
+          <li><b>Water Villa 125 m²</b> — non relevée · estimation <span class="price">~800-950 €/nuit</span></li>
+          <li>Tout compris : <b>+262 €/nuit</b> → <span class="lose">131 €/pers/jour de boissons : mauvaise affaire</span></li>
+          <li><b>Transfert : hydravion</b> ~300-500 €/pers A/R → <span class="lose">600-1 000 € à deux</span></li>
+          <li class="win">Requins-baleines toute l'année (atoll d'Ari Sud = le spot mondial)</li>
+          <li>Accepte les familles</li>
+        </ul>
+        <div class="verdict"><b>Verdict :</b> plus beau, plus grand, plus cher. L'hydravion ne vole <b>qu'en plein jour</b> (~6h-16h) : si l'avion se pose tard à Malé, <b>nuit forcée à Malé + journée perdue</b>.</div>
+      </div>
+    </div>
+
+    <div class="rc">
+      <div class="top" style="background:linear-gradient(135deg,#1c7a4a,#25a06a)"><div class="n">✅ Centara Ras Fushi</div><div class="s">Malé Nord · 4★ · 140 villas · <b>adults-only 18+</b></div></div>
+      <div class="b">
+        <ul>
+          <li><b>Villa vue lagon 45 m²</b> — <span class="price">503 €/nuit</span> (3 021 € / 6 n) · <b>tout compris</b></li>
+          <li class="win"><b>Villa sur l'eau 42 m²</b> — <span class="price">586 €/nuit</span> (3 517 € / 6 n) · <b>tout compris</b></li>
+          <li><b>Villa sur l'eau Spa 42 m²</b> — <span class="price">636 €/nuit</span> (3 814 € / 6 n) · <b>tout compris</b></li>
+          <li class="win">Tout compris = <b>+56 €/nuit</b> seulement vs pension complète → <b>à prendre</b></li>
+          <li class="win"><b>Transfert : speedboat 15 min</b>, ~165 $/pers A/R → <b>~300 € à deux</b></li>
+          <li class="win"><b>Adults-only</b> · <b>entièrement remboursable</b> jusqu'au 19 avril 2027</li>
+        </ul>
+        <div class="verdict"><b>Verdict :</b> le meilleur rapport qualité/prix des trois recherches. <b>Le pilotis tout compris (586 €) coûte moins cher que la chambre de plage de Nova en pension complète (601 €).</b> Bémol : <b>42 m²</b>, c'est compact — et on perd les requins-baleines.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note green"><b>💡 La lecture qui compte — le tout compris s'arbitre resort par resort.</b> Chez <b>Nova</b>, il coûte <b>+262 €/nuit</b> (131 €/pers/jour de boissons : il faudrait ~8 cocktails chacun par jour pour rentabiliser) → <b>prendre la pension complète</b>. Chez <b>Centara</b>, l'écart pension complète → tout compris n'est que de <b>56 €/nuit</b> (28 €/pers/jour, + 50 $ de crédit spa/pers) → <b>deux verres chacun et c'est rentabilisé</b>. Même produit, conclusion inverse : toujours refaire le calcul.</div>
+
+  <div class="note blue"><b>🔎 Le réflexe qui a servi.</b> Chez Nova, l'annonce « <b>vue sur la plage, 80 m², 3 personnes</b> » correspond exactement à la <b>Beach Villa (80 m²)</b> du resort — les Water Villas font <b>125 m²</b>. <b>Vérifier la surface</b> est le moyen le plus sûr de savoir si on regarde vraiment un pilotis. Détail amusant chez Centara : la villa de plage (45 m²) est <b>plus grande</b> que celle sur l'eau (42 m²).</div>
+
+  <div class="note"><b>💰 Formule mixte à creuser.</b> Les deux resorts ont plage <b>et</b> pilotis sur la même île → <b>3 nuits plage + 3 nuits sur l'eau</b>. Chez Centara ça ferait ~1 630 € au lieu de 3 517 € en tout pilotis. <span class="todo">À vérifier : beaucoup de resorts imposent un minimum de nuits par catégorie, et le changement de villa en milieu de séjour n'est pas toujours gratuit.</span></div>
+</div></section>
+
+<section id="budget"><div class="wrap">
+  <h2><span class="ic">💶</span> Budget — la comparaison honnête</h2>
+  <p class="lead">Le piège serait de comparer l'hébergement seul. Côté NC, <b>les repas sont en plus</b> ; côté Maldives, le tout compris les absorbe.</p>
+
+  <table>
+    <tr><th>Poste (6 nuits, 2 pers.)</th><th>🌴 Nouvelle-Calédonie</th><th>🐠 Maldives — Centara pilotis</th></tr>
+    <tr><td>Hébergement</td><td>1 550 – 2 150 € <span style="color:var(--muted)">(Nouméa + Île des Pins + Îlot Maître)</span></td><td>3 517 € <span style="color:var(--muted)">(villa sur l'eau, tout compris)</span></td></tr>
+    <tr><td>Transport local</td><td>200 – 350 € <span class="todo">(or le Betico ne passe pas)</span></td><td>~300 € <span style="color:var(--muted)">(speedboat A/R)</span></td></tr>
+    <tr><td>Repas &amp; boissons</td><td class="lose">600 – 900 € <span style="color:var(--muted)">(territoire français, îles chères)</span></td><td class="win">0 € <span style="color:var(--muted)">— inclus</span></td></tr>
+    <tr class="hl"><td><b>Total 6 nuits</b></td><td><b>2 350 – 3 400 €</b></td><td><b>~3 820 €</b></td></tr>
+    <tr><td><b>Écart</b></td><td colspan="2"><b>+400 à +1 500 €</b> pour la variante Maldives — <span style="color:var(--muted)">avant l'effet vols</span></td></tr>
+  </table>
+
+  <div class="note green"><b>Et l'écart pourrait fondre côté vols.</b> La variante supprime le <b>Nouméa → Paris d'Aircalin</b> : le segment le plus cher du billet, ~30h, sur une compagnie en situation de monopole. Il est remplacé par un <b>Malé → Paris</b> sur un marché très concurrentiel. <span class="todo">À chiffrer : demander un devis multi-city « Paris → Auckland · Christchurch → Malé · Malé → Paris » et le comparer aux ~5 000-5 800 € de la version NC.</span></div>
+
+  <div class="note pink"><b>⚠️ Ce que je vous ai dit de faux en route</b> — pour que ça ne resserve pas. J'ai d'abord annoncé « pilotis maldivien nettement sous les 500 €/nuit » : c'était basé sur des relevés <b>d'octobre</b>, en pleine mousson. Sur les <b>vraies dates de fin avril</b>, la plage est à 500-600 € et le pilotis de Nova monterait à 800-950 €. <b>Le pilotis est cher partout</b> — c'est la vraie leçon. Centara est l'exception, parce que c'est un 4★ à Malé Nord (l'atoll le plus concurrentiel) avec un transfert bateau.</div>
+</div></section>
+
+<section id="vigilance" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">⚠️</span> Points de vigilance</h2>
+
+  <h3>La météo</h3>
+  <div class="note"><b>Fin avril = fin de la saison sèche.</b> La saison sèche court de novembre à avril ; la mousson du sud-ouest s'installe en mai. Concrètement : 31°C le jour, 27°C la nuit, mer à 30°C, <b>5 à 7 jours de pluie</b> par mois en moyenne — des grains brefs, pas du crachin. La pluie <b>augmente en fin de mois</b> : vous êtes sur la fin de la bonne fenêtre, pas en plein cœur. Visibilité encore bonne pour le snorkeling.</div>
+
+  <h3>L'heure d'atterrissage à Malé</h3>
+  <div class="note pink"><b>Le piège de l'hydravion.</b> Les hydravions ne volent <b>qu'en plein jour</b> (~6h-16h). Un vol qui se pose à Malé en fin d'après-midi = <b>nuit forcée à Malé + journée perdue + hôtel en plus</b>. Or vous arrivez d'Auckland avec une correspondance à Singapour : l'heure n'est pas garantie. → <b>Un resort en speedboat (Centara) supprime le risque</b>. C'est un argument de robustesse, pas de confort.</div>
+
+  <h3>Ce qui n'est jamais inclus</h3>
+  <div class="note"><b>Même en tout compris :</b> les <b>transferts</b> (toujours en supplément), les <b>excursions</b> (requins-baleines, raies manta, plongée bouteille), le <b>spa</b> au-delà du crédit offert, et parfois <b>l'eau plate en villa</b>. Le poste « extras » d'un séjour maldivien dérape vite — on ne peut pas sortir de l'île pour comparer les prix.</div>
+
+  <h3>La décision</h3>
+  <div class="note blue"><b>Rien ne presse, et c'est le bon côté.</b> Centara est <b>entièrement remboursable jusqu'au 19 avril 2027</b> et l'Îlot Maître jusqu'au <b>21 avril 2027</b>. Les deux options peuvent donc être <b>tenues en parallèle</b> jusqu'à une semaine du départ, ce qui respecte la règle « tout réserver modifiable ». <b>Le vrai go/no-go NC reste fixé à janvier-février 2027</b> — d'ici là, deux signaux à surveiller : la <b>sortie de redressement judiciaire d'Air Calédonie</b> (période d'observation → ~octobre 2026) et le <b>calendrier du référendum</b>.</div>
+
+  <div class="note"><b>Si vous basculez, ce qui change dans le guide :</b> la section « Nouvelle-Calédonie » (6 jours), la ligne <b>Vols</b> du budget (le multi-city change de forme), les <b>blocs éditables par jour</b> (à refaire pour les Maldives), la <b>checklist réservations</b> (Betico/Air Cal → transfert speedboat), et la <b>valise</b> (les XPF sautent, l'anti-nausée reste pour le détroit de Cook). L'itinéraire NZ (19 nuits) et <b>les trois messes latines</b> ne bougent pas — c'est tout l'intérêt : <b>la variante ne touche que la fin</b>.</div>
+</div></section>
+
+<footer><div class="wrap">Variante non tranchée — complément du <a href="index.html">guide voyage de noces NZ &amp; NC</a> · prix relevés juil. 2026 pour un séjour 26 avr. → 2 mai 2027 · photos Wikimedia Commons</div></footer>
+
+<script>
+var map=L.map('map',{scrollWheelZoom:true}).setView([0,120],2);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+
+var CHC=[-43.489,172.532], AKL=[-37.008,174.792], NOU=[-22.015,166.213], BKK=[13.690,100.750],
+    SIN=[1.364,103.991], MLE=[4.192,73.529], DXB=[25.253,55.365], CDG=[49.010,2.548];
+
+var pts=[
+ [CHC,'Christchurch — départ NZ','#666'],
+ [NOU,'🌴 Nouméa','#c2743a'],[BKK,'🌴 Bangkok (escale Aircalin)','#c2743a'],
+ [AKL,'🐠 Auckland','#0d8ba1'],[SIN,'🐠 Singapour','#0d8ba1'],[MLE,'🐠 Malé — Maldives','#0d8ba1'],[DXB,'🐠 Golfe (escale)','#0d8ba1'],
+ [CDG,'Paris — arrivée','#666']
+];
+pts.forEach(function(p){
+  L.circleMarker(p[0],{radius:7,color:'#fff',weight:2,fillColor:p[2],fillOpacity:1})
+   .addTo(map).bindPopup('<b>'+p[1]+'</b>').bindTooltip(p[1],{direction:'top',offset:[0,-6]});
+});
+// Plan NC : CHC -> AKL -> NOU -> BKK -> CDG
+L.polyline([CHC,AKL,NOU,BKK,CDG],{color:'#c2743a',weight:4,opacity:.85,dashArray:'8,6'}).addTo(map)
+ .bindTooltip('🌴 Plan NC — retour ~30h via Bangkok',{sticky:true});
+// Variante Maldives : CHC -> AKL -> SIN -> MLE -> DXB -> CDG
+L.polyline([CHC,AKL,SIN,MLE,DXB,CDG],{color:'#0d8ba1',weight:4,opacity:.9}).addTo(map)
+ .bindTooltip('🐠 Variante Maldives — retour ~12h',{sticky:true});
+map.fitBounds(L.latLngBounds([CHC,NOU,BKK,SIN,MLE,DXB,CDG]).pad(0.08));
+</script>
+
+</body>
+</html>
