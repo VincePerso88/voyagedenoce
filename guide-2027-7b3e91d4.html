@@ -660,7 +660,7 @@
 <script>
 /* ---------- DATA ---------- */
 var FP = 'https://commons.wikimedia.org/wiki/Special:FilePath/';
-function img(f){return FP+encodeURIComponent(f)+'?width=900';}
+function img(f){return f.indexOf('http')===0?f:(FP+encodeURIComponent(f)+'?width=900');}
 
 var nord = [
  {nn:'N1',date:'mar. 6 avril',pl:'Auckland — arrivée',emoji:'⛵',grad:['#2f6d8c','#1f4d6a'],photo:'Auckland Skyline at night.jpg',
@@ -749,27 +749,29 @@ var sud = [
 ];
 
 var PILOTIS='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Thulhagiri_Bungalows_Row.JPG/1280px-Thulhagiri_Bungalows_Row.JPG';
-var LAGON='https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-09.jpg/1280px-Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-09.jpg';
-var VILLA='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Water_bungalow_Maledives_%2829338793372%29.jpg/960px-Water_bungalow_Maledives_%2829338793372%29.jpg';
+var RECIF='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Snorkeling_in_the_Indian_Ocean_in_the_Maldives..JPG/1280px-Snorkeling_in_the_Indian_Ocean_in_the_Maldives..JPG';
+var LAGON='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-04.jpg/1280px-Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-04.jpg';
+var DHONI='https://upload.wikimedia.org/wikipedia/commons/9/90/Traditional_Maldivian_Dhoni.jpg';
+var SUNSET='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sunset_at_Lagoon%2C_Emboodhoo%2C_Male%2C_Maldives.jpg/1280px-Sunset_at_Lagoon%2C_Emboodhoo%2C_Male%2C_Maldives.jpg';
 
 var nc = [
  {nn:'M1',date:'lun. 26 avril',pl:'Arrivée à Lobigili',emoji:'🐠',grad:['#0a4f5e','#0d8ba1'],photo:PILOTIS,plan:'md1',
   route:'Atterrissage Malé <b>11h50</b> · speedboat 15 min <b>inclus</b> · villa vers 13h',
   visit:['Arrivée en plein jour — pas de risque d\'hydravion cloué au sol, contrairement aux resorts éloignés.','Installation dans la <b>SunNest Water Pool Villa</b> : 75 m², piscine privée de 8 m², plancher de verre.','Premier bain, puis coucher de soleil depuis la terrasse — la villa est côté couchant.'],
   stay:'<b>OBLU SELECT Lobigili</b> — SunNest Water Pool Villa · <span class="price">~4 560 € les 5 nuits, tout compris</span>'},
- {nn:'M2',date:'mar. 27 avril',pl:'Le récif',emoji:'🤿',grad:['#0d8ba1','#25c5c0'],photo:LAGON,plan:'md2',
+ {nn:'M2',date:'mar. 27 avril',pl:'Le récif',emoji:'🤿',grad:['#0d8ba1','#25c5c0'],photo:RECIF,plan:'md2',
   route:'Journée lagon · récif maison sur la <b>rive est</b> (3 min à pied)',
   visit:['<b>Snorkeling guidé inclus</b> — une sortie par personne, à réserver dès l\'arrivée.','Le récif maison est à quelques brasses du bord : raies, tortues, poissons de récif.','Paddle et kayak compris ; salle de sport sur pilotis si l\'envie prend.'],
   stay:'<b>Lobigili</b> (2ᵉ nuit)'},
- {nn:'M3',date:'mer. 28 avril',pl:'Only BLU',emoji:'🍽️',grad:['#0d8ba1','#25c5c0'],photo:VILLA,plan:'md3',
+ {nn:'M3',date:'mer. 28 avril',pl:'Only BLU',emoji:'🍽️',grad:['#0d8ba1','#25c5c0'],photo:LAGON,plan:'md3',
   route:'Journée libre · dîner sous l\'océan',
   visit:['<b>Only BLU</b> — le plus grand restaurant sous-marin des Maldives, <b>inclus</b> dans le Lobi Plan. <b>À réserver à l\'avance</b>, les places sont limitées.','Journée farniente : piscine privée, plage, lecture.','Soin de <b>45 min au spa ELE|NA, offert</b> — à caler dans la semaine.'],
   stay:'<b>Lobigili</b> (3ᵉ nuit)'},
- {nn:'M4',date:'jeu. 29 avril',pl:'Pêche &amp; Ailafushi',emoji:'🎣',grad:['#0d8ba1','#25c5c0'],photo:LAGON,plan:'md4',
+ {nn:'M4',date:'jeu. 29 avril',pl:'Pêche &amp; Ailafushi',emoji:'🎣',grad:['#0d8ba1','#25c5c0'],photo:DHONI,plan:'md4',
   route:'Passerelle de 270 m vers l\'île voisine · pêche au coucher du soleil',
   visit:['<b>Pêche au coucher du soleil incluse</b> — une sortie par personne, la plus belle façon de finir une journée ici.','Traversée à pied vers <b>Ailafushi</b> : ses restaurants sont compris dans votre pension. <span style="color:var(--muted)">C\'est l\'île familiale du groupe — l\'ambiance y est plus animée.</span>','Court de tennis, ou simplement rien.'],
   stay:'<b>Lobigili</b> (4ᵉ nuit)'},
- {nn:'M5',date:'ven. 30 avril',pl:'Dernière journée',emoji:'🌅',grad:['#25c5c0','#0a4f5e'],photo:PILOTIS,plan:'md5',
+ {nn:'M5',date:'ven. 30 avril',pl:'Dernière journée',emoji:'🌅',grad:['#25c5c0','#0a4f5e'],photo:SUNSET,plan:'md5',
   route:'Journée pleine · <b>check-out sam. 1ᵉʳ mai</b>',
   visit:['Dernier bain depuis l\'échelle de la villa — la baignade s\'arrête au coucher du soleil.','Dîner à Gaadiya 17, sur la plage, si ce n\'est pas encore fait.','Préparer les valises : le vol part le lendemain à 13h05.'],
   stay:'<b>Lobigili</b> (5ᵉ nuit) · check-out le 1ᵉʳ mai · <span class="todo">annulable jusqu\'au 12 avril 2027</span>'}
