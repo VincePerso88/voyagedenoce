@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voyage de noces — Nouvelle-Zélande &amp; Maldives · Avril 2027</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://commons.wikimedia.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root{
+    --green:#1f4d3a; --green2:#2e6b50; --sand:#f4efe4;
+    --paper:#faf7f0; --ink:#22271f; --muted:#6b7264;
+    --north:#b06a3c; --ferry:#2f7d8c; --south:#2f7d8c; --nc:#c2743a;
+    --gold:#b8862f; --line:#e6e0d0; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--paper);line-height:1.6;font-size:16px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+
+  /* HERO */
+  header.hero{position:relative;color:#fff;padding:70px 22px 56px;text-align:center;overflow:hidden;
+    background:linear-gradient(135deg,#173d2e,#245740 45%,#2f7d8c 120%)}
+  header.hero::after{content:"";position:absolute;inset:0;opacity:.16;
+    background:radial-gradient(circle at 20% 30%,#fff 0,transparent 8%),radial-gradient(circle at 70% 60%,#fff 0,transparent 6%),radial-gradient(circle at 85% 20%,#fff 0,transparent 5%)}
+  .hero h1{margin:0 0 8px;font-size:44px;letter-spacing:.5px;position:relative;z-index:1;font-weight:800}
+  .hero .sub{opacity:.95;font-size:20px;margin-bottom:6px;position:relative;z-index:1}
+  .hero .meta{opacity:.85;font-size:15px;position:relative;z-index:1}
+  .hero .facts{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:22px;position:relative;z-index:1}
+  .chip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:7px 14px;border-radius:22px;font-size:13.5px;backdrop-filter:blur(4px)}
+
+  /* NAV */
+  nav.sticky{position:sticky;top:0;z-index:1000;background:rgba(250,247,240,.94);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:9px 0}
+  nav.sticky .wrap{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+  nav.sticky a{color:var(--green);text-decoration:none;font-size:13.5px;font-weight:600;padding:6px 13px;border-radius:16px;border:1px solid var(--line);transition:.15s}
+  nav.sticky a:hover{background:var(--green);color:#fff;border-color:var(--green)}
+
+  section{padding:40px 0}
+  h2{font-size:28px;color:var(--green);margin:0 0 6px;display:flex;align-items:center;gap:12px}
+  h2 .ic{font-size:30px}
+  .lead{color:var(--muted);font-size:15.5px;margin:0 0 8px}
+
+  /* MAP */
+  #map{height:560px;border-radius:16px;border:1px solid var(--line);margin-top:18px;box-shadow:0 6px 26px rgba(0,0,0,.08)}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;font-size:13.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:14px;height:14px;border-radius:50%;display:inline-block}
+
+  .seg{margin:34px 0 4px;font-size:14px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--green2);display:flex;align-items:center;gap:10px}
+  .seg .bar{width:32px;height:5px;border-radius:3px}
+
+  /* STOP CARD */
+  .stop{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:20px 0;
+    box-shadow:0 4px 20px rgba(0,0,0,.05);display:grid;grid-template-columns:300px 1fr}
+  .stop .banner{position:relative;min-height:210px;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .stop .banner .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .stop .banner .ov{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.55))}
+  .stop .banner .bemoji{position:absolute;top:14px;left:16px;font-size:40px;z-index:3;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+  .stop .banner .btxt{position:relative;z-index:3;padding:16px;width:100%}
+  .stop .banner .nn{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);font-size:12px;font-weight:700;padding:2px 9px;border-radius:9px;margin-bottom:6px;backdrop-filter:blur(3px)}
+  .stop .banner .pl{font-size:22px;font-weight:800;line-height:1.15;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .stop .banner .dt{font-size:13px;opacity:.95}
+  .stop .body{padding:18px 22px}
+  .stop .route{font-size:13px;color:var(--ferry);font-weight:600;margin:0 0 10px}
+  .stop .body h4{margin:12px 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  .stop ul{margin:6px 0;padding-left:19px}
+  .stop li{margin:5px 0;font-size:14.5px}
+  .lotr{display:inline-block;background:linear-gradient(90deg,#efe0b6,#e7cf88);color:#6e5310;font-size:12.5px;font-weight:800;padding:3px 11px;border-radius:13px;margin:8px 0 2px}
+  .mass{background:#efe9f6;border:1px solid #d8cbee;color:#5b3f8c;font-size:13.5px;padding:9px 13px;border-radius:11px;margin:0 0 12px;line-height:1.5}
+  .mass b{color:#472e73}
+  .dayin{width:100%;margin-top:2px;background:#fffdf6;border:1px dashed var(--gold);border-radius:11px;padding:10px 12px;font-size:14px;font-family:inherit;color:var(--ink);resize:vertical;min-height:58px;outline:none}
+  .dayin:focus{border-style:solid;border-color:var(--green2);background:#fff}
+  .rescheck{width:17px;height:17px;accent-color:var(--green);cursor:pointer}
+  .stay{margin-top:12px;font-size:14px;background:var(--sand);border-radius:11px;padding:11px 14px;border:1px solid var(--line)}
+  .stay b{color:var(--green)}
+  .price{font-weight:800}.splurge{color:#9a5b1a}
+  .tag{font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;margin-left:6px}
+  .tag.sp{background:#f6e3cf;color:#9a5b1a}.tag.std{background:#dfeadf;color:#2e6b50}.tag.opt{background:#e6e6ea;color:#555}
+  @media(max-width:760px){.stop{grid-template-columns:1fr}.stop .banner{min-height:180px}#map{height:420px}.hero h1{font-size:32px}h2{font-size:21px}table{display:block;overflow-x:auto}}
+
+  .note{background:#fff8e8;border:1px solid #ecd9a6;border-radius:13px;padding:15px 18px;margin:16px 0;font-size:14.5px}
+  .note b{color:#8a6a12}
+  .note.blue{background:#e7f1f3;border-color:#a9d2da}.note.blue b{color:#1f6473}
+  .note.pink{background:#fbeee2;border-color:#e6c39c}.note.pink b{color:#9a5b1a}
+  .todo{color:#b23b2e;font-weight:700}
+
+  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.04)}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line)}
+  th{background:var(--green);color:#fff;font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .tot td{font-weight:800;background:var(--sand)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 3px 14px rgba(0,0,0,.04)}
+  .card h3{margin:0 0 8px;color:var(--green);font-size:18px}
+  .card ul{margin:6px 0;padding-left:19px}.card li{margin:5px 0;font-size:14.5px}
+
+  .vanbox{background:linear-gradient(135deg,#f3ede0,#efe6d3);border:1px solid var(--line);border-radius:16px;padding:6px 22px 20px}
+  .tl{margin-top:18px;border-left:3px solid var(--gold);padding-left:22px}
+  .tlitem{position:relative;margin:0 0 20px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;box-shadow:0 3px 12px rgba(0,0,0,.04)}
+  .tlitem::before{content:"";position:absolute;left:-30px;top:18px;width:14px;height:14px;border-radius:50%;background:var(--gold);border:3px solid var(--paper)}
+  .tldate{font-weight:800;color:var(--green);font-size:15.5px;margin-bottom:4px}
+  .tlitem ul{margin:6px 0 2px;padding-left:19px}.tlitem li{margin:5px 0;font-size:14.5px}
+  .uin{width:92px;max-width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:8px;font-size:14px;text-align:right;background:#fff}
+  .uin:focus{outline:2px solid var(--green2);border-color:var(--green2)}
+  #uTotalGlobal{font-weight:800;color:var(--green)}
+  footer{background:var(--green);color:#fff;padding:30px 0;margin-top:24px;font-size:13.5px;text-align:center;opacity:.96}
+  @media(max-width:760px){
+    body{font-size:15px}
+    .wrap{padding:0 15px}
+    section{padding:30px 0}
+    h2{font-size:22px}h2 .ic{font-size:24px}
+    header.hero{padding:52px 18px 40px}.hero h1{font-size:30px}.hero .sub{font-size:17px}
+    .chip{font-size:12.5px;padding:6px 11px}
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:13.5px}
+    th,td{padding:9px 10px}
+    nav.sticky a{font-size:12.5px;padding:5px 10px}
+    .stop .body{padding:15px 16px}
+    .tl{padding-left:18px}.tlitem::before{left:-26px}
+  }
+  @media(max-width:440px){
+    .hero h1{font-size:25px}.hero .sub{font-size:15px}.hero .meta{font-size:13px}
+    h2{font-size:19px}
+    #map{height:330px}
+    .stop .banner{min-height:155px}.stop .banner .pl{font-size:19px}
+    .uin{width:80px;font-size:13px}
+    nav.sticky a{font-size:12px;padding:4px 9px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Voyage de noces</h1>
+  <div class="sub">Nouvelle-Zélande &amp; Maldives</div>
+  <div class="meta">Avril 2027 · ~4 semaines · Mariage 3-4 avril, départ lundi 5 avril</div>
+  <div class="facts">
+    <span class="chip">🚐 Île du Nord en van</span>
+    <span class="chip">⛴️ Ferry Wellington → Picton</span>
+    <span class="chip">🚗 Île du Sud en voiture</span>
+    <span class="chip">🏝️ Île des Pins → Îlot Maître</span>
+    <span class="chip">💍 Réservations au nom de jeune fille d'Anne-Catherine</span>
+  </div>
+</header>
+
+<nav class="sticky"><div class="wrap">
+  <a href="#carte">🗺️ Carte</a>
+  <a href="#nord">🌋 Île du Nord</a>
+  <a href="#van">🚐 Camping-car</a>
+  <a href="#sud">🏔️ Île du Sud</a>
+  <a href="#nc">🐠 Maldives</a>
+  <a href="#lotr">🧙 Seigneur des Anneaux</a>
+  <a href="#budget">💶 Budget</a>
+  <a href="#activites">🎟️ Activités</a>
+  <a href="#optim">💡 Optimisation</a>
+  <a href="#messes">⛪ Messes</a>
+  <a href="#valise">🧳 Valise</a>
+  <a href="#reservations">🔒 Réservations</a>
+  <a href="#retro">🗓️ Rétroplanning</a>
+  <a href="#aretenir">✅ À trancher</a>
+  <a href="coins-bonus.html">✨ Coins bonus</a>
+  <a href="variante-dunedin.html">🔀 Pourquoi Otago</a>
+  <a href="variante-maldives.html">🐠 Variante Maldives</a>
+</div></nav>
+
+<section id="carte"><div class="wrap">
+  <h2><span class="ic">🗺️</span> Le parcours</h2>
+  <p class="lead">Repères cliquables · tracé van (marron) / ferry (pointillés) / voiture (teal) · temps forts Seigneur des Anneaux en or.</p>
+  <div id="map"></div>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--north)"></span> Île du Nord — van</span>
+    <span><span class="dot" style="background:var(--ferry)"></span> Ferry passagers</span>
+    <span><span class="dot" style="background:var(--south)"></span> Île du Sud — voiture</span>
+    <span><span class="dot" style="background:var(--gold)"></span> Temps fort LOTR</span>
+  </div>
+  <div class="note"><b>Nombre de nuits.</b> Arrivée Auckland mar. 6 avril <b>au matin</b> (8h25, départ de Toulouse) → <b>départ Christchurch dim. 25 avril à 20h10</b>, après la messe latine de Kaiapoi = <b>19 nuits en NZ</b>. Le vol du soir est précisément ce qui permet de garder la messe de 11h. <span class="todo">À reconfirmer contre le billet.</span></div>
+</div></section>
+
+<section id="nord" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🌋</span> Île du Nord — en van</h2>
+  <p class="lead">8 nuits · Auckland → Wellington · nature, géothermie et Terre du Milieu, au rythme du van.</p>
+  <div id="nord-list"></div>
+</div></section>
+
+<section id="van"><div class="wrap">
+  <h2><span class="ic">🚐</span> Le camping-car — mode d'emploi</h2>
+  <p class="lead">Tout ce qu'il faut savoir : location, où dormir chaque nuit, règles, applis et astuces.</p>
+  <div class="vanbox">
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <h3>🔑 Location</h3>
+        <ul>
+          <li><b>Prise :</b> Auckland (jour 3, en quittant la ville) · <b>Retour :</b> Wellington, à l'arrivée (N7), avant les 2 nuits d'hôtel — ou matin du ferry si van maximisé.</li>
+          <li><b>Loueurs :</b> Maui (haut de gamme), Britz (milieu), Jucy (éco). Modèle 2 personnes avec douche/WC = plus de liberté et accès au « freedom camping ».</li>
+          <li><b>Certification « self-contained » :</b> à exiger — obligatoire pour le camping sauvage légal (réservoir eaux usées + WC). Vérifier la vignette bleue à jour.</li>
+          <li><b>Budget indicatif :</b> ~120-190 €/jour (van 2 pers. avril = basse saison) + carburant + gaz.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📱 Applis &amp; règles</h3>
+        <ul>
+          <li><b>CamperMate</b> &amp; <b>Rankers</b> : trouvent holiday parks, aires, vidanges, eau potable, avis.</li>
+          <li><b>Freedom camping</b> autorisé seulement aux emplacements signalés + van self-contained. Amendes salées sinon (~400 NZD).</li>
+          <li>En avril (basse saison) : pas besoin de réserver les holiday parks longtemps à l'avance, mais le confort d'une place « powered » (électricité) vaut ses ~40-60 NZD.</li>
+          <li>Vidange eaux grises/noires uniquement aux « dump stations » (gratuites, repérées sur les applis).</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="color:var(--green);margin:22px 0 4px">🛏️ Où dormir, nuit par nuit</h3>
+    <table>
+      <tr><th>Nuit</th><th>Étape</th><th>Holiday park (van)</th><th>Freedom camp self-contained 🆓</th></tr>
+      <tr><td>N3-4</td><td>Rotorua</td><td><b>Rotorua Thermal HP</b> / Cosy Cottage (piscines chaudes !) · ~45-65 NZD</td><td><b>Hamurana Reserve</b> (~20 min · 2 nuits/mois · 16h-9h) · <b>Hinemoa St</b> (Government Gardens, central)</td></tr>
+      <tr><td>N5</td><td>Tongariro</td><td><b>Discovery Lodge</b> / National Park HP (Whakapapa) · ~45-60 NZD</td><td>Peu de free camp dans le parc → DOC <b>Mangahuia</b> (petit tarif). <span style="color:var(--muted)">En chemin : <b>Reid's Farm</b>, Taupo — gratuit, au bord de la rivière</span></td></tr>
+      <tr><td>N6</td><td>Whanganui</td><td>Whanganui TOP 10 / holiday park · ~45-55 NZD</td><td><b>Moutoa Quay</b> (bord de fleuve, central · 17h-8h) · <b>Castlecliff Beach</b> (WC/douches)</td></tr>
+      <tr><td>N7-8</td><td>Wellington</td><td colspan="2">Van <b>rendu à l'arrivée</b> → hôtel central (par défaut) · ou van gardé au Wellington TOP 10 (Lower Hutt) si van maximisé</td></tr>
+    </table>
+    <h3 style="color:var(--green);margin:26px 0 6px">🆓 Freedom camping &amp; vidanges</h3>
+  <div class="note"><b>🆓 Freedom camping — mode d'emploi.</b> Réservé aux vans <b>certifiés self-contained</b> (WC fixe + <b>carte verte</b> à afficher au pare-brise) ; emplacements <b>signalés</b> uniquement, souvent <b>16h-9h</b>, max 2-4 nuits, premier arrivé premier servi. Repérer les spots &amp; vérifier les règles à jour sur <b>CamperMate / Rankers</b> (elles varient selon les communes). Hors emplacement autorisé = amende (~400 NZD).</div>
+    <div class="note blue"><b>🚰 Vidange &amp; eau (dump stations) sur la route van.</b> <b>Rotorua</b> : Te Ngae Rd (station d'épuration). <b>Taupo</b> : <b>Riverside Park</b> — vidange + <b>eau potable</b>, pratique sur la route N5. <b>Tongariro</b> : la plus proche à <b>Ohakune</b> (~35 min au sud). <b>Whanganui</b> : dump station publique en ville. Emplacement exact toujours à confirmer sur <b>CamperMate / Rankers</b> ; ne remplir le réservoir d'eau qu'aux robinets « potable » signalés.</div>
+    <h3 style="color:var(--green);margin:26px 0 6px">💡 Bon à savoir</h3>
+  <div class="note"><b>Astuce nuits van vs hôtel.</b> Le van brille sur la nature (Rotorua, Tongariro). Pour Auckland (arrivée, jet lag) et Wellington (ville, musées, dîners), l'hôtel est plus confortable — d'où : hôtel N1-2 + van N3-6 + hôtel N7-8. Si tu veux <b>maximiser le van</b>, on le garde jusqu'à Wellington (holiday park de Lower Hutt) : à toi de choisir. <span class="todo">À trancher.</span></div>
+    <div class="note blue"><b>Bon à savoir avril :</b> nuits douces au Nord (10-13 °C) → le van y est agréable. Au Sud il fait froid (5-8 °C) et les meilleurs lodges sont en dur → on ne prend pas le van au Sud.</div>
+  </div>
+</div></section>
+
+<section id="ferry"><div class="wrap">
+  <div class="note blue"><b>⛴️ Wellington → Picton</b> — ferry <b>en passager</b> (~3h30, Interislander ou Bluebridge), à réserver. On traverse les Marlborough Sounds (baies, îlots, forêts). <b>Nouvelle voiture récupérée à Picton.</b></div>
+</div></section>
+
+<section id="sud" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🏔️</span> Île du Sud — en voiture · tracé Est</h2>
+  <p class="lead">11 nuits · Picton → Kaikōura → <b>Otago/Dunedin</b> → Milford → Queenstown → Mount Cook → Christchurch · <span style="color:var(--muted)">2 messes latines (Dunedin dim. 18, Kaiapoi dim. 25)</span></p>
+  <div class="note"><b>Pourquoi l'Est plutôt que la côte Ouest (glaciers) ?</b> En avril la côte Ouest est la plus pluvieuse du pays (+ sandflies). L'Est est plus sec et posé, et Kaikōura offre baleines + le lodge Hapuku. <b>On garde le « wow glacier »</b> avec un vol panoramique sur le glacier Tasman depuis Mount Cook.</div>
+  <div id="sud-list"></div>
+  <div class="note blue"><b>⛪ Dim. 25 avril</b> — <b>messe latine à Kaiapoi (~11h, FSSP)</b>, puis déjeuner, restitution de la voiture à Christchurch et <b>envol à 20h10 vers Malé</b>, via Auckland et Singapour. <span style="color:var(--muted)">Le départ du soir est ce qui rend la messe possible : plusieurs vols testés partaient à 10h10, incompatibles avec 11h.</span></div>
+</div></section>
+
+<section id="nc"><div class="wrap">
+  <h2><span class="ic">🐠</span> Maldives</h2>
+  <p class="lead">5 nuits · <b>OBLU SELECT Lobigili</b> · île réservée aux adultes, 68 villas, villa sur pilotis avec piscine privée.</p>
+
+  <div class="note blue"><b>🖊️ Un bloc par jour à compléter.</b> Chaque journée a un champ « Vos activités » — notez ce que vous voulez, c'est <b>sauvegardé dans votre navigateur</b> (comme le budget). Les suggestions sont là pour amorcer.</div>
+  <div id="nc-list"></div>
+
+  <h3 style="color:var(--green);margin:26px 0 6px">🏝️ Pourquoi cette île</h3>
+  <div class="card">
+    <ul>
+      <li><b>Adults-only</b>, 68 villas seulement — noté <b>9,6/10</b> sur Booking, dont 9,6 pour les couples.</li>
+      <li><b>Speedboat de 15 minutes, inclus</b> : aucun risque d'hydravion immobilisé, quelle que soit l'heure d'arrivée.</li>
+      <li><b>Récif maison remarquable</b>, accessible à la nage depuis la rive est — « un aquarium au naturel ».</li>
+      <li><b>Villa SunNest Water Pool</b> : 75 m², piscine privée de 8 m², plancher de verre, <b>côté couchant</b> — donc dos à Malé et à l'île industrielle de Thilafushi.</li>
+      <li>Une <b>passerelle de 270 m</b> mène à l'île voisine d'Ailafushi, dont les restaurants sont compris dans la pension.</li>
+    </ul>
+  </div>
+
+  <h3 style="color:var(--green);margin:26px 0 6px">🍽️ Ce que le Lobi Plan comprend</h3>
+  <div class="card">
+    <ul>
+      <li>Les trois repas à <b>Ylang-Ylang</b>, en <b>à la carte</b> — pas un buffet — avec stations live et soirées à thème.</li>
+      <li><b>Only BLU</b>, le plus grand restaurant sous-marin des Maldives, et <b>Gaadiya 17</b> sur la plage.</li>
+      <li><b>Spiritueux premium</b>, vins et pétillants, cocktails signature, <b>minibar réapprovisionné chaque jour</b>.</li>
+      <li><b>Une pêche au coucher du soleil</b> et <b>un snorkeling guidé</b> par personne.</li>
+      <li>Masque et tuba, paddle, kayak, salle de sport sur pilotis, court de tennis, musique live tous les soirs.</li>
+      <li><b>Un soin de 45 minutes</b> au spa ELE|NA.</li>
+    </ul>
+    <p style="margin:10px 0 0;font-size:14px;color:var(--muted)">Restent payants : la plongée bouteille, les sports motorisés, les dîners privés, la chicha et les visites supplémentaires à Only BLU.</p>
+  </div>
+
+  <h3 style="color:var(--green);margin:26px 0 6px">☀️ Le climat, et la règle du soir</h3>
+  <div class="note"><b>Fin avril = fin de la saison sèche.</b> 31 °C le jour, 27 °C la nuit, mer à 30 °C, et <b>5 à 7 jours de pluie</b> par mois en moyenne — des grains brefs, pas du crachin. La pluie augmente en fin de mois : vous êtes sur la fin de la bonne fenêtre, pas en plein cœur. Visibilité encore bonne pour le snorkeling.</div>
+  <div class="note"><b>🌅 La baignade s'arrête au coucher du soleil</b> (~18h20 fin avril). C'est une règle quasi universelle aux Maldives : les requins de récif chassent au crépuscule, le noir désoriente, les méduses deviennent actives et on ne voit plus le corail. <b>Ça vaut aussi depuis l'échelle de la villa</b> — le bain de minuit sur pilotis, c'est non. Les piscines, elles, restent ouvertes, et vous avez la vôtre. <span style="color:var(--muted)">Rien à voir avec le risque calédonien : ici les requins du lagon sont inoffensifs, la règle est purement préventive.</span></div>
+
+  <h3 style="color:var(--green);margin:26px 0 6px">📩 À demander au resort</h3>
+  <div class="note pink"><b>Trois questions à régler avant de réserver.</b> ① Les privilèges du Lobi Plan <b>s'arrêtent-ils à 11 h le jour du départ</b>, et un <i>late check-out</i> est-il possible ? C'est ce qui décide entre les deux vols retour. ② Les <b>seuils d'éligibilité</b> (Only BLU, Gaadiya 17, soin spa) sont-ils atteints sur <b>cinq nuits</b> ? ③ Les familles logées à Ailafushi peuvent-elles <b>circuler sur Lobigili</b> en journée — l'île reste-t-elle vraiment réservée aux adultes ?<br><span style="color:var(--muted)">Demander aussi une villa <b>en bout de ponton</b>, côté couchant : le plus loin de l'île, le plus près du tombant.</span></div>
+
+  <div class="note blue"><b>💰 Où réserver.</b> Trois canaux comparés sur la villa Sunset avec piscine : <b>Booking</b> et <b>Hotels.com</b> se tiennent (~4 516-4 560 € les 5 nuits, entièrement remboursables), Hotels.com ajoutant un <b>cashback d'environ 350 €</b> versé après le séjour. Mais le resort ouvre une <b>vente flash à −40 % du 23 au 26 juillet 2026</b> — potentiellement ~1 150 € de moins, avec un <b>acompte de 25 %</b> dont il faut vérifier s'il est remboursable. <span class="todo">→ S'inscrire à OBLU Direct (gratuit) et faire chiffrer ses dates avant l'ouverture, pour pouvoir comparer en cinq minutes.</span></div>
+</div></section>
+
+<section id="lotr" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🧙</span> Dosage Seigneur des Anneaux</h2>
+  <p class="lead">4 temps forts assumés — le reste vécu comme nature pure, sans surdose.</p>
+  <table>
+    <tr><th>Lieu</th><th>Dans les films</th><th>Étape</th></tr>
+    <tr><td>Hobbiton (Matamata)</td><td>La Comté</td><td>Nuit 3</td></tr>
+    <tr><td>Tongariro / Ngauruhoe</td><td>Mordor / Mont Destin</td><td>Nuits 5-6</td></tr>
+    <tr><td>Kaitoke + Weta (Wellington)</td><td>Fondcombe + ateliers</td><td>Nuits 7-8</td></tr>
+    <tr><td>Glenorchy / Paradise</td><td>Isengard / Lothlórien</td><td>Nuit 13</td></tr>
+  </table>
+</div></section>
+
+<section id="budget"><div class="wrap">
+  <h2><span class="ic">💶</span> Budget global</h2>
+  <p class="lead">Estimation tous postes pour 2 personnes, ~4 semaines. Fourchette « optimisé » → « confort ».</p>
+  <table>
+    <tr><th>Poste</th><th>Détail</th><th>Optimisé</th><th>Confort</th><th>Vos chiffres (€)</th></tr>
+    <tr><td>✈️ Vols</td><td><b>3 billets séparés</b> : Toulouse→Auckland 2 511 € · Christchurch→Malé 1 090 € · Malé→Paris 1 702 € · + TGV 150 € <span style="color:var(--muted)">(devis réels)</span></td><td>~5 453 €</td><td>~5 453 €</td><td><input class="uin" type="number" data-k="vols" placeholder="—"></td></tr>
+    <tr><td>🚐 Van Île du Nord</td><td>~4-5 jours (avril = basse saison)</td><td>~700 €</td><td>~950 €</td><td><input class="uin" type="number" data-k="van" placeholder="—"></td></tr>
+    <tr><td>🚗 Voiture Île du Sud</td><td>~11 jours</td><td>~600 €</td><td>~820 €</td><td><input class="uin" type="number" data-k="voiture" placeholder="—"></td></tr>
+    <tr><td>⛴️ Ferry Cook (Wellington-Picton)</td><td>2 passagers</td><td>~120 €</td><td>~150 €</td><td><input class="uin" type="number" data-k="ferry" placeholder="—"></td></tr>
+    <tr><td>🛏️ Hébergement NZ</td><td>19 nuits (voir détail ci-dessous)</td><td>~3 070 €</td><td>~4 015 €</td><td><input class="uin" type="number" data-k="hebnz" placeholder="—"></td></tr>
+    <tr><td>🐠 Maldives</td><td><b>5 nuits à Lobigili</b>, SunNest Water Pool Villa — tout compris et transfert inclus <span style="color:var(--muted)">(devis réel ; −40 % possible en vente flash)</span></td><td>~4 560 €</td><td>~4 560 €</td><td><input class="uin" type="number" data-k="hebnc" placeholder="—"></td></tr>
+    <tr><td>🤿 Extras Maldives</td><td>Plongée, sports motorisés, spa au-delà du soin offert <span style="color:var(--muted)">(transfert et repas déjà compris)</span></td><td>~150 €</td><td>~400 €</td><td><input class="uin" type="number" data-k="transnc" placeholder="—"></td></tr>
+    <tr><td>🎟️ Activités</td><td>Hobbiton, Te Puia, baleines, Milford, albatros, vol glacier…</td><td>~1 200 €</td><td>~1 900 €</td><td><input class="uin" type="number" data-k="activites" placeholder="—"></td></tr>
+    <tr><td>🍽️ Repas</td><td>~20 jours en NZ, 2 pers. (pique-niques + restos ciblés) <span style="color:var(--muted)">— les 5 jours maldiviens sont compris dans la pension</span></td><td>~1 100 €</td><td>~1 500 €</td><td><input class="uin" type="number" data-k="repas" placeholder="—"></td></tr>
+    <tr><td>⛽ Carburant</td><td>NZ (routes sinueuses)</td><td>~400 €</td><td>~450 €</td><td><input class="uin" type="number" data-k="carburant" placeholder="—"></td></tr>
+    <tr><td>🛡️ Assurance voyage</td><td><b>Rien à acheter</b> — la Visa Premier couvre médical, rapatriement et <b>5 000 € d'annulation par assuré</b> (10 000 € à deux). <span style="color:var(--muted)">Condition : régler les gros postes avec cette carte.</span></td><td>0 €</td><td>0 €</td><td><input class="uin" type="number" data-k="assurance" placeholder="—"></td></tr>
+    <tr><td>📄 Formalités</td><td>NZeTA + IVL, permis international (PCI)</td><td>~100 €</td><td>~120 €</td><td><input class="uin" type="number" data-k="formalites" placeholder="—"></td></tr>
+    <tr><td>🔌 Divers</td><td>SIM néo-zélandaise, adaptateurs, imprévus</td><td>~350 €</td><td>~500 €</td><td><input class="uin" type="number" data-k="divers" placeholder="—"></td></tr>
+    <tr class="tot"><td>TOTAL estimé (2 pers.)</td><td></td><td>~17 800 €</td><td>~20 800 €</td><td id="uTotalGlobal">—</td></tr>
+  </table>
+  <div style="text-align:right;margin-top:6px"><button id="uReset" style="font-size:12.5px;background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;color:var(--muted);cursor:pointer">↺ Réinitialiser mes chiffres</button></div>
+  <script>
+  (function(){
+    var ins=document.querySelectorAll('#budget .uin'), out=document.getElementById('uTotalGlobal');
+    function fmt(n){return n?('~'+Math.round(n).toLocaleString('fr-FR')+' €'):'—';}
+    function recalc(){var t=0;ins.forEach(function(i){var v=parseFloat(i.value);if(!isNaN(v))t+=v;});out.textContent=fmt(t);}
+    ins.forEach(function(i){
+      try{var s=localStorage.getItem('budget_'+i.dataset.k);if(s!==null)i.value=s;}catch(e){}
+      i.addEventListener('input',function(){try{localStorage.setItem('budget_'+i.dataset.k,i.value);}catch(e){}recalc();});
+    });
+    document.getElementById('uReset').addEventListener('click',function(){
+      ins.forEach(function(i){i.value='';try{localStorage.removeItem('budget_'+i.dataset.k);}catch(e){}});recalc();
+    });
+    recalc();
+  })();
+  </script>
+  <div class="note"><b>Honnêteté sur la cible.</b> Un voyage de noces de 4 semaines NZ + Maldives pour deux tourne réalistiquement autour de <b>19 300 €</b> — au-dessus de la cible &lt;14 000 €. Les <b>leviers</b> pour s'en rapprocher : réserver les vols dans la bonne fenêtre (oct-nov 2026, sans Premium), <b>gîte kanak à l'Île des Pins</b> plutôt que resort (~-600 €), <b>hébergement milieu de gamme</b> (la nuit folie Hapuku/Matakauri reste optionnelle, non incluse), plus de pique-niques (~-500 €), pas de vol hélico glacier (~-400 €). En cumulant, on peut viser <b>~13 500-14 500 €</b>. <span class="todo">À arbitrer ensemble.</span></div>
+
+  <h2 style="margin-top:34px"><span class="ic">🛏️</span> Détail hébergement NZ</h2>
+  <p class="lead">Base retenue : milieu de gamme partout. La nuit « folie » (Hapuku ou Matakauri) devient une option à ajouter. Prix indicatifs 2 personnes.</p>
+  <table>
+    <tr><th>Poste</th><th>Nuits</th><th>Milieu de gamme (priorité)</th><th>Option 1 folie</th></tr>
+    <tr><td>Auckland (hôtel)</td><td>2</td><td>~300 €</td><td>~300 €</td></tr>
+    <tr><td>Île du Nord (van)</td><td>4</td><td>~280 €</td><td>~280 €</td></tr>
+    <tr><td>Wellington (hôtel)</td><td>2</td><td>~320 €</td><td>~320 €</td></tr>
+    <tr><td>Kaikōura</td><td>2</td><td>~500 €</td><td><span class="splurge">~1 195 €</span> (1 nuit Hapuku) + 250 €</td></tr>
+    <tr><td>Ōamaru / Moeraki</td><td>1</td><td>~120 €</td><td>~120 €</td></tr>
+    <tr><td>Dunedin</td><td>2</td><td>~300 €</td><td>~300 €</td></tr>
+    <tr><td>Te Anau</td><td>2</td><td>~300 €</td><td>~300 €</td></tr>
+    <tr><td>Queenstown</td><td>2</td><td>~550 €</td><td>~550 € <span style="color:var(--muted)">(Matakauri en option : ~700-1 000 €)</span></td></tr>
+    <tr><td>Mount Cook</td><td>1</td><td>~260 €</td><td>~260 €</td></tr>
+    <tr><td>Christchurch</td><td>1</td><td>~140 €</td><td>~140 €</td></tr>
+    <tr class="tot"><td>Total hébergement NZ</td><td>19</td><td>~3 070 €</td><td>~4 015 €</td></tr>
+  </table>
+  <div class="note"><b>Lecture :</b> la base retenue est le milieu de gamme partout (~3 570 €). Une nuit « folie » reste possible en option — Hapuku (~+945 €) <b>ou</b> Matakauri (~+500-750 €) — mais une seule pour rester sous la cible &lt;14 000 €. À ajouter : vols (~5 000 €+), van + voiture, activités, repas, NC. <span class="todo">Chiffrage complet à consolider.</span></div>
+</div></section>
+
+<section id="activites" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🎟️</span> Détail des activités</h2>
+  <p class="lead">Tarifs réels 2025-2026 (à ajuster légèrement pour 2027). Conversion : NZD ≈ 0,55 €. Colonne « 2 pers. » = le couple.</p>
+
+  <div class="seg"><span class="bar" style="background:var(--north)"></span>Nouvelle-Zélande</div>
+  <table>
+    <tr><th>Étape</th><th>Activité</th><th>Prix / pers.</th><th>~ 2 pers. (€)</th><th>Priorité</th></tr>
+    <tr><td>Hobbiton</td><td>Signature Tour (2h, décors + Green Dragon)</td><td>130 NZD</td><td>~145 €</td><td><span class="tag std">essentiel</span></td></tr>
+    <tr><td>Rotorua</td><td>Te Puia — Te Pō : soirée māori + hāngī + geyser</td><td>195 NZD</td><td>~215 €</td><td><span class="tag std">essentiel</span></td></tr>
+    <tr><td>Rotorua</td><td>Wai-O-Tapu (entrée bassins colorés)</td><td>40 NZD</td><td>~45 €</td><td><span class="tag std">recommandé</span></td></tr>
+    <tr><td>Rotorua</td><td>Polynesian Spa (bains chauds)</td><td>~40 NZD</td><td>~45 €</td><td><span class="tag opt">option</span></td></tr>
+    <tr><td>Wellington</td><td>Weta Workshop (visite guidée 90 min)</td><td>60 NZD</td><td>~65 €</td><td><span class="tag std">essentiel LOTR</span></td></tr>
+    <tr><td>Kaikōura</td><td>Whale Watch (baleines, 3h30)</td><td>175 NZD</td><td>~195 €</td><td><span class="tag std">essentiel</span></td></tr>
+    <tr><td>Milford Sound</td><td>Croisière Nature (~1h45)</td><td>165 NZD</td><td>~180 €</td><td><span class="tag std">essentiel</span></td></tr>
+    <tr><td>Te Anau</td><td>Grottes de vers luisants (glowworm)</td><td>105 NZD</td><td>~115 €</td><td><span class="tag opt">option</span></td></tr>
+    <tr><td>Mount Cook</td><td>Hooker Valley Track (2h, à pied)</td><td>gratuit</td><td>0 €</td><td><span class="tag std">essentiel</span></td></tr>
+    <tr><td>Mount Cook</td><td>Vol glacier Tasman (ski plane + héli, atterrissage)</td><td>499 NZD</td><td>~550 €</td><td><span class="tag sp">splurge</span></td></tr>
+    <tr><td>Mount Cook</td><td>Ciel étoilé (réserve Dark Sky) : gratuit à l'œil nu <b>ou</b> tour guidé <b>Big Sky Stargazing</b> (Hermitage) <span style="color:var(--muted)">· le Mt John de Tekapo seulement si nuit sur place</span></td><td>0 / ~119 NZD</td><td>0 → ~130 €</td><td><span class="tag opt">option</span></td></tr>
+  </table>
+
+  <div class="seg"><span class="bar" style="background:var(--nc)"></span>Maldives</div>
+  <table>
+    <tr><th>Étape</th><th>Activité</th><th>Prix / pers.</th><th>~ 2 pers. (€)</th><th>Priorité</th></tr>
+    <tr><td>Lobigili</td><td>Snorkeling guidé + pêche au coucher du soleil (1 de chaque par personne)</td><td>inclus</td><td>~0 €</td><td><span class="tag std">inclus</span></td></tr>
+    <tr><td>Lobigili</td><td>Only BLU — dîner sous l'océan, et soin spa de 45 min</td><td>inclus</td><td>~0 €</td><td><span class="tag std">inclus</span></td></tr>
+    <tr><td>Lobigili</td><td>Plongée bouteille, sports motorisés, spa au-delà du soin offert</td><td>en sus</td><td>~250 €</td><td><span class="tag opt">option</span></td></tr>
+  </table>
+
+  <table style="margin-top:18px">
+    <tr><th>Scénario</th><th>Ce qu'on garde</th><th>Total activités (2 pers.)</th></tr>
+    <tr><td><b>Optimisé</b></td><td>Tous les essentiels + Wai-O-Tapu ; ciel étoilé à l'œil nu ; <b>sans</b> vol glacier ni glowworm</td><td><b>~1 200 €</b></td></tr>
+    <tr><td><b>Confort</b></td><td>Idem <b>+ vol glacier Tasman (~550 €) + Dark Sky Summit + grottes Te Anau</b></td><td><b>~1 900 €</b></td></tr>
+  </table>
+  <div class="note"><b>Le vrai levier, c'est le vol glacier</b> (~550 € à lui seul). Si le budget serre, on le remplace par le <b>Hooker Valley Track (gratuit)</b> + le ciel étoilé à l'œil nu (Mount Cook est en réserve Dark Sky) : on passe alors dans le bas de fourchette sans rien perdre d'essentiel. Les messes (Whanganui, Kaiapoi) et les marches (Tongariro, Glenorchy) sont gratuites.</div>
+  <div class="note blue"><b>🌌 Aurores australes ?</b> Possible — surtout depuis la <b>péninsule d'Otago / Dunedin</b> (loin au sud, horizon océan) et les nuits Dark Sky (<b>Mount Cook, Tekapo</b>). Le plus souvent une lueur discrète à l'œil nu, mais <b>superbe en pose longue</b> (appareil/téléphone sur trépied). À réunir : <b>ciel dégagé + nuit sans lune + activité solaire</b> (indice <b>Kp</b>). Suivre les alertes <b>SpaceWeatherLive</b> / « Aurora Australis Forecast » et regarder <b>vers le sud</b>. Bonus, pas garantie — la Voie lactée, elle, est sûre.</div>
+</div></section>
+
+<section id="optim"><div class="wrap">
+  <h2><span class="ic">💡</span> Pistes d'optimisation du budget</h2>
+  <p class="lead">De ~16 000 € (base optimisée) vers <b>~13 500-14 500 €</b> — dans la cible &lt;14 000 € — sans sacrifier un seul essentiel. Classé par impact.</p>
+
+  <div class="seg"><span class="bar" style="background:var(--green)"></span>Gros leviers (&gt; 400 €)</div>
+  <table>
+    <tr><th>Levier</th><th>Économie</th><th>Comment / contrepartie</th></tr>
+    <tr><td>✈️ Vols — fenêtre + comparaison</td><td class="price"><b>−300 à −800 €</b></td><td>Réserver tôt, poser des alertes prix, comparer en direct, flexibilité ±3 j. C'est le 1er poste (~5 450 €). Le <b>départ de Toulouse</b> supprime le train, l'Uber et la nuit d'hôtel à Roissy — réserver tôt. <b>Depuis Bordeaux :</b> tester l'origine Bordeaux sur un seul billet (correspondance protégée) plutôt qu'un BOD-CDG séparé.</td></tr>
+    <tr><td>🍽️ Cuisiner dans le van</td><td class="price"><b>−400 à −600 €</b></td><td>Petits-déj + déjeuners self, dîners cuits au holiday park. Supermarchés Pak'nSave / Woolworths. On garde 2-3 dîners resto ciblés.</td></tr>
+    <tr><td>🐠 Maldives — vente flash</td><td class="price"><b>−1 150 €</b></td><td>Le resort ouvre un <b>−40 %</b> du <b>23 au 26 juillet 2026</b>. Acompte de 25 % : vérifier s'il est remboursable avant de s'engager.</td></tr>
+    <tr><td>🚗 Voiture au lieu du van</td><td class="price"><b>−500 €</b></td><td>Sur l'Île du Nord : location 950 → 280 €, hébergement 280 → 440 €. Et un vrai lit chauffé en avril.</td></tr>
+    <tr><td>🚁 Pas de vol glacier Tasman</td><td class="price"><b>−550 €</b></td><td>Remplacé par le Hooker Valley Track (gratuit) + ciel étoilé à l'œil nu (réserve Dark Sky). Aucun essentiel perdu.</td></tr>
+    <tr><td>🛏️ Hébergement milieu de gamme <span class="tag std">déjà acté</span></td><td class="price"><b>−900 €</b></td><td>vs 1 nuit folie. Hapuku / Matakauri restent en option assumée.</td></tr>
+  </table>
+
+  <div class="seg"><span class="bar" style="background:var(--green)"></span>Leviers moyens (100-400 €)</div>
+  <table>
+    <tr><th>Levier</th><th>Économie</th><th>Comment / contrepartie</th></tr>
+    <tr><td>🚐 Freedom camping self-contained</td><td class="price">−150 à −250 €</td><td>2-3 nuits en camping sauvage légal (van certifié) au lieu du holiday park. À doser (avril plus frais).</td></tr>
+    <tr><td>⭐ Couper Dark Sky Summit / grottes glowworm</td><td class="price">−100 à −380 €</td><td>Ce sont des « options » : on garde le gratuit (ciel étoilé à l'œil nu).</td></tr>
+    <tr><td>🚐 Van — réserver tôt / comparer</td><td class="price">−100 à −200 €</td><td>Avril = basse saison. Jucy (éco) vs Britz vs Maui ; guetter d'éventuelles offres relocation.</td></tr>
+    <tr><td>⛴️ Ferry du détroit de Cook</td><td class="price">−30 à −50 €</td><td>Traversée hors heures de pointe, Wellington-Picton. <span style="color:var(--muted)">Côté Maldives, rien à optimiser : transfert et repas sont déjà compris.</span></td></tr>
+  </table>
+
+  <div class="seg"><span class="bar" style="background:var(--green)"></span>Points de vigilance</div>
+  <div class="card">
+    <ul style="margin:4px 0">
+      <li><b>⛽ Road User Charges (RUC)</b> — souvent facturés en plus sur les vans diesel en NZ. À intégrer au budget carburant pour éviter la surprise.</li>
+      <li><b>📱 SIM locale néo-zélandaise</b> (One NZ ou Skinny) plutôt que le roaming. Inutile aux Maldives : le wifi est compris au resort.</li>
+    </ul>
+  </div>
+
+  <div class="note blue"><b>🛡️ Assurance &amp; cartes — analyse de la notice Visa Premier (BNP/SPB).</b> <span style="color:var(--muted)">(La notice de la banque fait foi — vérifiée ici sur le contrat réel.)</span><br>
+  <b>① Vous êtes couverts tous les deux sur UNE seule carte.</b> La notice inclut « <b>le conjoint</b> » parmi les assurés → une fois mariés, Anne-Cath est bénéficiaire de la Visa Premier du titulaire. <b>Médical 155 000 € chacun</b> (franchise 50 €), <b>rapatriement inclus</b>, <b>RC 1,525 M€</b> — <b>automatique</b>, sans condition de paiement. Rien à ajouter là-dessus. <b>La 2ᵉ carte est donc inutile pour ça.</b><br>
+  <b>② L'annulation, c'est 10 000 €, pas 5 000 €.</b> La garantie est de « <b>5 000 € par Assuré</b> » — et vous êtes <b>deux assurés</b> → <b>10 000 € cumulés</b>, <b>à condition d'avoir payé le voyage avec la carte</b>. Or ce qu'on risque de perdre, c'est le <b>non remboursable</b> = les <b>~3 600 € de vols</b> (blocs ① et ②), le resort restant annulable jusqu'au 19 avril. → <b>largement couvert.</b><br>
+  <b>③ Le seul vrai trou : ce ne sont pas « toutes causes ».</b> L'annulation ne joue que pour une <b>liste fermée</b> : maladie/accident/décès, préjudice matériel, licenciement, mutation, congés supprimés. <b>Maladie et accident sont dedans</b> (le plus probable). <b>Mais les troubles civils NC n'y sont pas</b> → non couverts. <b>Une assurance « toutes causes / troubles civils » n'aurait été utile que pour la Nouvelle-Calédonie</b> — le trajet retenu passant par les Maldives, <b>la Visa Premier suffit</b>.<br>
+  <b>→ Quoi faire :</b> <b>gros prépaiements (vols, resort) sur la Visa Premier</b> — ça active l'annulation, et zéro frais de change (facturés en €). <b>Dépenses sur place en NZD et USD sur la Revolut</b> (aucune assurance dessus, mais change au taux interbancaire ; éviter le <b>week-end</b> +1 %, surveiller le plafond mensuel gratuit ~1 000 €).</div>
+
+  <table style="margin-top:18px">
+    <tr><th>Scénario</th><th>Ce qu'on empile</th><th>Total estimé (2 pers.)</th></tr>
+    <tr><td><b>Base optimisée</b></td><td>Milieu de gamme + activités essentielles</td><td><b>~16 000 €</b></td></tr>
+    <tr class="tot"><td><b>Optimisé +</b></td><td>Vente flash Maldives + voiture au lieu du van + sans vol glacier</td><td><b>~17 000-17 500 €</b></td></tr>
+  </table>
+  <div class="note"><b>Le trio prioritaire</b> (il pèse le plus dans le total) : <b>① les vols</b> (réserver dans la fenêtre), <b>② les repas</b> (cuisiner dans le van), <b>③ la vente flash du resort</b> (−40 % du 23 au 26 juillet). Tous les essentiels — Hobbiton, Milford, baleines, Only BLU, messes latines (Whanganui, Kaiapoi), marches LOTR — restent conservés.</div>
+</div></section>
+
+<section id="messes" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">⛪</span> Messes — latin &amp; Novus Ordo</h2>
+  <p class="lead">Les deux options côte à côte, pour choisir. Horaires réels 2025-2026 — à <b>reconfirmer</b> pour avril 2027 (temps pascal + jours fériés font bouger les horaires).</p>
+
+  <table>
+    <tr><th>Quand</th><th>Vous êtes à</th><th>Messe traditionnelle (FSSP / FSSPX)</th><th>Messe Novus Ordo</th></tr>
+    <tr><td>Mer. 7 avril <span style="color:var(--muted)">(arrivée)</span></td><td>Auckland</td><td><b>FSSP — St Anne's</b>, Te Atatu South : <b>en semaine 7h</b> (seule messe tradi en semaine). <span style="color:var(--muted)">Le dim. : FSSP St Paul's, Ponsonby 8h/10h · FSSPX IHM, Avondale 9h — mais vous n'êtes pas là un dimanche.</span></td><td>Partout (cathédrale St Patrick's).</td></tr>
+    <tr><td><b>Dim. 11 avril</b></td><td>Whanganui</td><td><b>FSSPX Whanganui — dim. 9h (grand-messe chantée)</b> ✓ <span style="color:var(--muted)">intégré à l'itinéraire (nuit sur place, N6).</span></td><td>Paroisses de Whanganui (Novus Ordo) si besoin.</td></tr>
+    <tr><td><b>Dim. 18 avril</b></td><td>Dunedin</td><td><b>FSSP — St Joseph's Chapel, Rattray St — dim. 9h</b> ✓ <span style="color:var(--muted)">intégré (nuit à Dunedin, N12-13).</span></td><td>Paroisses de Dunedin (Novus Ordo) si besoin.</td></tr>
+    <tr><td><b>Dim. 25 avril</b></td><td>Christchurch <span style="color:var(--muted)">(départ NZ)</span></td><td><b>St Patrick's, Kaiapoi — dim. ~11h (FSSP)</b>, ~25 min au nord de Christchurch ; puis vol vers Malé à 20h10.</td><td>St Teresa's, Riccarton (8h / 10h) si besoin plus tôt avant le vol. <span style="color:var(--muted)">ANZAC Day : à reconfirmer.</span></td></tr>
+  </table>
+
+  <div class="note"><b>Le point messe tradi (FSSP &amp; FSSPX).</b> <b>Trois messes latines calées</b> : <b>dim. 11 — FSSPX Whanganui</b>, <b>dim. 18 — FSSP Dunedin</b> (via la côte est / Otago) et <b>dim. 25 — FSSP Kaiapoi</b> juste avant le vol. À l'arrivée, une messe tradi en semaine reste possible : <b>FSSP St Anne's, mer. 7 avril 7h</b>. <span style="color:var(--muted)">Aux Maldives, en revanche, <b>tout culte non musulman est interdit</b> — il n'y a aucune messe sur place. Le dimanche 2 mai se rattrape à Paris, au retour.</span></div>
+
+  <h3 style="color:var(--green);margin:22px 0 6px">📍 Messes traditionnelles le long de la route — référence</h3>
+  <table>
+    <tr><th>Ville</th><th>Société</th><th>Lieu</th><th>Horaire</th></tr>
+    <tr><td>Auckland</td><td>FSSP</td><td>St Paul's College, Ponsonby · <span style="color:var(--muted)">sem. : St Anne's, Te Atatu South (lun-mer 7h)</span></td><td>dim. 8h / 10h chantée</td></tr>
+    <tr><td>Auckland</td><td>FSSPX</td><td>Immaculée-Cœur-de-Marie (IHM), 103 Avondale Rd</td><td>dim. 9h</td></tr>
+    <tr><td>Hamilton</td><td>FSSP</td><td>St Mary's Chapel, Hamilton East</td><td>dim. 17h</td></tr>
+    <tr><td>Whanganui</td><td>FSSPX</td><td>Prieuré St Anthony (siège FSSPX NZ)</td><td>dim. 9h chantée</td></tr>
+    <tr><td>Ashhurst <span style="color:var(--muted)">(Palm. Nth)</span></td><td>FSSP</td><td>St Columba's, 83 Mulgrave St</td><td>dim. 12h30</td></tr>
+    <tr><td>Wellington</td><td>FSSPX</td><td>chapelle <span style="color:var(--muted)">(à confirmer)</span></td><td>1er dim. ~17h30</td></tr>
+    <tr><td>Christchurch</td><td>FSSP</td><td>St Patrick's, Kaiapoi</td><td>dim. 11h</td></tr>
+    <tr><td>Dunedin</td><td>FSSP</td><td>St Joseph's Chapel, Rattray St</td><td>dim. 9h</td></tr>
+  </table>
+  <div class="note blue"><b>À reconfirmer</b> avant le départ : <b>fssp.nz</b> (FSSP) · <b>sspx.nz</b> / laportelatine.org (FSSPX) · sites diocésains Hamilton (cdh.org.nz) et Dunedin (cdd.org.nz). Vérifier surtout le temps pascal (avril 2027) et ANZAC Day (25 avril). <span style="color:var(--muted)">Pas d'ICKSP ni d'IBP en NZ ; hors FSSP/FSSPX, seule une chapelle CMRI (sédévacantiste, hors communion) existe.</span></div>
+</div></section>
+
+<section id="valise" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🧳</span> Valise &amp; matériel</h2>
+  <p class="lead">Deux climats en un seul voyage : <b>NZ automne</b> (frais 8-15 °C, pluie possible, nuits froides au Sud) puis <b>Maldives</b> (31 °C le jour, 27 °C la nuit, mer à 30 °C). Maître-mot : <b>système de couches</b> + tenues balnéaires, dans une valise + un petit sac à dos jour.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>🧥 Vêtements — NZ (couches)</h3>
+      <ul>
+        <li>Sous-couche technique + <b>polaire</b> + <b>veste imperméable/coupe-vent</b>.</li>
+        <li><b>Chaussures de marche</b> imperméables (rodées) + baskets.</li>
+        <li>Pantalon de rando + tenue chaude ; <b>bonnet/gants légers</b> (ciel étoilé Tekapo/Mount Cook = froid).</li>
+        <li>Une tenue correcte (messes, dîners).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🩱 Vêtements — Maldives</h3>
+      <ul>
+        <li>Maillots, paréo, tongs, vêtements légers (lin/coton).</li>
+        <li><b>Top anti-UV (lycra)</b> pour le snorkeling prolongé.</li>
+        <li>1 tenue habillée légère ; chapeau + lunettes de soleil.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🩹 Santé &amp; trousse</h3>
+      <ul>
+        <li><b>Anti-nausée</b> (croisière Milford, baleines Kaikōura, ferry du détroit de Cook).</li>
+        <li><b>DEET 30 %+</b> : sandflies en NZ, moustiques aux Maldives.</li>
+        <li><b>Crème solaire haute</b> (« reef-safe » pour le lagon) + après-soleil.</li>
+        <li>Pharmacie perso (antalgiques, anti-diarrhéique, pansements, traitements) + lunettes/lentilles de rechange.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🔌 Électronique</h3>
+      <ul>
+        <li><b>NZ : adaptateur type I</b> (comme l'Australie). <b>Maldives : type D/G britannique</b> → prévoir un second adaptateur, les resorts en prêtent souvent.</li>
+        <li><b>Multiprise + 1 seul adaptateur</b> = tout charger d'un coup dans le van.</li>
+        <li>Batterie externe, <b>lampe frontale</b> (van, rando, étoiles), câbles.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🚐 Van &amp; pratique</h3>
+      <ul>
+        <li>Gourde, <b>sac étanche (dry bag)</b>, serviette microfibre.</li>
+        <li>Masque/tuba perso (confort), <b>jumelles</b> (baleines, oiseaux).</li>
+        <li>Thermos, sacs de rangement, popote/couteau d'appoint.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📄 Documents &amp; argent</h3>
+      <ul>
+        <li><b>Passeports au nom de jeune fille</b> (⚠️ règle d'or) + copies numériques.</li>
+        <li>NZeTA/IVL, permis + <b>PCI</b>, attestations assurance (papier + hors-ligne).</li>
+        <li><b>Carte sans frais de change</b> (Revolut) — aux Maldives tout est en dollars, et l'île est en cashless.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="color:var(--green);margin:26px 0 6px">📸 Photo &amp; caméra — ma reco</h3>
+  <div class="card">
+    <ul style="margin:4px 0">
+      <li><b>GoPro : oui, sans hésiter.</b> Parfaite pour le <b>snorkeling</b> (le récif de Lobigili), les baleines de Kaikōura, les marches, le kayak. Prendre : <b>poignée flottante</b> (sinon elle coule dans le lagon !), <b>2-3 batteries</b> (le froid du Sud les vide), grosse carte SD.</li>
+      <li><b>Appareil principal : un hybride</b> (Sony/Fuji/Canon) avec un <b>zoom polyvalent</b> + un <b>grand-angle lumineux (f/1.8-2.8) et un petit trépied</b> pour la <b>Voie lactée</b> (Tekapo &amp; Mount Cook, réserves Dark Sky — un temps fort). À défaut, un <b>smartphone récent</b> (mode nuit) fait déjà beaucoup.</li>
+      <li><b>Drone : non-essentiel et contraint.</b> Vos plus beaux spots NZ sont <b>interdits de vol</b> : <b>Milford (zone rouge, refusé), Mount Cook, Tongariro</b> (parcs nationaux DOC + zones aéroport). Aux Maldives, le drone est <b>interdit dans la plupart des resorts</b> sans autorisation préalable — et Lobigili est à 15 min de l'aéroport de Malé, donc en espace contrôlé. Et votre <b>vol glacier Tasman</b> offre déjà les images aériennes « wow ». → Si vous en avez déjà un : à emmener pour le <b>lagon NC autorisé</b> + côtes NZ permises (inscription <b>CAA NZ</b> + règles NC). Pour un achat juste pour le voyage : plutôt à zapper (ou un <b>sub-250 g</b> type DJI Mini, mais les interdictions parcs/aéroports s'appliquent quand même).</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="reservations" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">🔒</span> Réservations à verrouiller</h2>
+  <p class="lead">La check-list, dans l'ordre de priorité. <b>Coche au fur et à mesure</b> — c'est sauvegardé dans ton navigateur. Le « quand » détaillé est dans le <a href="#retro">rétroplanning</a>.</p>
+  <table>
+    <tr><th>✓</th><th>À réserver</th><th>Quand</th><th>Astuce</th></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="vols"></td><td>✈️ <b>Bloc ① Toulouse → Auckland</b></td><td><b>dès maintenant</b></td><td>Certain quelle que soit la suite, et c'est le billet le plus cher (2 511 €).</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="van"></td><td>🚐 <b>Van Île du Nord</b> (~4-5 j)</td><td>6-9 mois avant</td><td>Maui / Britz / Jucy · <b>exiger self-contained</b> (carte verte).</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="voiture"></td><td>🚗 <b>Voiture Île du Sud</b> (11 j, reprise Picton)</td><td>6-9 mois avant</td><td>Avril = dispo qui se tend, réserver tôt.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="ferry"></td><td>⛴️ <b>Ferry Cook</b> Wellington-Picton (2 pax)</td><td>3-6 mois avant</td><td>Interislander / Bluebridge · sailing off-peak moins cher.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="hobbiton"></td><td>🧙 <b>Hobbiton</b> — session du matin</td><td>dès l'ouverture des résas 2027</td><td>Se remplit vite ; viser tôt.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="tepuia"></td><td>🔥 <b>Te Puia « Te Pō »</b> (soirée māori + hāngī, Rotorua)</td><td>2-3 mois avant</td><td>—</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="whales"></td><td>🐋 <b>Whale Watch Kaikōura</b></td><td>2-3 mois avant</td><td>Sensible météo → garder une marge / 2ᵉ créneau.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="milford"></td><td>🚢 <b>Croisière Milford</b></td><td>1-3 mois avant</td><td>Départ <b>après les groupes du matin</b>.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="otago"></td><td>🐦 <b>Taiaroa Head</b> (albatros royaux) + <b>manchots</b> (Penguin Place)</td><td>1-2 mois avant</td><td>Nouveau avec Otago ; tours à créneaux.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="glacier"></td><td>🚁 <b>Vol glacier Tasman</b> (Mount Cook Ski Planes)</td><td>sur place, selon météo</td><td>1 seule nuit à Mount Cook → guetter le bon créneau.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="hebnz"></td><td>🛏️ <b>Hébergements NZ phares</b> (Dunedin, Queenstown, Te Anau, Mount Cook)</td><td>3-6 mois avant</td><td>Spots prisés même en avril.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="idp"></td><td>🐠 <b>Lobigili</b> — SunNest Water Pool Villa</td><td><b>23-26 juillet 2026</b></td><td>Vente flash <b>−40 %</b>. Sinon Booking ou Hotels.com, annulables jusqu'au 12 avril.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="blocs23"></td><td>✈️ <b>Blocs ② et ③</b> — Christchurch→Malé, Malé→retour</td><td>après réponse du resort</td><td>Le bloc ② part le <b>dim. 25 à 20h10</b> : c'est ce qui sauve la messe de Kaiapoi.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="formalites"></td><td>📄 <b>PCI</b> (permis intl) + NZeTA/IVL + <b>assurance</b></td><td>PCI = tôt (délai long)</td><td>Assurance : <b>troubles civils + rapatriement</b>.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="annul"></td><td>❌ <b>Annuler l'Îlot Maître</b> <span style="color:var(--muted)">(réservé pour la Nouvelle-Calédonie)</span></td><td><b>une fois Lobigili confirmé</b></td><td>Remboursable jusqu'au <b>21 avril 2027</b> — garder le filet tant que les Maldives ne sont pas verrouillées, puis libérer la chambre.</td></tr>
+  </table>
+  <div class="note"><b>Rappel noms.</b> Toutes les réservations au <b>nom de jeune fille</b> d'Anne-Catherine (nom du passeport au départ), jamais au nom d'épouse.</div>
+  <div class="note blue"><b>✈️ Billets d'avion — à quoi s'attendre.</b> On part sur <b>3 billets séparés</b> (Toulouse→Auckland · Christchurch→Malé · Malé→retour) : <b>5 453 € pour deux</b>, devis réels. Les blocs sont espacés de 19 et 6 jours, donc rien à protéger entre eux — et le premier se réserve seul. <b>Les trois blocs :</b> ① <b>Toulouse → Auckland</b> (Lufthansa + Air NZ, 28 h 30) — on quitte le brunch du mariage et on embarque ; ② <b>Christchurch → Malé</b> (Air NZ + Singapore), <b>départ dim. 25 à 20h10</b>, ce qui préserve la messe de Kaiapoi ; ③ <b>Malé → Paris</b> (Singapore, modifiable), départ sam. 1<sup>er</sup> mai 13h05, arrivée dim. 2 à 7h45 — messe à Paris, TGV l'après-midi, et <b>le second tour se vote en personne</b>. <span style="color:var(--muted)">Alternative sur ③ : un Turkish se pose <b>directement à Bordeaux</b> le dim. à 10h10 pour 1 714 €, avec la dernière journée entière au resort — mais non remboursable, et la pension s'arrête à 11 h le jour du départ.</span></div>
+  <script>
+  (function(){
+    document.querySelectorAll('.rescheck').forEach(function(c){
+      var k='res_'+c.dataset.k;
+      try{if(localStorage.getItem(k)==='1')c.checked=true;}catch(e){}
+      c.addEventListener('change',function(){try{localStorage.setItem(k,c.checked?'1':'0');}catch(e){}});
+    });
+  })();
+  </script>
+</div></section>
+
+<section id="retro"><div class="wrap">
+  <h2><span class="ic">🗓️</span> Rétroplanning daté</h2>
+  <p class="lead">De maintenant au départ. ✅ fait · ⚠️ critique · 🔴 urgent (on est déjà en juillet 2026).</p>
+
+  <div class="note pink"><b>⚠️ Règle d'or — le nom sur les documents.</b> Le passeport d'Anne-Catherine sera encore à son nom de jeune fille le jour du départ (mariage la veille). <b>Tous</b> les billets, la NZeTA et les réservations à ce nom — jamais au nom d'épouse, sous peine de refus d'embarquement.</div>
+
+  <div class="tl">
+    <div class="tlitem">
+      <div class="tldate">🔴 Sans délai — été 2026</div>
+      <ul>
+        <li><b>Bloc ① Toulouse → Auckland</b> (2 511 €) : certain quelle que soit la suite → <b>à réserver sans attendre</b>.</li>
+        <li>Poser l'<b>alerte prix</b> sur le combo long-courrier.</li>
+        <li>Vérifier la <b>validité des 2 passeports</b> (≥ 6 mois après le retour, soit ~novembre 2027).</li>
+        <li><b>NZeTA + taxe IVL</b> : faisables dès maintenant, valables 2 ans.</li>
+        <li><b>Lobigili</b> : écrire au resort (règle des 11 h, seuils sur 5 nuits, accès depuis Ailafushi) et se faire chiffrer les dates <b>avant la vente flash du 23 juillet</b>.</li>
+        <li>❌ <b>Annuler l'Îlot Maître</b> une fois Lobigili confirmé (remboursable jusqu'au 21 avril 2027 — poser un rappel au 1<sup>er</sup> avril par sécurité).</li>
+      </ul>
+    </div>
+    <div class="tlitem">
+      <div class="tldate">⚠️ Verrouillage principal — oct-nov 2026</div>
+      <ul>
+        <li><b>Vols long-courriers</b> (Qatar / Singapore) — comparer en direct avant achat.</li>
+        <li><b>🛫 Depuis Bordeaux</b> — d'abord tester <b>origine = Bordeaux sur un seul billet</b> (le tronçon BOD-CDG en correspondance est souvent bien moins cher qu'acheté seul, <b>et protégé</b>). Sinon TGVair (rail &amp; fly) ou billets séparés <b>avec une nuit à Paris la veille à l'aller</b> (jamais une correspondance serrée same-day).</li>
+        <li><b>Bloc ② Christchurch → Malé</b> — vérifier que le départ est bien <b>le soir</b> (20h10) et non le matin : plusieurs vols partent à 10h10, incompatibles avec la messe de 11 h.</li>
+        <li><b>Permis international (PCI)</b> — lancer la demande ANTS (délai long, plusieurs semaines à 2-3 mois).</li>
+        <li><b>Assurance</b> — <b>rien à acheter</b> : la Visa Premier couvre médical, rapatriement et 5 000 € d'annulation <b>par assuré</b> (soit 10 000 € à deux). Condition : régler les gros postes avec cette carte.</li>
+        <li><b>Lodges premium</b> (Hapuku / Matakauri) — ~6-12 mois avant, en direct.</li>
+        <li>✅ <b>Destination finale tranchée</b> — Maldives retenues plutôt que la Nouvelle-Calédonie (Île des Pins inaccessible, compagnie en redressement judiciaire, référendum sans calendrier).</li>
+      </ul>
+    </div>
+    <div class="tlitem">
+      <div class="tldate">6-9 mois avant — automne 2026</div>
+      <ul>
+        <li><b>Van</b> Île du Nord (Auckland → Wellington) — Maui / Britz / Jucy.</li>
+        <li><b>Voiture</b> Île du Sud (reprise à Picton).</li>
+        <li><b>Bloc ③ Malé → retour</b> — trancher entre Singapore vers Paris (modifiable, départ net) et Turkish vers Bordeaux (dernière journée pleine).</li>
+        <li><b>NZeTA + IVL</b> (NZ$117/pers) — via l'<b>application</b>, moins chère que le site.</li>
+      </ul>
+    </div>
+    <div class="tlitem">
+      <div class="tldate">3-6 mois avant — hiver 2026-2027</div>
+      <ul>
+        <li><b>Hobbiton</b> — dès l'ouverture des résas 2027, session du matin.</li>
+        <li><b>Ferry Wellington-Picton</b> (2 passagers).</li>
+        <li><b>Croisière Milford</b> — après les groupes du matin.</li>
+        <li><b>Observatoire Tekapo / Mount Cook</b> (ciel étoilé).</li>
+        <li>Soirée māori + hangi (Te Puia), whale watching Kaikōura.</li>
+        <li><b>Messes — horaires (à reconfirmer : fssp.nz, sspx.nz, diocèses)</b> :
+          <ul>
+            <li><b>Mer. 7 avr. · 7h</b> — FSSP St Anne's, Te Atatu South (Auckland) <span style="color:var(--muted)">· en semaine, option jet lag</span></li>
+            <li><b>Dim. 11 avr. · 9h</b> — FSSPX Prieuré St Anthony, Whanganui <span style="color:var(--muted)">· grand-messe chantée</span></li>
+            <li><b>Dim. 18 avr. · 9h</b> — FSSP St Joseph's Chapel, Rattray St, Dunedin <span style="color:var(--muted)">· latin</span></li>
+            <li><b>Dim. 25 avr. · ~11h</b> — FSSP St Patrick's, Kaiapoi (Christchurch) <span style="color:var(--muted)">· avant le vol</span></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="tlitem">
+      <div class="tldate">1-2 mois avant — fév-mars 2027</div>
+      <ul>
+        <li><b>Passeports</b> — valables jusqu'au <b>2 novembre 2027</b> au moins (6 mois après le retour).</li>
+        <li><b>Carte bancaire sans frais</b> (Revolut / Wise) + prévenir la banque.</li>
+        <li><b>Déclarations gratuites</b> — <b>NZTD</b> (24 h avant la NZ) et <b>IMUGA</b> (96 h avant chaque vol maldivien, aller <i>et</i> retour). Attention aux sites qui les facturent : ce sont des arnaques.</li>
+        <li>Reconfirmer <b>NZeTA/IVL</b> et toutes les réservations (au bon nom).</li>
+        <li><b>🗳️ Procuration présidentielle</b> — vous serez en voyage les 18 avril &amp; 2 mai 2027 : établir la procuration de vote (<b>maprocuration.gouv.fr</b>) avant le départ.</li>
+      </ul>
+    </div>
+    <div class="tlitem">
+      <div class="tldate">Juste avant / à l'arrivée</div>
+      <ul>
+        <li><b>Carte sans frais de change</b> (Revolut) pour les dépenses sur place — les Maldives facturent en dollars.</li>
+        <li><b>Attestations</b> (carte bancaire, confirmations de réservation) papier + hors-ligne.</li>
+        <li><b>Trousse</b> : anti-nausée (bateaux), DEET 30 % (sandflies + dengue), adaptateur type I, masque/tuba.</li>
+        <li><b>Permis français + PCI</b> ensemble dans la voiture.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="aretenir" style="background:var(--sand)"><div class="wrap">
+  <h2><span class="ic">✅</span> À trancher ensemble</h2>
+  <ul style="font-size:15px;line-height:1.9">
+    <li><b>Nuits :</b> confirmer <b>19 nuits NZ</b> (2 nuits Christchurch) contre le billet — départ dim. 25 avril (vol Aircalin du dimanche).</li>
+    <li><b>Folie (optionnelle) :</b> base milieu de gamme retenue partout ; si on s'offre une nuit folie, une seule — Hapuku <b>ou</b> Matakauri, pas les deux.</li>
+    <li><b>Van :</b> hôtel à Wellington OU van gardé jusqu'au ferry (holiday park Lower Hutt).</li>
+    <li><b>Vols :</b> combo via Brisbane (+ETA) vs dissocié via Auckland ; comparer un billet modifiable.</li>
+    <li><b>Lobigili :</b> écrire au resort (règle des 11h au départ, seuils sur 5 nuits, accès depuis Ailafushi) et faire chiffrer les dates avant la vente flash du 23 juillet.</li>
+    <li><b>Messe d'arrivée :</b> caler ou non la messe latine FSSP en semaine le mer. 7 avril 7h (St Anne's, Auckland) selon le jet lag — la messe du dim. 11 (FSSPX Whanganui) est déjà intégrée. <span style="color:var(--muted)">(voir section Messes)</span></li>
+  </ul>
+</div></section>
+
+<footer><div class="wrap">Guide de travail — voyage de noces NZ &amp; NC · avril 2027 · document itératif · photos chargées depuis Wikimedia Commons · prix indicatifs à confirmer</div></footer>
+
+<script>
+/* ---------- DATA ---------- */
+var FP = 'https://commons.wikimedia.org/wiki/Special:FilePath/';
+function img(f){return FP+encodeURIComponent(f)+'?width=900';}
+
+var nord = [
+ {nn:'N1',date:'mar. 6 avril',pl:'Auckland — arrivée',emoji:'⛵',grad:['#2f6d8c','#1f4d6a'],photo:'Auckland Skyline at night.jpg',
+  route:'Vol arrivée 19h35 · hôtel',
+  visit:['Rien au programme : encaisser le jet lag après ~30h de trajet.','Bonne nuit d\'hôtel, van récupéré le lendemain.'],
+  stay:'<b>Hôtel Auckland</b> <span class="tag std">standard</span> · <span class="price">~120-160 €</span>'},
+ {nn:'N2',date:'mer. 7 avril',pl:'Auckland',emoji:'🌆',grad:['#3a7d9c','#245776'],photo:'Auckland skyline from Viaduct Harbour.jpg',
+  mass:'<b>FSSP</b> (latin) · St Anne\'s Chapel, Te Atatu South — <b>en semaine 7h</b> <span style="color:var(--muted)">(option mer. 7, selon le jet lag)</span>',
+  route:'Journée douce · récupération',
+  visit:['Waterfront &amp; Viaduct Harbour (les voiliers, « City of Sails »).','Mont Eden : cratère éteint, vue à 360° sur la ville et ses baies.','Éventuellement Sky Tower ou musée d\'Auckland (Domain).'],
+  stay:'<b>Hôtel Auckland</b> (2ᵉ nuit) <span class="tag std">standard</span> · <span class="price">~120-160 €</span>'},
+ {nn:'N3',date:'jeu. 8 avril',pl:'Hobbiton → Rotorua',emoji:'🧙',grad:['#3f7d3a','#255a20'],photo:'Hobbiton Movie Set, Matamata.jpg',lotr:'La Comté / Hobbiton',
+  route:'Auckland → Matamata ~160 km / 2h15 · Hobbiton · → Rotorua ~65 km / 1h',
+  visit:['<b>Hobbiton</b> — visite guidée 2h des 44 trous de hobbit, Bag End, l\'Arbre de la Fête ; bière/cidre au <b>Green Dragon</b>. Réserver la <b>session du matin</b>.','Route vers Rotorua à travers les collines du Waikato.'],
+  stay:'<b>Rotorua</b> — holiday park thermal (van) <span class="tag std">standard</span> · <span class="price">~50-90 €</span>'},
+ {nn:'N4',date:'ven. 9 avril',pl:'Rotorua',emoji:'♨️',grad:['#c07a2a','#8a4d18'],photo:'Champagne Pool, Wai O Tapu Thermal Wonderland.jpg',
+  route:'Journée géothermie &amp; culture māori',
+  visit:['<b>Te Puia</b> : geyser Pohutu (jusqu\'à 30 m), bassins de boue, centre d\'art māori.','Soirée culturelle māori + <b>hangi</b> (repas cuit sous terre).','Détente au <b>Polynesian Spa</b> en fin de journée (bains chauds face au lac).','Option : Wai-O-Tapu (Champagne Pool) le lendemain matin en partant.'],
+  stay:'<b>Rotorua</b> (2ᵉ nuit) <span class="tag std">standard</span> · <span class="price">~50-90 €</span>'},
+ {nn:'N5',date:'sam. 10 avril',pl:'Tongariro',emoji:'🌋',grad:['#a23f2a','#6e2818'],photo:'Tongariro Emerald And Blue Lakes Panorama (52344397945).jpg',lotr:'Mordor · Mont Destin (Ngauruhoe)',
+  route:'Rotorua → National Park ~180 km / 2h30 via Wai-O-Tapu, Huka Falls &amp; lac Taupo',
+  visit:['<b>Wai-O-Tapu</b> : geyser à 10h30, Champagne Pool, terrasses colorées.','<b>Huka Falls</b> &amp; lac Taupo (plus grand lac du pays, caldeira).','Arrivée au <b>Tongariro National Park</b> ; le <b>Mont Ngauruhoe</b> = le Mont Destin, vues sur les 3 volcans.','<b>Marche de Taranaki Falls</b> (2h, accessible) en fin d\'après-midi selon l\'heure et la météo. <b>⚠️ On évite l\'Alpine Crossing en avril</b> (neige).'],
+  stay:'<b>National Park / Whakapapa</b> — holiday park (van) <span class="tag std">standard</span> · <span class="price">~50-80 €</span>'},
+ {nn:'N6',date:'dim. 11 avril',pl:'Whanganui — messe',emoji:'⛪',grad:['#3f6d5a','#244a3a'],photo:'Whanganui River.jpg',
+  mass:'<b>FSSPX</b> (latin) · Prieuré St Anthony, Whanganui — <b>dim. 9h</b>, grand-messe chantée',
+  route:'National Park → Whanganui ~125 km / 1h45 (SH4)',
+  visit:['<b>Messe latine FSSPX</b> — Prieuré St Anthony, <b>dim. 9h</b> (grand-messe chantée ; siège de la FSSPX en Nouvelle-Zélande).','Après-midi à <b>Whanganui</b> : le fleuve (le plus long navigable du pays), l\'<b>ascenseur de Durie Hill</b>, la Sarjeant Gallery, le quartier victorien.','Ville-étape qui coupe en deux la longue liaison vers Wellington.'],
+  stay:'<b>Whanganui</b> — holiday park (van) <span class="tag std">standard</span> · <span class="price">~50-80 €</span>'},
+ {nn:'N7',date:'lun. 12 avril',pl:'Wellington',emoji:'🏹',grad:['#2e6b7d','#1c4756'],photo:'Wellington, New Zealand.JPG',lotr:'Fondcombe / Kaitoke',
+  route:'Whanganui → Wellington ~195 km / 2h40 via Kaitoke Regional Park',
+  visit:['<b>Kaitoke Regional Park</b> = <b>Fondcombe (Rivendell)</b> : ~20-30 min de marche depuis l\'entrée.','Arrivée à Wellington l\'après-midi. On <b>rend le van</b> (ferry en passager).','Balade sur le waterfront, quartier Cuba Street.'],
+  stay:'<b>Hôtel Wellington centre</b> <span class="tag std">standard</span> · <span class="price">~130-180 €</span>'},
+ {nn:'N8',date:'mar. 13 avril',pl:'Wellington — Weta',emoji:'🎬',grad:['#345a72','#20384a'],photo:'Te Papa (National Museum), Wellington.jpg',lotr:'Weta Workshop',
+  route:'Journée ville · cinéma &amp; culture',
+  visit:['<b>Weta Workshop</b> : ateliers accessoires / effets spéciaux des films.','<b>Te Papa</b> : musée national (gratuit, ferme 18h).','Téléphérique de Kelburn + jardin botanique ; <b>Embassy Theatre</b> (première du Hobbit).'],
+  stay:'<b>Hôtel Wellington</b> (2ᵉ nuit) <span class="tag std">standard</span> · <span class="price">~130-180 €</span>'}
+];
+
+var sud = [
+ {nn:'N9',date:'mer. 14 avril',pl:'Kaikōura',emoji:'🐋',grad:['#2f7d8c','#1c5260'],photo:'Kaikoura Panorama.jpg',
+  route:'Ferry (~3h30) + Picton → Kaikōura ~155 km / 2h10',
+  visit:['Route côtière spectaculaire (montagnes plongeant dans l\'océan).','Colonie de <b>phoques à fourrure</b> à Point Kean.','Installation au lodge, coucher de soleil sur la péninsule.'],
+  stay:'<b>Kaikōura</b> — lodge/hôtel milieu de gamme <span class="tag std">standard</span> · <span class="price">~200-300 €</span><br><span style="color:var(--muted)">Option folie (1 nuit) : Hapuku Lodge &amp; Tree Houses <span class="tag sp">splurge</span> ~1 195 €</span>'},
+ {nn:'N10',date:'jeu. 15 avril',pl:'Kaikōura',emoji:'🌊',grad:['#276b78','#164450'],photo:'Dusky dolphins, Kaikoura.jpg',
+  route:'Journée mer',
+  visit:['<b>Whale watching</b> : cachalots toute l\'année (sortie en bateau).','Possible nage avec les <b>dauphins d\'Hector</b> ; albatros.','Marche de la péninsule (2-3h) ; crayfish (langouste) local.'],
+  stay:'<b>Kaikōura</b> (2ᵉ nuit) — milieu de gamme conseillé <span class="tag std">standard</span> · <span class="price">~200-300 €</span>'},
+ {nn:'N11',date:'ven. 16 avril',pl:'Ōamaru / Moeraki',emoji:'🪨',grad:['#2f6d8c','#1c4256'],photo:'Moeraki Boulders.jpg',
+  route:'Kaikōura → côte est ~430 km / ~5h (via Christchurch) — grosse journée, on coupe la longue liaison',
+  visit:['<b>Moeraki Boulders</b> : rochers sphériques géants sur la plage, surréalistes à marée basse / au lever du soleil.','<b>Ōamaru</b> : quartier victorien &amp; steampunk ; <b>colonie de manchots bleus</b> qui rentrent au crépuscule.'],
+  stay:'<b>Ōamaru</b> — hôtel/motel <span class="tag std">standard</span> · <span class="price">~120-160 €</span>'},
+ {nn:'N12',date:'sam. 17 avril',pl:'Dunedin',emoji:'🏛️',grad:['#3a6f8c','#20415f'],photo:'Dunedin from Little Paisley.jpg',
+  route:'Ōamaru → Dunedin ~1h20',
+  visit:['<b>Dunedin</b> (« l\'Édimbourg du Sud ») : la <b>gare édouardienne</b> (bâtiment le plus photographié du pays), l\'âme écossaise, Baldwin Street.','<b>Larnach Castle</b> — le seul château de NZ, bâti par amour, jardins primés (thé / dîner possible).'],
+  stay:'<b>Dunedin</b> — hôtel de charme <span class="tag std">standard</span> · <span class="price">~130-170 €</span>'},
+ {nn:'N13',date:'dim. 18 avril',pl:'Péninsule d\'Otago',emoji:'🐧',grad:['#2f6f9c','#1c4468'],photo:'Taiaroa Head, Otago Peninsula, South Island2.jpg',
+  mass:'<b>FSSP</b> (latin) · St Joseph\'s Chapel, Rattray St, Dunedin — <b>dim. 9h</b>',
+  route:'Messe FSSP 9h, puis journée péninsule d\'Otago',
+  visit:['<b>Taiaroa Head</b> : seule colonie continentale d\'<b>albatros royaux</b> au monde (3 m d\'envergure).','Plages sauvages (<b>Sandfly Bay</b>) : <b>manchots aux yeux jaunes</b>, otaries, lions de mer, manchots bleus au crépuscule.','Le coin le plus « lune de miel » du Sud : sauvage, intime, hors des foules.'],
+  stay:'<b>Dunedin</b> (2ᵉ nuit) <span class="tag std">standard</span> · <span class="price">~130-170 €</span>'},
+ {nn:'N14',date:'lun. 19 avril',pl:'Te Anau',emoji:'🚤',grad:['#2f6d8c','#1c4256'],photo:'Lake Te Anau.jpg',
+  route:'Dunedin → Te Anau ~290 km / 3h40',
+  visit:['Porte du <b>Fiordland</b>, au bord de son lac.','Soirée calme ; <b>dernière station essence</b> avant Milford ici.','Option : grottes de vers luisants (Te Anau Glowworm Caves).'],
+  stay:'<b>Te Anau</b> — hôtel/lodge vue lac <span class="tag std">standard</span> · <span class="price">~120-180 €</span>'},
+ {nn:'N15',date:'mar. 20 avril',pl:'Milford Sound',emoji:'🌊',grad:['#1f5a5a','#123838'],photo:'Milford Sound (New Zealand).JPG',
+  route:'Te Anau ↔ Milford ~120 km / 2h chaque sens · croisière',
+  visit:['Une des plus belles routes du pays (Homer Tunnel — garder de la marge, fermetures possibles).','<b>Croisière</b> dans le fjord : Mitre Peak, cascades, phoques, dauphins. On part <b>après les groupes du matin</b>.','Arrêts photo : Mirror Lakes, The Chasm.'],
+  stay:'<b>Te Anau</b> (2ᵉ nuit) <span class="tag std">standard</span> · <span class="price">~120-180 €</span>'},
+ {nn:'N16',date:'mer. 21 avril',pl:'Queenstown',emoji:'🏔️',grad:['#2f6d9c','#1c4266'],photo:'Queenstown and Lake Wakatipu.JPG',
+  route:'Te Anau → Queenstown ~170 km / 2h · via Arrowtown',
+  visit:['<b>Arrowtown</b> : village de chercheurs d\'or, rivière Arrow (scènes LOTR).','Queenstown : téléphérique de <b>Bob\'s Peak</b> au coucher du soleil ; dîner face au lac Wakatipu.'],
+  stay:'<b>Queenstown</b> — boutique-hôtel vue lac <span class="tag std">standard</span> · <span class="price">~200-350 €</span><br><span style="color:var(--muted)">Option folie : Matakauri Lodge <span class="tag sp">splurge</span> ~700-1 000 €</span>'},
+ {nn:'N17',date:'jeu. 22 avril',pl:'Glenorchy &amp; Paradise',emoji:'🌲',grad:['#3f7d3a','#245a20'],photo:'Glenorchy at the Head of Lake Wakatipu.jpg',lotr:'Isengard / Lothlórien',
+  route:'Queenstown ↔ Glenorchy ~45 km / 45 min · journée',
+  visit:['La route du lac Wakatipu jusqu\'à <b>Glenorchy</b> : parmi les plus belles du pays.','<b>Paradise</b> : forêts de hêtres = Lothlórien &amp; Isengard ; balades tranquilles, possible kayak.'],
+  stay:'<b>Queenstown</b> (2ᵉ nuit) <span class="tag std">standard</span> · <span class="price">~200-350 €</span>'},
+ {nn:'N18',date:'ven. 23 avril',pl:'Aoraki / Mount Cook',emoji:'🏔️',grad:['#3a6f9c','#20415f'],photo:'Lake Pukaki and Mt Cook. NZ (49779072228).jpg',
+  route:'Queenstown → Mount Cook ~260 km / 3h20 via Lindis &amp; lac Pūkaki',
+  visit:['Route superbe le long du lac <b>Pūkaki</b>, Mont Cook (3 724 m) en fond.','<b>Hooker Valley Track</b> (2h, accessible) ; option <b>vol panoramique glacier Tasman</b> = notre « wow glacier ».','En soirée : <b>ciel étoilé</b> (Dark Sky Reserve). <span class="todo">1 seule nuit — moins de marge météo pour le vol glacier.</span>'],
+  stay:'<b>Mount Cook</b> — The Hermitage (emblématique) <span class="tag std">standard</span> · <span class="price">~200-320 €</span>'},
+ {nn:'N19',date:'sam. 24 avril',pl:'Lac Tekapo → Christchurch',emoji:'⛪',grad:['#2f8c9c','#1c5a66'],photo:'Church of the Good Shepherd, Lake Tekapo, New Zealand.jpg',
+  mass:'<b>FSSP</b> (latin) · St Patrick\'s, Kaiapoi — <b>dim. 25 avril, ~11h</b>, juste avant le vol <span style="color:var(--muted)">(~25 min au nord)</span>',
+  route:'Mount Cook → Tekapo ~105 km / 1h20 → Christchurch ~225 km / 3h',
+  visit:['<b>Lac Tekapo</b> : eau turquoise, <b>Church of the Good Shepherd</b>, ciel Dark Sky.','Route vers Christchurch ; nuit sur place. <b>Dim. 25</b> : messe latine à Kaiapoi puis envol vers Nouméa.'],
+  stay:'<b>Christchurch</b> — hôtel <span class="tag std">standard</span> · <span class="price">~120-160 €</span>'}
+];
+
+var PILOTIS='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Thulhagiri_Bungalows_Row.JPG/1280px-Thulhagiri_Bungalows_Row.JPG';
+var LAGON='https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-09.jpg/1280px-Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-09.jpg';
+var VILLA='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Water_bungalow_Maledives_%2829338793372%29.jpg/960px-Water_bungalow_Maledives_%2829338793372%29.jpg';
+
+var nc = [
+ {nn:'M1',date:'lun. 26 avril',pl:'Arrivée à Lobigili',emoji:'🐠',grad:['#0a4f5e','#0d8ba1'],photo:PILOTIS,plan:'md1',
+  route:'Atterrissage Malé <b>11h50</b> · speedboat 15 min <b>inclus</b> · villa vers 13h',
+  visit:['Arrivée en plein jour — pas de risque d\'hydravion cloué au sol, contrairement aux resorts éloignés.','Installation dans la <b>SunNest Water Pool Villa</b> : 75 m², piscine privée de 8 m², plancher de verre.','Premier bain, puis coucher de soleil depuis la terrasse — la villa est côté couchant.'],
+  stay:'<b>OBLU SELECT Lobigili</b> — SunNest Water Pool Villa · <span class="price">~4 560 € les 5 nuits, tout compris</span>'},
+ {nn:'M2',date:'mar. 27 avril',pl:'Le récif',emoji:'🤿',grad:['#0d8ba1','#25c5c0'],photo:LAGON,plan:'md2',
+  route:'Journée lagon · récif maison sur la <b>rive est</b> (3 min à pied)',
+  visit:['<b>Snorkeling guidé inclus</b> — une sortie par personne, à réserver dès l\'arrivée.','Le récif maison est à quelques brasses du bord : raies, tortues, poissons de récif.','Paddle et kayak compris ; salle de sport sur pilotis si l\'envie prend.'],
+  stay:'<b>Lobigili</b> (2ᵉ nuit)'},
+ {nn:'M3',date:'mer. 28 avril',pl:'Only BLU',emoji:'🍽️',grad:['#0d8ba1','#25c5c0'],photo:VILLA,plan:'md3',
+  route:'Journée libre · dîner sous l\'océan',
+  visit:['<b>Only BLU</b> — le plus grand restaurant sous-marin des Maldives, <b>inclus</b> dans le Lobi Plan. <b>À réserver à l\'avance</b>, les places sont limitées.','Journée farniente : piscine privée, plage, lecture.','Soin de <b>45 min au spa ELE|NA, offert</b> — à caler dans la semaine.'],
+  stay:'<b>Lobigili</b> (3ᵉ nuit)'},
+ {nn:'M4',date:'jeu. 29 avril',pl:'Pêche &amp; Ailafushi',emoji:'🎣',grad:['#0d8ba1','#25c5c0'],photo:LAGON,plan:'md4',
+  route:'Passerelle de 270 m vers l\'île voisine · pêche au coucher du soleil',
+  visit:['<b>Pêche au coucher du soleil incluse</b> — une sortie par personne, la plus belle façon de finir une journée ici.','Traversée à pied vers <b>Ailafushi</b> : ses restaurants sont compris dans votre pension. <span style="color:var(--muted)">C\'est l\'île familiale du groupe — l\'ambiance y est plus animée.</span>','Court de tennis, ou simplement rien.'],
+  stay:'<b>Lobigili</b> (4ᵉ nuit)'},
+ {nn:'M5',date:'ven. 30 avril',pl:'Dernière journée',emoji:'🌅',grad:['#25c5c0','#0a4f5e'],photo:PILOTIS,plan:'md5',
+  route:'Journée pleine · <b>check-out sam. 1ᵉʳ mai</b>',
+  visit:['Dernier bain depuis l\'échelle de la villa — la baignade s\'arrête au coucher du soleil.','Dîner à Gaadiya 17, sur la plage, si ce n\'est pas encore fait.','Préparer les valises : le vol part le lendemain à 13h05.'],
+  stay:'<b>Lobigili</b> (5ᵉ nuit) · check-out le 1ᵉʳ mai · <span class="todo">annulable jusqu\'au 12 avril 2027</span>'}
+];
+
+/* ---------- RENDER ---------- */
+function card(s){
+  var g='linear-gradient(135deg,'+s.grad[0]+','+s.grad[1]+')';
+  var vis=s.visit.map(function(v){return '<li>'+v+'</li>';}).join('');
+  var lotr=s.lotr?'<div class="lotr">🎯 Temps fort LOTR — '+s.lotr+'</div>':'';
+  var mass=s.mass?'<div class="mass">⛪ <b>Messe</b> — '+s.mass+'</div>':'';
+  var plan=s.plan?'<h4 style="margin-top:14px">📝 Vos activités du jour</h4><textarea class="dayin" data-k="'+s.plan+'" rows="3" placeholder="À compléter — sauvegardé dans votre navigateur…"></textarea>':'';
+  var ph=s.photo?'<img class="ph" src="'+img(s.photo)+'" alt="'+s.pl+'" loading="lazy" onerror="this.remove()">':'';
+  return '<div class="stop">'+
+    '<div class="banner" style="background:'+g+'">'+ph+
+      '<div class="ov"></div>'+
+      '<div class="btxt"><span class="nn">'+s.nn+' · '+s.date+'</span><div class="pl">'+s.pl+'</div></div>'+
+    '</div>'+
+    '<div class="body"><div class="route">🚗 '+s.route+'</div>'+mass+
+      '<h4>À voir / à faire</h4><ul>'+vis+'</ul>'+lotr+
+      '<div class="stay">🛏️ '+s.stay+'</div>'+plan+
+    '</div></div>';
+}
+function seg(label,color){return '<div class="seg"><span class="bar" style="background:'+color+'"></span>'+label+'</div>';}
+
+document.getElementById('nord-list').innerHTML =
+  seg('Arrivée &amp; récupération','#b06a3c')+card(nord[0])+card(nord[1])+
+  seg('Terre du Milieu &amp; géothermie','#b06a3c')+card(nord[2])+card(nord[3])+card(nord[4])+card(nord[5])+
+  seg('Wellington','#b06a3c')+card(nord[6])+card(nord[7]);
+
+document.getElementById('sud-list').innerHTML =
+  seg('Kaikōura','#2f7d8c')+card(sud[0])+card(sud[1])+
+  seg('Côte est &amp; Otago','#2f7d8c')+card(sud[2])+card(sud[3])+card(sud[4])+
+  seg('Fiordland','#2f7d8c')+card(sud[5])+card(sud[6])+
+  seg('Queenstown &amp; retour','#2f7d8c')+card(sud[7])+card(sud[8])+card(sud[9])+
+  seg('Christchurch &amp; départ','#2f7d8c')+card(sud[10]);
+
+document.getElementById('nc-list').innerHTML = nc.map(card).join('');
+(function(){
+  document.querySelectorAll('#nc-list .dayin').forEach(function(t){
+    var k='ncplan_'+t.dataset.k;
+    try{var s=localStorage.getItem(k);if(s!==null)t.value=s;}catch(e){}
+    t.addEventListener('input',function(){try{localStorage.setItem(k,t.value);}catch(e){}});
+  });
+})();
+
+/* ---------- MAP ---------- */
+var map = L.map('map', {scrollWheelZoom:true}).setView([-41.5,172.5], 5);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+var NORTH='#b06a3c',SOUTH='#2f7d8c',FERRY='#2f7d8c',GOLD='#b8862f';
+var stops=[
+ [-36.848,174.763,'N1-2 · Auckland',NORTH,false],
+ [-37.809,175.746,'N3 · Hobbiton',GOLD,true],
+ [-38.137,176.249,'N3-4 · Rotorua',NORTH,false],
+ [-39.198,175.545,'N5 · Tongariro (Mordor)',GOLD,true],
+ [-39.930,175.050,'N6 · Whanganui (messe FSSPX)',NORTH,false],
+ [-41.286,174.776,'N7-8 · Wellington (Kaitoke + Weta)',GOLD,true],
+ [-41.290,174.001,'Ferry · Picton',FERRY,false],
+ [-42.400,173.680,'N9-10 · Kaikōura',SOUTH,false],
+ [-45.345,170.826,'N11 · Moeraki / Ōamaru',SOUTH,false],
+ [-45.874,170.504,'N12-13 · Dunedin',SOUTH,false],
+ [-45.770,170.730,'N13 · Péninsule d\'Otago (albatros)',GOLD,true],
+ [-45.414,167.717,'N14-15 · Te Anau',SOUTH,false],
+ [-44.671,167.926,'N15 · Milford Sound',SOUTH,false],
+ [-45.031,168.662,'N16-17 · Queenstown',SOUTH,false],
+ [-44.847,168.383,'N17 · Glenorchy (Isengard)',GOLD,true],
+ [-43.735,170.097,'N18 · Mount Cook',SOUTH,false],
+ [-44.006,170.477,'Arrêt · Lac Tekapo',SOUTH,false],
+ [-43.531,172.637,'N19 · Christchurch',SOUTH,false]
+];
+stops.forEach(function(s){
+  L.circleMarker([s[0],s[1]],{radius:s[4]?9:7,color:'#fff',weight:2,fillColor:s[3],fillOpacity:1})
+   .addTo(map).bindPopup('<b>'+s[2]+'</b>').bindTooltip(s[2],{direction:'top',offset:[0,-6]});
+});
+L.polyline([[-36.848,174.763],[-37.809,175.746],[-38.137,176.249],[-39.198,175.545],[-39.930,175.050],[-41.286,174.776]],{color:NORTH,weight:4,opacity:.85}).addTo(map);
+L.polyline([[-41.286,174.776],[-41.290,174.001]],{color:FERRY,weight:3,opacity:.8,dashArray:'8,8'}).addTo(map);
+L.polyline([[-41.290,174.001],[-42.400,173.680],[-45.345,170.826],[-45.874,170.504],[-45.414,167.717],[-44.671,167.926],[-45.414,167.717],[-45.031,168.662],[-44.847,168.383],[-45.031,168.662],[-43.735,170.097],[-44.006,170.477],[-43.531,172.637]],{color:SOUTH,weight:4,opacity:.85}).addTo(map);
+map.fitBounds(L.latLngBounds(stops.map(function(s){return [s[0],s[1]];})).pad(0.12));
+</script>
+</body>
+</html>
