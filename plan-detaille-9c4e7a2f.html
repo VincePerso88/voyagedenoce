@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Plan détaillé — Nouvelle-Zélande &amp; Maldives</title>
+<link rel="preconnect" href="https://upload.wikimedia.org">
+<style>
+  :root{
+    --paper:#faf7f0; --surface:#ffffff; --sand:#f4efe4;
+    --ink:#22271f; --muted:#6b7264; --line:#e6e0d0;
+    --green:#1f4d3a; --green2:#2e6b50; --green-soft:#e9f0ea;
+    --gold:#b8862f; --gold-soft:#fbf3e2;
+    --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#15170F; --surface:#1D2018; --sand:#232619;
+      --ink:#EDEBDF; --muted:#9BA290; --line:#2F3327;
+      --green:#7FC3A2; --green2:#6FB894; --green-soft:#1B2A22;
+      --gold:#D9A94E; --gold-soft:#2B2314;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+  header.hero{background:linear-gradient(140deg,#173d2e,#245740 48%,#2f7d8c 120%);
+              color:#fff;padding:58px 22px 46px;text-align:center}
+  .hero .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+                opacity:.8;margin-bottom:14px}
+  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,5.6vw,46px);
+           line-height:1.1;margin:0 0 12px;letter-spacing:-.01em}
+  .hero p{margin:0 auto;max-width:52ch;opacity:.93;font-size:16.5px}
+
+  nav{position:sticky;top:0;z-index:20;background:var(--paper);
+      border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding-top:10px;padding-bottom:10px}
+  nav a{color:var(--green);text-decoration:none;font-size:13.5px;font-weight:600;
+        padding:6px 14px;border-radius:18px;border:1px solid var(--line);transition:.15s}
+  nav a:hover,nav a:focus-visible{background:var(--green);color:var(--paper);border-color:var(--green)}
+  nav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+  section{padding:46px 0}
+  section:nth-of-type(even){background:var(--sand)}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3.6vw,31px);
+     color:var(--green);margin:0 0 4px;letter-spacing:-.01em}
+  .lede{color:var(--muted);margin:0 0 22px;max-width:66ch;font-size:15.5px}
+  h3{font-size:14.5px;font-weight:700;margin:26px 0 10px}
+  p{margin:0;max-width:68ch}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;
+         background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .stat{background:var(--surface);padding:16px 18px}
+  .stat dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+           color:var(--muted);margin:0 0 5px}
+  .stat dd{margin:0;font-family:var(--serif);font-size:23px;line-height:1.15}
+
+  /* galerie */
+  .gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:0 0 24px}
+  .gal figure{margin:0;border-radius:10px;overflow:hidden;background:var(--surface);
+              border:1px solid var(--line);box-shadow:0 3px 14px rgba(0,0,0,.05)}
+  .gal img{width:100%;height:165px;object-fit:cover;display:block;background:var(--sand)}
+  .gal figcaption{padding:8px 12px;font-size:12.5px;color:var(--muted);line-height:1.4}
+  .gal.duo{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .gal.duo img{height:210px}
+
+  .tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:540px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:var(--green);color:var(--paper);font-size:12px;font-weight:600;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  .money{font-family:var(--mono);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .tot{background:var(--green-soft)}
+  .tot td{font-weight:700;border-top:2px solid var(--green)}
+  .d{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .pl{font-weight:650}
+  small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;font-weight:400}
+  tr.mess .pl{color:var(--green)}
+  tr.mess .pl::after{content:" · messe";font-family:var(--mono);font-size:10.5px;
+                     letter-spacing:.1em;text-transform:uppercase;font-weight:400}
+
+  .note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);
+        border-radius:8px;padding:14px 17px;font-size:14.5px;margin-top:18px}
+  .note.gold{border-left-color:var(--gold);background:var(--gold-soft)}
+  .note b{font-weight:650}
+
+  details{margin-top:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+  summary{cursor:pointer;padding:13px 17px;font-size:14px;font-weight:650;color:var(--green);
+          list-style:none;display:flex;align-items:center;gap:9px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+";font-family:var(--mono);font-size:16px;line-height:1;width:14px}
+  details[open] summary::before{content:"–"}
+  summary:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+  .dbody{padding:0 17px 17px;font-size:14.5px;display:flex;flex-direction:column;gap:12px}
+
+  .lev{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;
+       background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:16px}
+  .lev>div{background:var(--surface);padding:15px 17px}
+  .lev .a{font-family:var(--mono);font-size:18px;font-weight:600;margin-bottom:3px}
+  .lev .down{color:var(--green)}
+  .lev .up{color:var(--gold)}
+  .lev .l{font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:15px;max-width:68ch}
+  li::marker{color:var(--green)}
+
+  footer{background:var(--green);color:var(--paper);padding:26px 22px;text-align:center;font-size:13px}
+  @media (max-width:620px){
+    section{padding:36px 0}
+    header.hero{padding:44px 18px 36px}
+    .gal img{height:150px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">Document privé · juillet 2026</div>
+  <h1>Nouvelle-Zélande &amp; Maldives</h1>
+  <p>Vingt-quatre jours, du lendemain du mariage au dimanche du second tour.</p>
+</header>
+
+<nav><div class="wrap">
+  <a href="#bref">En bref</a>
+  <a href="#vols">Vols</a>
+  <a href="#nz">Nouvelle-Zélande</a>
+  <a href="#maldives">Maldives</a>
+  <a href="#budget">Budget</a>
+  <a href="#faire">À faire</a>
+</div></nav>
+
+<section id="bref"><div class="wrap">
+  <h2>En bref</h2>
+  <p class="lede">Dix-neuf nuits à traverser la Nouvelle-Zélande, cinq à ne rien faire au-dessus d'un lagon.</p>
+
+  <dl class="stats">
+    <div class="stat"><dt>Départ</dt><dd>dim. 4 avril</dd></div>
+    <div class="stat"><dt>Retour</dt><dd>dim. 2 mai</dd></div>
+    <div class="stat"><dt>Nuits</dt><dd>19 + 5</dd></div>
+    <div class="stat"><dt>Budget</dt><dd>≈ 19 330 €</dd></div>
+  </dl>
+
+  <div class="note">
+    <b>Le fil du voyage.</b> Départ de Toulouse au lendemain du brunch — pas de détour par Bordeaux, pas de nuit blanche. Île du Nord, traversée du détroit de Cook, Île du Sud par la côte est pour Otago. Trois dimanches, trois messes traditionnelles. Puis les Maldives, et un retour qui permet la messe et le vote du second tour.
+  </div>
+</div></section>
+
+<section id="vols"><div class="wrap">
+  <h2>Les vols</h2>
+  <p class="lede">Trois billets séparés plutôt qu'un multi-destinations : les blocs sont espacés de 19 et 6 jours, il n'y a rien à protéger entre eux — et le premier peut être réservé seul.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Trajet</th><th>Horaires</th><th class="money">2 pers.</th></tr></thead>
+    <tbody>
+      <tr><td class="pl">Toulouse → Auckland<small>Lufthansa + Air NZ · 28 h 30</small></td>
+          <td>dim. 4 avril 17h55<small>arrivée mar. 6 à 8h25</small></td><td class="money">2 511 €</td></tr>
+      <tr><td class="pl">Christchurch → Malé<small>Air NZ + Singapore · 22 h 40</small></td>
+          <td>dim. 25 avril 20h10<small>arrivée lun. 26 à 11h50</small></td><td class="money">1 090 €</td></tr>
+      <tr><td class="pl">Malé → Paris<small>Singapore · 21 h 40 · modifiable</small></td>
+          <td>sam. 1<sup>er</sup> mai 13h05<small>arrivée dim. 2 à 7h45</small></td><td class="money">1 702 €</td></tr>
+      <tr><td class="pl">TGV Paris → Bordeaux<small>+ consigne</small></td>
+          <td>dim. 2 mai, après-midi</td><td class="money">150 €</td></tr>
+      <tr class="tot"><td colspan="2">Total</td><td class="money">5 453 €</td></tr>
+    </tbody>
+  </table></div>
+
+  <details>
+    <summary>Pourquoi Toulouse, et le dimanche du retour</summary>
+    <div class="dbody">
+      <p>Le mariage est le samedi 3, le brunch le dimanche 4. Passer par Bordeaux imposerait 2 h 15 de route, le dernier TGV, une nuit d'hôtel à Roissy et un lever à 5 h 30 — au lendemain du mariage. En partant de Blagnac à 17 h 55, on quitte le brunch et on embarque.</p>
+      <p>Au retour : atterrissage à 7 h 45, consigne à Montparnasse, messe à Paris en fin de matinée, TGV l'après-midi, Bordeaux vers 16 h. Les bureaux ferment à 19 h — <b>le second tour se vote en personne</b>, sans procuration.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>L'alternative sur le vol retour</summary>
+    <div class="dbody">
+      <p>Un Turkish part de Malé le samedi à 22 h 20 et se pose <b>directement à Bordeaux</b> le dimanche à 10 h 10, pour 1 714 € — plus de TGV, plus de consigne, et la <b>dernière journée entière au resort</b>.</p>
+      <p>Mais il est non remboursable, vendu par un revendeur, et les privilèges de la pension s'arrêtent à 11 h le jour du départ : neuf heures de repas et boissons à la carte. Une fois ce trou chiffré, les deux options reviennent au même prix. <b>C'est la réponse du resort qui tranchera.</b></p>
+    </div>
+  </details>
+</div></section>
+
+<section id="nz"><div class="wrap">
+  <h2>Nouvelle-Zélande</h2>
+  <p class="lede">19 nuits, du 6 au 25 avril. Île du Nord puis Île du Sud, par la côte est.</p>
+
+  <div class="gal">
+    <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Hobbiton_Movie_Set%2C_Matamata.jpg/1280px-Hobbiton_Movie_Set%2C_Matamata.jpg" alt="Les trous de hobbits de Hobbiton, Matamata"><figcaption>Hobbiton — jeu. 8 avril</figcaption></figure>
+    <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Tongariro_Emerald_And_Blue_Lakes_Panorama_%2852344397945%29.jpg/1280px-Tongariro_Emerald_And_Blue_Lakes_Panorama_%2852344397945%29.jpg" alt="Lacs Émeraude du Tongariro"><figcaption>Tongariro — sam. 10 avril</figcaption></figure>
+    <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Taiaroa_Head%2C_Otago_Peninsula%2C_South_Island2.jpg/1280px-Taiaroa_Head%2C_Otago_Peninsula%2C_South_Island2.jpg" alt="Taiaroa Head, péninsule d'Otago"><figcaption>Otago — dim. 18 avril</figcaption></figure>
+    <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Milford_Sound_%28New_Zealand%29.JPG/1280px-Milford_Sound_%28New_Zealand%29.JPG" alt="Milford Sound et le Mitre Peak"><figcaption>Milford Sound — mar. 20 avril</figcaption></figure>
+    <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Lake_Pukaki_and_Mt_Cook._NZ_%2849779072228%29.jpg/1280px-Lake_Pukaki_and_Mt_Cook._NZ_%2849779072228%29.jpg" alt="Lac Pūkaki et Mont Cook"><figcaption>Mount Cook — ven. 23 avril</figcaption></figure>
+    <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Church_of_the_Good_Shepherd%2C_Lake_Tekapo%2C_New_Zealand.jpg/1280px-Church_of_the_Good_Shepherd%2C_Lake_Tekapo%2C_New_Zealand.jpg" alt="Church of the Good Shepherd, lac Tekapo"><figcaption>Lac Tekapo — sam. 24 avril</figcaption></figure>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Date</th><th>Étape</th><th>Au programme</th><th class="money">Jour</th></tr></thead>
+    <tbody>
+      <tr><td class="d">mar. 6</td><td class="pl">Auckland</td><td>Arrivée 8 h 25. Encaisser le décalage.</td><td class="money">215 €</td></tr>
+      <tr><td class="d">mer. 7</td><td class="pl">Auckland</td><td>Waterfront, Mont Eden</td><td class="money">245 €</td></tr>
+      <tr><td class="d">jeu. 8</td><td class="pl">Rotorua</td><td>Hobbiton le matin, puis route</td><td class="money">255 €</td></tr>
+      <tr><td class="d">ven. 9</td><td class="pl">Rotorua</td><td>Te Puia, soirée māori, Polynesian Spa</td><td class="money">395 €</td></tr>
+      <tr><td class="d">sam. 10</td><td class="pl">Tongariro</td><td>Wai-O-Tapu, Huka Falls, lac Taupo</td><td class="money">205 €</td></tr>
+      <tr class="mess"><td class="d">dim. 11</td><td class="pl">Whanganui</td><td>FSSPX, prieuré St Anthony — 9 h</td><td class="money">135 €</td></tr>
+      <tr><td class="d">lun. 12</td><td class="pl">Wellington</td><td>Kaitoke — Fondcombe</td><td class="money">225 €</td></tr>
+      <tr><td class="d">mar. 13</td><td class="pl">Wellington</td><td>Weta Workshop, Te Papa</td><td class="money">345 €</td></tr>
+      <tr><td class="d">mer. 14</td><td class="pl">Kaikōura</td><td>Ferry 3 h 30, phoques de Point Kean</td><td class="money">315 €</td></tr>
+      <tr><td class="d">jeu. 15</td><td class="pl">Kaikōura</td><td>Cachalots en mer</td><td class="money">565 €</td></tr>
+      <tr><td class="d">ven. 16</td><td class="pl">Ōamaru</td><td>430 km. Moeraki, manchots au crépuscule</td><td class="money">225 €</td></tr>
+      <tr><td class="d">sam. 17</td><td class="pl">Dunedin</td><td>Gare édouardienne, Larnach Castle</td><td class="money">285 €</td></tr>
+      <tr class="mess"><td class="d">dim. 18</td><td class="pl">Otago</td><td>FSSP, St Joseph's — 9 h · albatros de Taiaroa</td><td class="money">335 €</td></tr>
+      <tr><td class="d">lun. 19</td><td class="pl">Te Anau</td><td>Porte du Fiordland</td><td class="money">215 €</td></tr>
+      <tr><td class="d">mar. 20</td><td class="pl">Milford Sound</td><td>Croisière dans le fjord</td><td class="money">395 €</td></tr>
+      <tr><td class="d">mer. 21</td><td class="pl">Queenstown</td><td>Arrowtown, Bob's Peak au couchant</td><td class="money">430 €</td></tr>
+      <tr><td class="d">jeu. 22</td><td class="pl">Glenorchy</td><td>Paradise — Lothlórien et Isengard</td><td class="money">340 €</td></tr>
+      <tr><td class="d">ven. 23</td><td class="pl">Mount Cook</td><td>Hooker Valley, <b>vol glacier</b>, ciel Dark Sky</td><td class="money">925 €</td></tr>
+      <tr><td class="d">sam. 24</td><td class="pl">Christchurch</td><td>Lac Tekapo en chemin</td><td class="money">205 €</td></tr>
+      <tr class="mess"><td class="d">dim. 25</td><td class="pl">Kaiapoi</td><td>FSSP, St Patrick's — 11 h · puis envol 20 h 10</td><td class="money">80 €</td></tr>
+      <tr class="tot"><td colspan="3">Total séjour</td><td class="money">6 335 €</td></tr>
+    </tbody>
+  </table></div>
+
+  <details>
+    <summary>Ce que contient la colonne « jour »</summary>
+    <div class="dbody">
+      <p>Nuit + activités + repas, pour deux. Hors véhicules, carburant et ferry, regroupés dans le budget global.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Poste</th><th>Détail</th><th class="money">Total</th></tr></thead>
+        <tbody>
+          <tr><td class="pl">Hébergement</td><td>19 nuits, milieu de gamme</td><td class="money">3 070 €</td></tr>
+          <tr><td class="pl">Activités</td><td>Hobbiton, Te Puia, cachalots, Milford, albatros, vol glacier…</td><td class="money">1 950 €</td></tr>
+          <tr><td class="pl">Repas</td><td>20 jours, ~65 €/jour</td><td class="money">1 315 €</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Le guide se trompait de 500 €.</b> Son tableau d'hébergement annonçait 3 570 € alors que la somme de ses propres lignes fait 3 070 €. C'est le chiffre juste qui est repris ici.</p>
+    </div>
+  </details>
+</div></section>
+
+<section id="maldives"><div class="wrap">
+  <h2>Maldives — OBLU SELECT Lobigili</h2>
+  <p class="lede">5 nuits, du 26 avril au 1<sup>er</sup> mai. Île réservée aux adultes, 68 villas, quinze minutes de bateau depuis l'aéroport.</p>
+
+  <div class="gal duo">
+    <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Thulhagiri_Bungalows_Row.JPG/1280px-Thulhagiri_Bungalows_Row.JPG" alt="Rangée de villas sur pilotis aux Maldives"><figcaption>La rangée de pilotis — la villa est côté couchant, en bout de ponton</figcaption></figure>
+    <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-09.jpg/1280px-Diamonds_Thudufushi_Beach_and_Water_Villas%2C_May_2017_-09.jpg" alt="Lagon et villas sur l'eau aux Maldives"><figcaption>Le lagon — récif accessible à la nage depuis la rive est</figcaption></figure>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Poste</th><th>Détail</th><th class="money">2 pers.</th></tr></thead>
+    <tbody>
+      <tr><td class="pl">Villa</td><td>SunNest Water Pool — 75 m², piscine privée, plancher de verre, côté couchant<small>annulable jusqu'au 12 avril 2027</small></td><td class="money">4 560 €</td></tr>
+      <tr><td class="pl">Transfert</td><td>Speedboat, 15 min, aller-retour</td><td class="money">inclus</td></tr>
+      <tr><td class="pl">Pension</td><td>Tous les repas, boissons, minibar quotidien</td><td class="money">inclus</td></tr>
+      <tr><td class="pl">Extras</td><td>Plongée, spa au-delà du soin offert</td><td class="money">250 €</td></tr>
+      <tr class="tot"><td colspan="2">Total</td><td class="money">4 810 €</td></tr>
+    </tbody>
+  </table></div>
+
+  <details>
+    <summary>Ce que la pension comprend</summary>
+    <div class="dbody">
+      <ul>
+        <li>Les trois repas à Ylang-Ylang, <b>à la carte</b> — pas un buffet</li>
+        <li><b>Only BLU</b>, le plus grand restaurant sous-marin des Maldives, et <b>Gaadiya 17</b> sur la plage</li>
+        <li>Vins premium, dix cocktails signature, minibar réapprovisionné chaque jour</li>
+        <li><b>Une pêche au coucher du soleil</b> et <b>un snorkeling guidé</b> par personne</li>
+        <li>Tuba, paddle, kayak, salle de sport sur pilotis, tennis, musique live tous les soirs</li>
+        <li>Un soin de 45 minutes au spa</li>
+        <li>Passerelle de 270 m vers l'île voisine — <b>ses restaurants sont inclus</b></li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="note gold">
+    <b>Trois questions à poser avant de réserver.</b> ① La pension s'arrête-t-elle vraiment à 11 h le jour du départ, et un <i>late check-out</i> est-il possible ? ② Les seuils d'éligibilité (Only BLU, spa) sont-ils atteints sur <b>cinq nuits</b> ? ③ Les familles de l'île voisine peuvent-elles circuler sur Lobigili en journée ?
+  </div>
+</div></section>
+
+<section id="budget"><div class="wrap">
+  <h2>Budget</h2>
+  <p class="lede">Pour deux, porte à porte. Les vols et le resort sont des devis réels ; le reste est estimé.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Poste</th><th class="money">Montant</th></tr></thead>
+    <tbody>
+      <tr><td class="pl">Vols &amp; TGV<small>trois blocs + train au retour</small></td><td class="money">5 453 €</td></tr>
+      <tr><td class="pl">Nouvelle-Zélande<small>hébergement, activités, repas</small></td><td class="money">6 335 €</td></tr>
+      <tr><td class="pl">Maldives<small>tout compris, transfert inclus</small></td><td class="money">4 810 €</td></tr>
+      <tr><td class="pl">Van &amp; voiture<small>4-5 jours + 11 jours</small></td><td class="money">1 650 €</td></tr>
+      <tr><td class="pl">Ferry &amp; carburant</td><td class="money">560 €</td></tr>
+      <tr><td class="pl">Formalités &amp; divers<small>NZeTA, IVL, permis, SIM, imprévus</small></td><td class="money">520 €</td></tr>
+      <tr class="tot"><td>Total pour deux</td><td class="money">19 328 €</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Les leviers, dans les deux sens</h3>
+  <div class="lev">
+    <div><div class="a down">− 1 200 €</div><div class="l">Centara Ras Fushi au lieu de Lobigili</div></div>
+    <div><div class="a down">− 600 €</div><div class="l">Renoncer au vol glacier du Tasman</div></div>
+    <div><div class="a down">− 500 €</div><div class="l"><b>Voiture au lieu du van</b> sur l'Île du Nord</div></div>
+    <div><div class="a down">− 250 €</div><div class="l">Cabines plutôt qu'hôtels sur l'Île du Sud</div></div>
+    <div><div class="a up">+ 1 195 €</div><div class="l">Une nuit au Hapuku Lodge, à Kaikōura</div></div>
+    <div><div class="a up">+ 900 €</div><div class="l">Une nuit au Matakauri Lodge, à Queenstown</div></div>
+  </div>
+
+  <details>
+    <summary>Voiture plutôt que van : le calcul</summary>
+    <div class="dbody">
+      <div class="tw"><table>
+        <thead><tr><th>Île du Nord, 4 nuits</th><th class="money">Van</th><th class="money">Voiture</th></tr></thead>
+        <tbody>
+          <tr><td>Location<small>self-contained + aller simple pour le van</small></td><td class="money">950 €</td><td class="money">280 €</td></tr>
+          <tr><td>Hébergement<small>holiday park contre motel ou cabine</small></td><td class="money">280 €</td><td class="money">440 €</td></tr>
+          <tr class="tot"><td>Total</td><td class="money">1 230 €</td><td class="money">720 €</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>510 € d'écart</b> — et un vrai lit chauffé plutôt qu'un van. En avril les nuits sont fraîches sur le plateau volcanique, et les logements néo-zélandais chauffent peu. On perd la liberté du camping et les emplacements sauvages, on gagne le confort et la simplicité.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Assurance : rien à acheter</summary>
+    <div class="dbody">
+      <p>La Visa Premier couvre les frais médicaux à hauteur de 155 000 € par personne, le rapatriement et la responsabilité civile — automatiquement. L'annulation est de <b>5 000 € par assuré</b> : vous êtes deux assurés sur la même carte, soit 10 000 €, très au-dessus des ~3 600 € de vols non remboursables.</p>
+      <p>Condition : régler les gros postes <b>avec cette carte</b>. Les dépenses sur place se font sur la Revolut, au taux interbancaire.</p>
+    </div>
+  </details>
+</div></section>
+
+<section id="faire"><div class="wrap">
+  <h2>Ce qui reste à faire</h2>
+  <p class="lede">Dans l'ordre.</p>
+  <ul>
+    <li><b>Réserver Toulouse → Auckland.</b> Certain quelle que soit la suite, et c'est le billet le plus cher</li>
+    <li><b>Écrire au resort</b> — les trois questions décident entre les deux vols retour</li>
+    <li><b>Trancher le vol retour</b> : Singapore vers Paris, ou Turkish vers Bordeaux</li>
+    <li><b>Trancher van ou voiture</b> sur l'Île du Nord — 500 € et du confort en jeu</li>
+    <li>Poser une option sur <b>Lobigili</b>, et demander une villa <b>en bout de ponton</b>, côté couchant</li>
+    <li>Confirmer les horaires de messe à Whanganui, Dunedin et Kaiapoi — temps pascal</li>
+    <li>Permis international : délai long, à lancer tôt</li>
+    <li>Vérifier que la Visa Premier est valide au-delà du 2 mai 2027</li>
+  </ul>
+</div></section>
+
+<footer>
+  Document personnel · chiffres relevés en juillet 2026 pour un voyage en avril 2027 · devis à revalider avant réservation<br>photos Wikimedia Commons
+</footer>
+
+</body>
+</html>
