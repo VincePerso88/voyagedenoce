@@ -100,6 +100,33 @@
   summary:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
   .dbody{padding:0 17px 17px;font-size:14.5px;display:flex;flex-direction:column;gap:12px}
 
+  /* jours depliables */
+  .days{display:flex;flex-direction:column;gap:7px}
+  .days details{margin-top:0}
+  .days summary{align-items:baseline;gap:13px;padding:12px 16px;font-weight:400;color:var(--ink)}
+  .days summary::before{color:var(--green);flex:none}
+  .dd{font-family:var(--mono);font-size:12.5px;color:var(--muted);flex:none;width:60px}
+  .dp{font-weight:650;flex:1;min-width:0}
+  .dc{font-family:var(--mono);font-size:13.5px;color:var(--muted);flex:none;
+      font-variant-numeric:tabular-nums}
+  .days details[open] .dp{color:var(--green)}
+  .db{padding:2px 16px 16px 43px;display:flex;flex-direction:column;gap:11px;font-size:14.5px}
+  .db ul{padding-left:18px;gap:6px;font-size:14.5px}
+  .rt{font-size:12.5px;color:var(--green2);font-weight:650;letter-spacing:.01em}
+  .sl{background:var(--sand);border-radius:7px;padding:9px 12px;font-size:13.5px}
+  .ml{background:var(--green-soft);border-left:3px solid var(--green);
+      border-radius:0 7px 7px 0;padding:9px 12px;font-size:13.5px}
+  .days details.m summary .dp::after{content:" · messe";font-family:var(--mono);font-size:10.5px;
+      letter-spacing:.1em;text-transform:uppercase;font-weight:400;color:var(--green)}
+  .daytot{display:flex;align-items:baseline;gap:13px;padding:13px 16px;margin-top:2px;
+          background:var(--green-soft);border:1px solid var(--green);border-radius:10px;font-weight:700}
+  .daytot .dc{color:var(--ink);font-size:15px;font-weight:700}
+  @media (max-width:560px){
+    .dd{width:100%;order:-1}
+    .days summary{flex-wrap:wrap;row-gap:2px}
+    .db{padding-left:16px}
+  }
+
   .lev{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;
        background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:16px}
   .lev>div{background:var(--surface);padding:15px 17px}
@@ -201,32 +228,248 @@
     <figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Church_of_the_Good_Shepherd%2C_Lake_Tekapo%2C_New_Zealand.jpg/1280px-Church_of_the_Good_Shepherd%2C_Lake_Tekapo%2C_New_Zealand.jpg" alt="Church of the Good Shepherd, lac Tekapo"><figcaption>Lac Tekapo — sam. 24 avril</figcaption></figure>
   </div>
 
-  <div class="tw"><table>
-    <thead><tr><th>Date</th><th>Étape</th><th>Au programme</th><th class="money">Jour</th></tr></thead>
-    <tbody>
-      <tr><td class="d">mar. 6</td><td class="pl">Auckland</td><td>Arrivée 8 h 25. Encaisser le décalage.</td><td class="money">215 €</td></tr>
-      <tr><td class="d">mer. 7</td><td class="pl">Auckland</td><td>Waterfront, Mont Eden</td><td class="money">245 €</td></tr>
-      <tr><td class="d">jeu. 8</td><td class="pl">Rotorua</td><td>Hobbiton le matin, puis route</td><td class="money">255 €</td></tr>
-      <tr><td class="d">ven. 9</td><td class="pl">Rotorua</td><td>Te Puia, soirée māori, Polynesian Spa</td><td class="money">395 €</td></tr>
-      <tr><td class="d">sam. 10</td><td class="pl">Tongariro</td><td>Wai-O-Tapu, Huka Falls, lac Taupo</td><td class="money">205 €</td></tr>
-      <tr class="mess"><td class="d">dim. 11</td><td class="pl">Whanganui</td><td>FSSPX, prieuré St Anthony — 9 h</td><td class="money">135 €</td></tr>
-      <tr><td class="d">lun. 12</td><td class="pl">Wellington</td><td>Kaitoke — Fondcombe</td><td class="money">225 €</td></tr>
-      <tr><td class="d">mar. 13</td><td class="pl">Wellington</td><td>Weta Workshop, Te Papa</td><td class="money">345 €</td></tr>
-      <tr><td class="d">mer. 14</td><td class="pl">Kaikōura</td><td>Ferry 3 h 30, phoques de Point Kean</td><td class="money">315 €</td></tr>
-      <tr><td class="d">jeu. 15</td><td class="pl">Kaikōura</td><td>Cachalots en mer</td><td class="money">565 €</td></tr>
-      <tr><td class="d">ven. 16</td><td class="pl">Ōamaru</td><td>430 km. Moeraki, manchots au crépuscule</td><td class="money">225 €</td></tr>
-      <tr><td class="d">sam. 17</td><td class="pl">Dunedin</td><td>Gare édouardienne, Larnach Castle</td><td class="money">285 €</td></tr>
-      <tr class="mess"><td class="d">dim. 18</td><td class="pl">Otago</td><td>FSSP, St Joseph's — 9 h · albatros de Taiaroa</td><td class="money">335 €</td></tr>
-      <tr><td class="d">lun. 19</td><td class="pl">Te Anau</td><td>Porte du Fiordland</td><td class="money">215 €</td></tr>
-      <tr><td class="d">mar. 20</td><td class="pl">Milford Sound</td><td>Croisière dans le fjord</td><td class="money">395 €</td></tr>
-      <tr><td class="d">mer. 21</td><td class="pl">Queenstown</td><td>Arrowtown, Bob's Peak au couchant</td><td class="money">430 €</td></tr>
-      <tr><td class="d">jeu. 22</td><td class="pl">Glenorchy</td><td>Paradise — Lothlórien et Isengard</td><td class="money">340 €</td></tr>
-      <tr><td class="d">ven. 23</td><td class="pl">Mount Cook</td><td>Hooker Valley, <b>vol glacier</b>, ciel Dark Sky</td><td class="money">925 €</td></tr>
-      <tr><td class="d">sam. 24</td><td class="pl">Christchurch</td><td>Lac Tekapo en chemin</td><td class="money">205 €</td></tr>
-      <tr class="mess"><td class="d">dim. 25</td><td class="pl">Kaiapoi</td><td>FSSP, St Patrick's — 11 h · puis envol 20 h 10</td><td class="money">80 €</td></tr>
-      <tr class="tot"><td colspan="3">Total séjour</td><td class="money">6 335 €</td></tr>
-    </tbody>
-  </table></div>
+  <p class="lede" style="margin-bottom:14px">Cliquez sur une journée pour le détail : route, programme, hébergement.</p>
+
+  <div class="days">
+
+    <details><summary><span class="dd">mar. 6</span><span class="dp">Auckland — arrivée</span><span class="dc">215 €</span></summary>
+      <div class="db">
+        <div class="rt">Atterrissage 8 h 25 · taxi vers l'hôtel</div>
+        <ul>
+          <li>Rien au programme : encaisser le décalage après 28 h 30 de trajet.</li>
+          <li>Arrivée le matin — la journée entière pour se poser, contrairement à un vol du soir.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Hôtel Auckland · ~120-160 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">mer. 7</span><span class="dp">Auckland</span><span class="dc">245 €</span></summary>
+      <div class="db">
+        <div class="rt">Journée douce · récupération</div>
+        <ul>
+          <li>Waterfront &amp; Viaduct Harbour — les voiliers, la « City of Sails ».</li>
+          <li>Mont Eden : cratère éteint, vue à 360° sur la ville et ses baies.</li>
+          <li>Éventuellement Sky Tower ou musée d'Auckland (Domain).</li>
+        </ul>
+        <div class="ml"><b>Messe possible</b> — FSSP (latin), St Anne's Chapel, Te Atatu South · en semaine 7 h, selon la forme.</div>
+        <div class="sl"><b>Nuit</b> — Hôtel Auckland, 2<sup>e</sup> nuit · ~120-160 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">jeu. 8</span><span class="dp">Hobbiton → Rotorua</span><span class="dc">255 €</span></summary>
+      <div class="db">
+        <div class="rt">Auckland → Matamata ~160 km / 2 h 15 · puis Rotorua ~65 km / 1 h</div>
+        <ul>
+          <li><b>Hobbiton</b> — visite guidée de 2 h : les 44 trous de hobbit, Bag End, l'Arbre de la Fête, puis bière ou cidre au Green Dragon. <b>Réserver la session du matin.</b></li>
+          <li>Route vers Rotorua à travers les collines du Waikato.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Rotorua, holiday park thermal · ~50-90 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">ven. 9</span><span class="dp">Rotorua</span><span class="dc">395 €</span></summary>
+      <div class="db">
+        <div class="rt">Géothermie &amp; culture māori</div>
+        <ul>
+          <li><b>Te Puia</b> : geyser Pohutu (jusqu'à 30 m), bassins de boue, centre d'art māori.</li>
+          <li>Soirée culturelle māori avec <b>hangi</b> — repas cuit sous terre.</li>
+          <li>Polynesian Spa en fin de journée : bains chauds face au lac.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Rotorua, 2<sup>e</sup> nuit · ~50-90 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">sam. 10</span><span class="dp">Tongariro</span><span class="dc">205 €</span></summary>
+      <div class="db">
+        <div class="rt">Rotorua → National Park ~180 km / 2 h 30, via Wai-O-Tapu et Taupo</div>
+        <ul>
+          <li><b>Wai-O-Tapu</b> : geyser à 10 h 30, Champagne Pool, terrasses colorées.</li>
+          <li>Huka Falls et lac Taupo — plus grand lac du pays, une caldeira.</li>
+          <li>Le Mont Ngauruhoe, c'est le <b>Mont Destin</b> : vue sur les trois volcans.</li>
+          <li>Marche de Taranaki Falls (2 h) selon la météo. ⚠️ On évite l'Alpine Crossing en avril — neige.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — National Park / Whakapapa · ~50-80 €</div>
+      </div>
+    </details>
+
+    <details class="m"><summary><span class="dd">dim. 11</span><span class="dp">Whanganui</span><span class="dc">135 €</span></summary>
+      <div class="db">
+        <div class="rt">National Park → Whanganui ~125 km / 1 h 45 (SH4)</div>
+        <div class="ml"><b>Messe latine FSSPX</b> — Prieuré St Anthony, <b>9 h</b>, grand-messe chantée. Siège de la FSSPX en Nouvelle-Zélande.</div>
+        <ul>
+          <li>Après-midi : le fleuve — le plus long navigable du pays — l'ascenseur de Durie Hill, la Sarjeant Gallery, le quartier victorien.</li>
+          <li>Ville-étape qui coupe en deux la longue liaison vers Wellington.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Whanganui, holiday park · ~50-80 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">lun. 12</span><span class="dp">Wellington</span><span class="dc">225 €</span></summary>
+      <div class="db">
+        <div class="rt">Whanganui → Wellington ~195 km / 2 h 40, via Kaitoke</div>
+        <ul>
+          <li><b>Kaitoke Regional Park</b> = Fondcombe : 20 à 30 min de marche depuis l'entrée.</li>
+          <li>Arrivée l'après-midi. On rend le véhicule — la traversée se fait en passager.</li>
+          <li>Waterfront et Cuba Street en fin de journée.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Hôtel Wellington centre · ~130-180 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">mar. 13</span><span class="dp">Wellington</span><span class="dc">345 €</span></summary>
+      <div class="db">
+        <div class="rt">Journée ville · cinéma &amp; culture</div>
+        <ul>
+          <li><b>Weta Workshop</b> : les ateliers d'accessoires et d'effets spéciaux des films.</li>
+          <li>Te Papa, le musée national — gratuit, ferme à 18 h.</li>
+          <li>Téléphérique de Kelburn, jardin botanique, Embassy Theatre.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Hôtel Wellington, 2<sup>e</sup> nuit · ~130-180 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">mer. 14</span><span class="dp">Kaikōura</span><span class="dc">315 €</span></summary>
+      <div class="db">
+        <div class="rt">Ferry ~3 h 30 · Picton → Kaikōura ~155 km / 2 h 10</div>
+        <ul>
+          <li>Traversée du détroit de Cook, puis route côtière spectaculaire — les montagnes plongent dans l'océan.</li>
+          <li>Colonie de phoques à fourrure à Point Kean.</li>
+          <li>Coucher de soleil sur la péninsule.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Kaikōura, lodge milieu de gamme · ~200-300 €<br><span style="color:var(--muted)">Folie possible : Hapuku Lodge &amp; Tree Houses, ~1 195 €</span></div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">jeu. 15</span><span class="dp">Kaikōura</span><span class="dc">565 €</span></summary>
+      <div class="db">
+        <div class="rt">Journée mer</div>
+        <ul>
+          <li><b>Whale watching</b> : cachalots toute l'année, sortie en bateau.</li>
+          <li>Possible nage avec les dauphins d'Hector ; albatros.</li>
+          <li>Marche de la péninsule (2-3 h) ; crayfish — la langouste locale.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Kaikōura, 2<sup>e</sup> nuit · ~200-300 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">ven. 16</span><span class="dp">Ōamaru / Moeraki</span><span class="dc">225 €</span></summary>
+      <div class="db">
+        <div class="rt">Kaikōura → côte est ~430 km / ~5 h via Christchurch — la grosse journée de route</div>
+        <ul>
+          <li><b>Moeraki Boulders</b> : rochers sphériques géants sur la plage, surréalistes à marée basse.</li>
+          <li>Ōamaru : quartier victorien et steampunk.</li>
+          <li>Colonie de <b>manchots bleus</b> qui rentrent au crépuscule.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Ōamaru, hôtel ou motel · ~120-160 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">sam. 17</span><span class="dp">Dunedin</span><span class="dc">285 €</span></summary>
+      <div class="db">
+        <div class="rt">Ōamaru → Dunedin ~115 km / 1 h 20</div>
+        <ul>
+          <li>Dunedin, « l'Édimbourg du Sud » : la gare édouardienne — bâtiment le plus photographié du pays — l'âme écossaise, Baldwin Street.</li>
+          <li><b>Larnach Castle</b> : le seul château de Nouvelle-Zélande, bâti par amour, jardins primés. Thé ou dîner possible.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Dunedin, hôtel de charme · ~130-170 €</div>
+      </div>
+    </details>
+
+    <details class="m"><summary><span class="dd">dim. 18</span><span class="dp">Péninsule d'Otago</span><span class="dc">335 €</span></summary>
+      <div class="db">
+        <div class="ml"><b>Messe latine FSSP</b> — St Joseph's Chapel, Rattray St, Dunedin · <b>9 h</b>.</div>
+        <ul>
+          <li><b>Taiaroa Head</b> : seule colonie continentale d'albatros royaux au monde — 3 m d'envergure.</li>
+          <li>Plages sauvages de Sandfly Bay : manchots aux yeux jaunes, otaries, lions de mer, manchots bleus au crépuscule.</li>
+          <li>Le coin le plus « lune de miel » du Sud : sauvage, intime, hors des foules.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Dunedin, 2<sup>e</sup> nuit · ~130-170 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">lun. 19</span><span class="dp">Te Anau</span><span class="dc">215 €</span></summary>
+      <div class="db">
+        <div class="rt">Dunedin → Te Anau ~290 km / 3 h 40</div>
+        <ul>
+          <li>Porte du Fiordland, au bord de son lac.</li>
+          <li>Soirée calme. <b>Dernière station-service avant Milford</b> — faire le plein ici.</li>
+          <li>Option : grottes de vers luisants de Te Anau.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Te Anau, hôtel vue lac · ~120-180 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">mar. 20</span><span class="dp">Milford Sound</span><span class="dc">395 €</span></summary>
+      <div class="db">
+        <div class="rt">Te Anau ↔ Milford ~120 km / 2 h dans chaque sens</div>
+        <ul>
+          <li>Une des plus belles routes du pays — Homer Tunnel, garder de la marge, fermetures possibles.</li>
+          <li><b>Croisière dans le fjord</b> : Mitre Peak, cascades, phoques, dauphins. On part après les groupes du matin.</li>
+          <li>Arrêts photo : Mirror Lakes, The Chasm.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Te Anau, 2<sup>e</sup> nuit · ~120-180 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">mer. 21</span><span class="dp">Queenstown</span><span class="dc">430 €</span></summary>
+      <div class="db">
+        <div class="rt">Te Anau → Queenstown ~170 km / 2 h, via Arrowtown</div>
+        <ul>
+          <li><b>Arrowtown</b> : village de chercheurs d'or, rivière Arrow.</li>
+          <li>Téléphérique de Bob's Peak au coucher du soleil, dîner face au lac Wakatipu.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Queenstown, boutique-hôtel vue lac · ~200-350 €<br><span style="color:var(--muted)">Folie possible : Matakauri Lodge, ~700-1 000 €</span></div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">jeu. 22</span><span class="dp">Glenorchy &amp; Paradise</span><span class="dc">340 €</span></summary>
+      <div class="db">
+        <div class="rt">Queenstown ↔ Glenorchy ~45 km / 45 min</div>
+        <ul>
+          <li>La route du lac Wakatipu jusqu'à Glenorchy — parmi les plus belles du pays.</li>
+          <li><b>Paradise</b> : forêts de hêtres, Lothlórien et Isengard. Balades tranquilles, kayak possible.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Queenstown, 2<sup>e</sup> nuit · ~200-350 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">ven. 23</span><span class="dp">Aoraki / Mount Cook</span><span class="dc">925 €</span></summary>
+      <div class="db">
+        <div class="rt">Queenstown → Mount Cook ~260 km / 3 h 20, via Lindis et le lac Pūkaki</div>
+        <ul>
+          <li>Route superbe le long du lac Pūkaki, le Mont Cook (3 724 m) en fond.</li>
+          <li>Hooker Valley Track — 2 h, accessible.</li>
+          <li><b>Vol panoramique sur le glacier Tasman</b> : le « wow » du voyage, et le poste le plus cher.</li>
+          <li>En soirée, ciel étoilé — réserve Dark Sky. ⚠️ Une seule nuit ici : peu de marge météo pour le vol.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — The Hermitage, emblématique · ~200-320 €</div>
+      </div>
+    </details>
+
+    <details><summary><span class="dd">sam. 24</span><span class="dp">Tekapo → Christchurch</span><span class="dc">205 €</span></summary>
+      <div class="db">
+        <div class="rt">Mount Cook → Tekapo ~105 km / 1 h 20 → Christchurch ~225 km / 3 h</div>
+        <ul>
+          <li><b>Lac Tekapo</b> : eau turquoise, Church of the Good Shepherd.</li>
+          <li>Route vers Christchurch, nuit sur place avant le départ.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — Christchurch, hôtel · ~120-160 €</div>
+      </div>
+    </details>
+
+    <details class="m"><summary><span class="dd">dim. 25</span><span class="dp">Kaiapoi, puis envol</span><span class="dc">80 €</span></summary>
+      <div class="db">
+        <div class="ml"><b>Messe latine FSSP</b> — St Patrick's, Kaiapoi · <b>11 h</b>, à 25 min au nord de Christchurch.</div>
+        <ul>
+          <li>Déjeuner, puis restitution du véhicule à Christchurch.</li>
+          <li><b>Envol à 20 h 10 vers Malé</b>, via Auckland et Singapour. Le vol du soir est ce qui permet de garder la messe.</li>
+        </ul>
+        <div class="sl"><b>Nuit</b> — en vol</div>
+      </div>
+    </details>
+
+    <div class="daytot"><span class="dd">Total</span><span class="dp">19 nuits + le jour du départ</span><span class="dc">6 335 €</span></div>
+  </div>
 
   <details>
     <summary>Ce que contient la colonne « jour »</summary>
