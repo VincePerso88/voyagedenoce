@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Les vols — Toulouse · Auckland · Bordeaux · Avril 2027</title>
+<style>
+  :root{
+    --paper:#faf7f0; --surface:#ffffff; --sand:#f4efe4;
+    --ink:#22271f; --muted:#6b7264; --line:#e6e0d0;
+    --green:#1f4d3a; --green2:#2e6b50; --green-soft:#e9f0ea;
+    --gold:#b8862f; --gold-soft:#fbf3e2;
+    --alert:#8c3320; --alert-soft:#f7e8e3;
+    --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#15170F; --surface:#1D2018; --sand:#232619;
+      --ink:#EDEBDF; --muted:#9BA290; --line:#2F3327;
+      --green:#7FC3A2; --green2:#6FB894; --green-soft:#1B2A22;
+      --gold:#D9A94E; --gold-soft:#2B2314;
+      --alert:#E0917E; --alert-soft:#33201C;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+  header.hero{background:linear-gradient(140deg,#173d2e,#245740 48%,#2f7d8c 120%);
+              color:#fff;padding:58px 22px 46px;text-align:center}
+  .hero .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+                opacity:.8;margin-bottom:14px}
+  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,5.6vw,46px);
+           line-height:1.1;margin:0 0 12px;letter-spacing:-.01em}
+  .hero p{margin:0 auto;max-width:54ch;opacity:.93;font-size:16.5px}
+  .hero .facts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
+  .chip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+        padding:6px 13px;border-radius:20px;font-size:13px;font-family:var(--mono)}
+
+  nav{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding-top:10px;padding-bottom:10px}
+  nav a{color:var(--green);text-decoration:none;font-size:13.5px;font-weight:600;
+        padding:6px 14px;border-radius:18px;border:1px solid var(--line);transition:.15s}
+  nav a:hover,nav a:focus-visible{background:var(--green);color:var(--paper);border-color:var(--green)}
+  nav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+  section{padding:46px 0}
+  section[id]{scroll-margin-top:58px}
+  section:nth-of-type(even){background:var(--sand)}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3.6vw,31px);
+     color:var(--green);margin:0 0 4px;letter-spacing:-.01em}
+  .lede{color:var(--muted);margin:0 0 22px;max-width:66ch;font-size:15.5px}
+  h3{font-size:14.5px;font-weight:700;margin:26px 0 10px}
+  p{margin:0;max-width:68ch}
+  b,strong{font-weight:650}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+         background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 26px}
+  .stat{background:var(--surface);padding:16px 18px}
+  .stat dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+           color:var(--muted);margin:0 0 5px}
+  .stat dd{margin:0;font-family:var(--serif);font-size:23px;line-height:1.15}
+
+  /* les trois blocs */
+  .legs{display:flex;flex-direction:column;gap:12px}
+  .leg{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+       box-shadow:0 3px 14px rgba(0,0,0,.04);overflow:hidden}
+  .leg.watch{border-color:var(--gold)}
+  .leg-hd{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+          padding:15px 18px;border-bottom:1px solid var(--line);background:var(--green-soft)}
+  .leg.watch .leg-hd{background:var(--gold-soft)}
+  .leg-n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+         color:var(--green);flex:none}
+  .leg.watch .leg-n{color:var(--gold)}
+  .leg-ti{font-family:var(--serif);font-size:20px;flex:1;min-width:0}
+  .leg-pr{font-family:var(--mono);font-weight:700;font-size:17px;
+          font-variant-numeric:tabular-nums;white-space:nowrap}
+  .leg-bd{padding:15px 18px}
+  .leg-when{font-family:var(--mono);font-size:13px;color:var(--muted);
+            font-variant-numeric:tabular-nums;margin:0 0 13px}
+  .leg-when b{color:var(--ink)}
+
+  .hops{list-style:none;margin:0 0 14px;padding:13px 15px;background:var(--sand);
+        border-radius:8px;font-family:var(--mono);font-size:12.5px;line-height:1.5;
+        font-variant-numeric:tabular-nums;display:flex;flex-direction:column;gap:3px}
+  .hops li{display:grid;grid-template-columns:82px 1fr;gap:12px}
+  .hops .w{color:var(--muted);white-space:nowrap}
+  .hops li.s .t{color:var(--gold);font-weight:650}
+  .hops li.g .t{color:var(--alert);font-weight:650}
+  @media (max-width:520px){
+    .hops li{grid-template-columns:1fr}
+    .hops .w{font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  }
+
+  .tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:620px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:var(--green);color:var(--paper);font-size:12px;font-weight:600;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  .money{font-family:var(--mono);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:650}
+  .d{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .esc{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .pl{font-weight:650}
+  small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;font-weight:400}
+  tr.keep{background:var(--green-soft)}
+  tr.keep .pl{color:var(--green)}
+  tr.maybe{background:var(--gold-soft)}
+  tr.out{background:var(--alert-soft)}
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+       border:1px solid currentColor;border-radius:4px;padding:2px 6px;white-space:nowrap}
+  .tag.ok{color:var(--green)}
+  .tag.q{color:var(--gold)}
+  .tag.no{color:var(--alert)}
+
+  .note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);
+        border-radius:8px;padding:14px 17px;font-size:14.5px;margin-top:18px}
+  .note.gold{border-left-color:var(--gold);background:var(--gold-soft)}
+  .note.red{border-left-color:var(--alert);background:var(--alert-soft)}
+  .note h3{margin:0 0 6px;font-size:14.5px;color:var(--green)}
+  .note.gold h3{color:var(--gold)}
+  .note.red h3{color:var(--alert)}
+  .note p+p{margin-top:9px}
+
+  ol.todo{margin:0;padding:0;list-style:none;counter-reset:t;
+          border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+  ol.todo li{counter-increment:t;display:grid;grid-template-columns:38px 1fr;gap:12px;
+             padding:15px 18px;border-bottom:1px solid var(--line)}
+  ol.todo li::before{content:counter(t);font-family:var(--mono);font-weight:700;
+                     font-size:13px;color:var(--green);padding-top:2px}
+  ol.todo li:last-child{border-bottom:none}
+  ol.todo p{font-size:15px;margin:0}
+  ol.todo p+p{margin-top:5px;color:var(--muted);font-size:13.5px}
+
+  ul.plain{margin:0;padding-left:20px;font-size:14.5px;max-width:70ch}
+  ul.plain li{margin-bottom:9px}
+
+  footer{background:var(--green);color:var(--paper);padding:34px 22px;text-align:center;
+         font-size:13.5px;line-height:1.7}
+  footer a{color:var(--paper)}
+  footer .mono{font-family:var(--mono);font-size:12px;opacity:.85}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">Dossier privé · relevé du 7 septembre 2026</div>
+  <h1>Les vols</h1>
+  <p>Toulouse → Auckland le dimanche 4 avril, Christchurch → Malé le 25, Malé → Bordeaux le 1<sup>er</sup> mai. Trois billets, escale par escale, aux prix réels du marché.</p>
+  <div class="facts">
+    <span class="chip">2 adultes · EUR TTC</span>
+    <span class="chip">60 recherches</span>
+    <span class="chip">15 h 10 d'escales</span>
+    <span class="chip">5 649 €</span>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#plan">✈️ Le plan</a>
+  <a href="#bloc1">🛫 Toulouse → Auckland</a>
+  <a href="#bloc2">🐠 Christchurch → Malé</a>
+  <a href="#bloc3">🛬 Malé → Bordeaux</a>
+  <a href="#alt">🔀 Alternatives</a>
+  <a href="#faire">✅ À faire</a>
+  <a href="guide-2027-7b3e91d4.html">← Guide complet</a>
+</div></nav>
+
+<section id="plan">
+<div class="wrap">
+  <h2>Le plan</h2>
+  <p class="lede">La meilleure combinaison trouvée sous les contraintes verrouillées : départ de Toulouse le dimanche après-midi, messe latine de Kaiapoi préservée le 25, arrivée à Malé le jour du check-in à Lobigili, retour sur Bordeaux.</p>
+
+  <dl class="stats">
+    <div class="stat"><dt>Total 3 billets</dt><dd>5 649 €</dd></div>
+    <div class="stat"><dt>Budget annoncé</dt><dd>5 453 €</dd></div>
+    <div class="stat"><dt>Écart</dt><dd>+ 196 €</dd></div>
+    <div class="stat"><dt>Temps d'aéroport</dt><dd>15 h 10</dd></div>
+  </dl>
+
+  <div class="legs">
+
+    <article class="leg">
+      <div class="leg-hd">
+        <span class="leg-n">Bloc 1</span>
+        <span class="leg-ti">Toulouse → Auckland</span>
+        <span class="leg-pr">2 795 €</span>
+      </div>
+      <div class="leg-bd">
+        <p class="leg-when">dim. 4 avril <b>17:55</b> → mar. 6 avril <b>08:25</b> · 28 h 30 · Lufthansa City, Lufthansa, Air New Zealand</p>
+        <ul class="hops">
+          <li><span class="w">17:55</span><span class="t">Toulouse → Munich · Lufthansa City</span></li>
+          <li class="s"><span class="w">escale</span><span class="t">2 h 40 à Munich</span></li>
+          <li><span class="w">→ 16:35<sup>+1</sup></span><span class="t">Munich → Singapour · Lufthansa</span></li>
+          <li class="s"><span class="w">escale</span><span class="t">2 h 10 à Singapour</span></li>
+          <li><span class="w">18:45</span><span class="t">Singapour → Auckland · Air New Zealand · 9 h 40 sans escale</span></li>
+        </ul>
+        <p>Départ dimanche en fin d'après-midi, arrivée le mardi matin conforme à l'itinéraire. <b>4 h 50 d'escales</b>, jamais plus de 2 h 40 d'affilée : aucune nuit d'aéroport. C'est le devis Lufthansa du dossier de passation, retrouvé au centime près lors du premier relevé.</p>
+      </div>
+    </article>
+
+    <article class="leg watch">
+      <div class="leg-hd">
+        <span class="leg-n">Bloc 2 · question ouverte</span>
+        <span class="leg-ti">Christchurch → Malé</span>
+        <span class="leg-pr">1 281 €</span>
+      </div>
+      <div class="leg-bd">
+        <p class="leg-when">dim. 25 avril <b>20:10</b> → lun. 26 avril <b>14:25</b> · Air New Zealand puis SriLankan · <b>deux billets séparés</b></p>
+        <ul class="hops">
+          <li><span class="w">20:10</span><span class="t">Christchurch → Auckland · Air New Zealand</span></li>
+          <li class="s"><span class="w">escale</span><span class="t">2 h 20 à Auckland</span></li>
+          <li><span class="w">→ 06:45<sup>+1</sup></span><span class="t">Auckland → Singapour · Air New Zealand</span></li>
+          <li class="g"><span class="w">au sol</span><span class="t">3 h 00 à Singapour — changement de billet</span></li>
+          <li><span class="w">09:45</span><span class="t">Singapour → Colombo · SriLankan</span></li>
+          <li class="s"><span class="w">escale</span><span class="t">2 h 25 à Colombo</span></li>
+          <li><span class="w">→ 14:25</span><span class="t">Colombo → Malé · SriLankan</span></li>
+        </ul>
+        <p>Le seul montage qui préserve la messe de Kaiapoi. <b>7 h 45 d'escales</b>, dont les 3 h de Singapour qui sont la charnière entre les deux billets : c'est là que se situe tout le risque, et c'est l'objet de la question ouverte plus bas.</p>
+      </div>
+    </article>
+
+    <article class="leg">
+      <div class="leg-hd">
+        <span class="leg-n">Bloc 3</span>
+        <span class="leg-ti">Malé → Bordeaux</span>
+        <span class="leg-pr">1 573 €</span>
+      </div>
+      <div class="leg-bd">
+        <p class="leg-when">sam. 1<sup>er</sup> mai <b>22:20</b> → dim. 2 mai <b>10:10</b> · 14 h 50 · Turkish Airlines</p>
+        <ul class="hops">
+          <li><span class="w">22:20</span><span class="t">Malé → Istanbul · Turkish Airlines</span></li>
+          <li class="s"><span class="w">escale</span><span class="t">2 h 35 à Istanbul</span></li>
+          <li><span class="w">→ 10:10<sup>+1</sup></span><span class="t">Istanbul → Bordeaux · Turkish Airlines</span></li>
+        </ul>
+        <p>Journée entière au resort le jour du check-out, vol de nuit, aucune nuit d'hôtel à Malé, arrivée à Bordeaux le dimanche matin. <b>Une seule escale de 2 h 35</b> — le trajet le plus propre des trois. C'est bien le vol que la passation décrivait : le « ~10h10 » était l'heure d'arrivée.</p>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="note red">
+    <h3>Le bloc 1 a pris 278 € en deux jours</h3>
+    <p>Le Lufthansa du 4 avril était relevé à <b>2 517 €</b> le 5 septembre. Le 7 septembre, même vol, mêmes horaires : <b>2 795 €</b>. À l'inverse, le Christchurch → Singapour est passé de 910 € à <b>865 €</b>. C'est le comportement normal d'un tarif à sept mois du départ, et c'est l'argument pour ne pas laisser traîner l'achat du bloc 1 : c'est le poste le plus cher et le plus nerveux des trois.</p>
+  </div>
+</div>
+</section>
+
+<section id="bloc3">
+<div class="wrap">
+  <h2>Bloc 3 · le retour, et sa vraie alternative</h2>
+  <p class="lede">Check-out le samedi 1<sup>er</sup> mai. Bordeaux est mal desservi depuis Malé : deux options seulement ce jour-là, cinq le lendemain. L'alternative par Paris mérite d'être regardée sérieusement.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Trajet</th><th>Escales</th><th>Porte à porte</th><th>Arrivée Bordeaux</th><th class="money">Prix</th><th></th></tr></thead>
+      <tbody>
+        <tr class="keep">
+          <td class="pl">MLE 22:20 → BOD 10:10<sup>+1</sup><small>Turkish Airlines, via Istanbul</small></td>
+          <td class="esc">2 h 35 IST<br><b>2 h 35 au total</b></td>
+          <td class="d">14 h 50</td><td class="d">dim. 10:10</td>
+          <td class="money">1 573 €</td><td><span class="tag ok">retenu</span></td>
+        </tr>
+        <tr class="maybe">
+          <td class="pl">MLE 16:30 → CDG 09:20<sup>+1</sup><small>Emirates, via Colombo et Dubaï<br>+ TGV direct Roissy → Bordeaux</small></td>
+          <td class="esc">3 h 35 CMB · 3 h 05 DXB<br>+ TGV 3 h 45<br><b>6 h 40 d'escales</b></td>
+          <td class="d">~24 h</td><td class="d">dim. ~14:30</td>
+          <td class="money">1 007 €<small>+ TGV</small></td><td><span class="tag q">à vérifier</span></td>
+        </tr>
+        <tr>
+          <td class="pl">MLE 22:20 → BOD 17:55<sup>+1</sup><small>Turkish, départ le 2 mai</small></td>
+          <td class="esc">correspondance longue à Istanbul</td>
+          <td class="d">22 h 35</td><td class="d">lun. 17:55</td>
+          <td class="money">1 573 €</td><td><span class="tag no">+1 nuit Malé</span></td>
+        </tr>
+        <tr>
+          <td class="pl">MLE 11:00 → BOD 09:25<sup>+1</sup><small>British Airways, via Londres, départ le 2 mai</small></td>
+          <td class="esc">1 escale</td>
+          <td class="d">25 h 25</td><td class="d">lun. 09:25</td>
+          <td class="money">1 766 €</td><td><span class="tag no">+1 nuit Malé</span></td>
+        </tr>
+        <tr>
+          <td class="pl">MLE 15:15 → BOD 11:00<sup>+1</sup><small>IndiGo + Air France, via Bangalore et Paris</small></td>
+          <td class="esc">2 escales</td>
+          <td class="d">22 h 45</td><td class="d">dim. 11:00</td>
+          <td class="money">3 276 €</td><td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note gold">
+    <h3>L'alternative Emirates, en détail</h3>
+    <p>C'est une vraie option, pas un lot de consolation : <b>566 € de moins</b> sur le billet, et la gare TGV est <i>dans</i> le terminal 2 de Roissy — une quinzaine de trains directs par jour vers Bordeaux Saint-Jean, sans traverser Paris. Le déroulé : Malé 16:30 → Colombo, <b>3 h 35</b> d'escale, → Dubaï, <b>3 h 05</b> d'escale, → Paris 09:20 le dimanche, puis environ <b>3 h 45</b> de TGV.</p>
+    <p>Ce que ça coûte en échange : <b>environ neuf heures de plus</b> porte à porte, 6 h 40 d'escales au lieu de 2 h 35, et un train de près de quatre heures après vingt heures de vol — avec les bagages, un dimanche, au retour du voyage de noces. Arrivée à Bordeaux vers 14 h 30 au lieu de 10 h 10.</p>
+    <p><b>Le TGV n'est pas encore chiffrable.</b> La SNCF ouvre ses ventes au maximum neuf mois à l'avance : mai 2027 n'est pas en vente. À titre indicatif, Roissy → Bordeaux se trouve autour de 16 à 30 € par personne en réservant tôt, ce qui placerait le total de l'option entre <b>1 040 € et 1 070 €</b>. Fourchette de référence, pas un prix relevé.</p>
+  </div>
+
+  <div class="note">
+    <h3>Point de vigilance</h3>
+    <p>Le Turkish retenu est <b>non remboursable</b>, comme le signalait déjà la passation. La couverture annulation de la Visa Premier devient donc le seul filet — à condition de payer le billet avec cette carte.</p>
+  </div>
+</div>
+</section>
+
+<section id="bloc2">
+<div class="wrap">
+  <h2>Bloc 2 · la seule question qui reste</h2>
+  <p class="lede">C'est le poste que le dossier de passation sous-estimait le plus : 1 090 € annoncés, 1 281 € réels — et le billet unique le moins cher part à 06:00, ce qui rendrait la messe de Kaiapoi impossible.</p>
+
+  <div class="note gold">
+    <h3>Un vol existe, mais personne ne le vend</h3>
+    <p>Le départ du soir sur lequel repose tout l'itinéraire apparaît dans les horaires en <b>itinéraire unique</b> : <b>CHC 20:10 → AKL → SIN → MLE 11:50<sup>+1</sup></b>, en 22 h 40, opéré par Air New Zealand et Singapore Airlines. Google le liste avec la mention « prix non disponible » : aucune agence en ligne ne le cote. Les deux compagnies étant chez Star Alliance, il est très probablement vendable en un seul billet <b>sur singaporeair.com en direct</b> — leur site bloque tout accès automatisé, la vérification reste donc à faire à la main.</p>
+    <p>L'enjeu n'est pas le prix mais les <b>3 h au sol de Singapour</b> : sur un billet unique, un retard fait réacheminer gratuitement ; sur deux billets séparés, non. Si Singapore Airlines le vend sous <b>1 800 €</b>, il faut le prendre et abandonner le découpage.</p>
+  </div>
+
+  <div class="tw" style="margin-top:18px">
+    <table>
+      <thead><tr><th>Trajet</th><th>Escales</th><th>Durée</th><th>Arrivée Malé</th><th class="money">Prix</th><th>Messe</th></tr></thead>
+      <tbody>
+        <tr class="keep">
+          <td class="pl">CHC 20:10 → SIN 06:45<sup>+1</sup><small>Air New Zealand — billet 1</small></td>
+          <td class="esc">2 h 20 AKL</td><td class="d">14 h 35</td><td class="d">—</td>
+          <td class="money">865 €</td><td><span class="tag ok">sauvée</span></td>
+        </tr>
+        <tr class="keep">
+          <td class="pl">SIN 09:45 → MLE 14:25<small>SriLankan — billet 2</small></td>
+          <td class="esc">2 h 25 CMB</td><td class="d">7 h 40</td><td class="d">lun. 14:25</td>
+          <td class="money">416 €</td><td><span class="tag ok">jour du check-in</span></td>
+        </tr>
+        <tr class="maybe">
+          <td class="pl">CHC 20:10 → MLE 11:50<sup>+1</sup><small>Air NZ + Singapore Airlines, billet unique</small></td>
+          <td class="esc">AKL · SIN, durées non publiées</td><td class="d">22 h 40</td><td class="d">lun. 11:50</td>
+          <td class="money">non coté</td><td><span class="tag q">à vérifier</span></td>
+        </tr>
+        <tr class="out">
+          <td class="pl">CHC 06:00 → MLE 22:15<small>Qantas + Malaysia, via Sydney et Kuala Lumpur</small></td>
+          <td class="esc">2 escales</td><td class="d">23 h 15</td><td class="d">lun. 22:15</td>
+          <td class="money">2 913 €</td><td><span class="tag no">perdue</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <p>Le découpage fait tomber le bloc de 2 913 € à <b>1 281 €</b>, soit 1 632 € d'économie, tout en préservant le départ du soir. Variante écartée pour le second billet : SIN 18:15 → MLE 22:15 à 613 €, avec seulement 1 h 35 d'escale à Kuala Lumpur, mais une arrivée à 22:15 — un transfert en speedboat vers Lobigili à cette heure-là n'est pas garanti.</p>
+  </div>
+</div>
+</section>
+
+<section id="bloc1">
+<div class="wrap">
+  <h2>Bloc 1 · Toulouse → Auckland, dimanche 4 avril</h2>
+  <p class="lede">Onze itinéraires relevés, aucun sans deux escales : il n'existe aucun vol direct depuis Toulouse. Les départs de fin d'après-midi sont aussi les moins chers.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Horaires</th><th>Escales</th><th>Durée</th><th>Compagnies</th><th class="money">Prix</th><th></th></tr></thead>
+      <tbody>
+        <tr class="keep">
+          <td class="pl">17:55 → 08:25<sup>+2</sup></td><td class="esc">2 h 40 MUC · 2 h 10 SIN</td><td class="d">28 h 30</td>
+          <td>Lufthansa City, Lufthansa, Air NZ</td><td class="money">2 795 €</td><td><span class="tag ok">retenu</span></td>
+        </tr>
+        <tr>
+          <td class="pl">20:30 → 09:50<sup>+2</sup></td><td class="esc">CDG · HKG</td><td class="d">27 h 20</td>
+          <td>Air France, Air New Zealand</td><td class="money">3 270 €</td><td><span class="tag q">le + rapide</span></td>
+        </tr>
+        <tr>
+          <td class="pl">18:15 → 09:50<sup>+2</sup></td><td class="esc">CDG · HKG</td><td class="d">29 h 35</td>
+          <td>Air France, Air New Zealand</td><td class="money">3 270 €</td><td></td>
+        </tr>
+        <tr>
+          <td class="pl">17:05 → 08:25<sup>+2</sup></td><td class="esc">AMS · SIN</td><td class="d">29 h 20</td>
+          <td>KLM, Air New Zealand</td><td class="money">3 567 €</td><td></td>
+        </tr>
+        <tr>
+          <td class="pl">18:40 → 09:55<sup>+2</sup></td><td class="esc">LIS · DXB</td><td class="d">29 h 15</td>
+          <td>Tap Air Portugal, Emirates</td><td class="money">3 750 €</td><td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <p>Le Lufthansa de 17:55 reste le moins cher de 475 €, et gagner 1 h 10 de trajet coûterait 475 € de plus. Google ne publie les durées d'escale que pour les vols à une seule escale : celles du Lufthansa ont été reconstituées en recherchant séparément Toulouse → Singapour (2 h 40 à Munich, arrivée 16:35) puis Singapour → Auckland (Air New Zealand de 18:45, sans escale).</p>
+  </div>
+</div>
+</section>
+
+<section id="alt">
+<div class="wrap">
+  <h2>Alternatives testées et écartées</h2>
+  <p class="lede">Cinq hubs pour rejoindre Malé depuis Christchurch, et la cabine supérieure sur le long-courrier. Aucun ne bat le plan retenu.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Par</th><th>Montage</th><th>Arrivée Malé</th><th class="money">Prix</th><th>Pourquoi écarté</th></tr></thead>
+      <tbody>
+        <tr class="keep">
+          <td class="pl">Singapour</td><td class="d">CHC 20:10 · SIN 09:45</td><td class="d">lun. 14:25</td>
+          <td class="money">1 281 €</td><td><span class="tag ok">retenu</span></td>
+        </tr>
+        <tr>
+          <td class="pl">Kuala Lumpur</td><td class="d">CHC 20:10 · KUL 15:00</td><td class="d">lun. 19:50</td>
+          <td class="money">1 184 €</td><td>97 € de moins, mais speedboat au crépuscule</td>
+        </tr>
+        <tr>
+          <td class="pl">Dubaï</td><td class="d">CHC 17:20 · DXB 10:45</td><td class="d">lun. 21:35</td>
+          <td class="money">2 198 €</td><td>plus cher et arrivée de nuit</td>
+        </tr>
+        <tr>
+          <td class="pl">Hong Kong</td><td class="d">CHC 10:10 · HKG 19:40<sup>+1</sup></td><td class="d">mar. 08:25</td>
+          <td class="money">1 595 €</td><td>escale de 22 h, arrive après le check-in</td>
+        </tr>
+        <tr class="out">
+          <td class="pl">Colombo</td><td class="d">CHC 06:00</td><td class="d">—</td>
+          <td class="money">2 616 €</td><td>aucun départ du soir, messe perdue</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <h3>La contrainte de la messe ne coûte rien</h3>
+    <p>C'est le résultat le plus utile de toute la recherche. Tous les départs de Christchurch de ce dimanche ont été vérifiés, quel que soit l'horaire : même en renonçant complètement à la messe de Kaiapoi, <b>aucun montage n'arrive à Malé plus tôt ni moins cher</b> que le passage par Singapour à 20:10. Le seul billet unique existant part à 06:00, coûte 1 632 € de plus et arrive à 22:15.</p>
+  </div>
+
+  <div class="note">
+    <h3>Colombo, le seul vrai regret</h3>
+    <p>Le tronçon Colombo → Malé ne coûte que <b>301 €</b> en direct et dure 1 h 30. Mais aucun vol du soir ne rejoint Colombo depuis Christchurch. Dubaï est le seul autre hub avec un départ tardif de Christchurch (17:20, Emirates, 1 572 €), et tous ses enchaînements vers Malé atterrissent après 21 h.</p>
+  </div>
+
+  <div class="note">
+    <h3>La cabine supérieure coûte 2 306 €</h3>
+    <p>Le premium economy le moins cher au départ de Toulouse ce dimanche-là ressort à <b>4 823 €</b> (TAP + Emirates via Lisbonne et Dubaï), contre 2 517 € en économique au même relevé. Le Lufthansa retenu n'est même pas proposé en premium. Le dossier avait raison de traiter « sans Premium » comme un acquis et non comme un arbitrage.</p>
+  </div>
+</div>
+</section>
+
+<section id="faire">
+<div class="wrap">
+  <h2>À faire, dans cet ordre</h2>
+  <p class="lede">La fenêtre d'achat visée par le dossier est octobre-novembre 2026. Le bloc 1 n'attend pas.</p>
+
+  <ol class="todo">
+    <li><div>
+      <p>Réserver le <b>bloc 1</b> — Lufthansa du dimanche 4 avril.</p>
+      <p>Il a pris 278 € en deux jours. Poste le plus cher, le plus volatil, et le seul dont l'horaire est déjà arbitré. Poser une alerte de prix Google Flights en parallèle.</p>
+    </div></li>
+    <li><div>
+      <p>Trancher le <b>retour</b> : Turkish direct à 1 573 €, ou Emirates + TGV autour de 1 050 €.</p>
+      <p>566 € contre neuf heures de trajet supplémentaires. Le TGV de mai 2027 n'étant pas encore en vente, l'écart exact ne sera connu qu'à l'ouverture des ventes.</p>
+    </div></li>
+    <li><div>
+      <p>Interroger <b>Singapore Airlines</b> sur le CHC 20:10 → MLE 11:50<sup>+1</sup> du 25 avril, en billet unique Star Alliance.</p>
+      <p>Sous 1 800 €, ce billet remplace le découpage et supprime le risque sur les 3 h de Singapour.</p>
+    </div></li>
+    <li><div>
+      <p>Réserver le <b>bloc 3</b> une fois le retour tranché.</p>
+      <p>Deux options seulement le 1<sup>er</sup> mai vers Bordeaux : l'inventaire peut disparaître sans prévenir.</p>
+    </div></li>
+    <li><div>
+      <p>Corriger la ligne <b>bloc 2</b> du guide : 1 090 € estimés, 1 281 € réels.</p>
+      <p>Et remonter le total vols de 5 453 € à 5 649 €, ou 5 083 € plus TGV si le retour passe par Paris.</p>
+    </div></li>
+    <li><div>
+      <p>Vérifier les deux règles absolues avant tout paiement.</p>
+      <p>Réservations au <b>nom de jeune fille</b> d'Anne-Catherine, et paiement <b>sur la Visa Premier</b> — sans quoi les 10 000 € de garantie annulation tombent.</p>
+    </div></li>
+  </ol>
+
+  <div class="note red">
+    <h3>Ce que ce relevé ne dit pas</h3>
+    <p>C'est un instantané du 7 septembre 2026, à 209 jours du départ, et le bloc 1 prouve à lui seul que ces prix bougent de plusieurs centaines d'euros en quarante-huit heures. Ils servent à comparer des structures, pas à être cités comme acquis.</p>
+  </div>
+  <div class="note">
+    <ul class="plain" style="margin-top:4px">
+      <li>Tous les prix sont <b>pour deux adultes, taxes comprises</b>, en classe économique, sans bagage en soute garanti. Vérifier la franchise avant d'arbitrer : sur quatre semaines, elle n'est pas neutre.</li>
+      <li>Les <b>durées d'escale</b> sont celles publiées par Google pour les vols à une escale. Pour les vols à deux escales, elles ont été reconstituées en recherchant chaque tronçon séparément — méthode fiable mais indirecte, à confirmer sur le site de la compagnie avant paiement. Là où c'était impossible, la mention « durées non publiées » figure dans le tableau.</li>
+      <li>« Non coté » signifie que <b>les partenaires de Google Flights</b> ne vendent pas cet itinéraire — pas qu'il n'existe pas. Les compagnies vendent souvent en direct ce que les agences ne cotent pas.</li>
+      <li>Les <b>billets séparés</b> du bloc 2 n'offrent aucune protection mutuelle sur les 3 h de Singapour : un retard sur le premier ne fait pas réacheminer sur le second. C'est le prix de l'économie de 1 632 €.</li>
+      <li>Le <b>prix du TGV</b> Roissy → Bordeaux est une fourchette de référence, pas un relevé : les ventes SNCF pour mai 2027 ne sont pas ouvertes.</li>
+      <li>Rien n'a été réservé, et aucun de ces prix n'a été vérifié jusqu'à l'écran de paiement.</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p><b>Page privée.</b> Non indexée, non liée depuis l'accueil du site.<br>
+  Voyage de noces Nouvelle-Zélande &amp; Maldives · avril 2027</p>
+  <p class="mono" style="margin-top:12px">Relevé automatisé les 5 et 7 septembre 2026 sur Google Flights · 60 recherches<br>
+  <a href="guide-2027-7b3e91d4.html">← Guide complet</a> · <a href="plan-detaille-9c4e7a2f.html">Plan détaillé jour par jour →</a></p>
+</footer>
+
+</body>
+</html>
