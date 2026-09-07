@@ -323,7 +323,7 @@
   <p class="lead">Estimation tous postes pour 2 personnes, ~4 semaines. Fourchette « optimisé » → « confort ».</p>
   <table>
     <tr><th>Poste</th><th>Détail</th><th>Optimisé</th><th>Confort</th><th>Vos chiffres (€)</th></tr>
-    <tr><td>✈️ Vols</td><td><b>3 billets séparés</b> : Toulouse→Auckland 2 511 € · Christchurch→Malé 1 090 € · Malé→Paris 1 702 € · + TGV 150 € <span style="color:var(--muted)">(devis réels)</span></td><td>~5 453 €</td><td>~5 453 €</td><td><input class="uin" type="number" data-k="vols" placeholder="—"></td></tr>
+    <tr><td>✈️ Vols</td><td><b>3 billets séparés</b> : Toulouse→Auckland 2 548 € · Christchurch→Malé 1 072 € · Malé→<b>Bordeaux</b> 1 651 € · + train Bordeaux→Toulouse ~70 € <span style="color:var(--muted)">(prix relevés, bagage en soute inclus sur les 3 — <a href="vols-2027-cdaf53f6.html">voir le détail</a>)</span></td><td>~5 341 €</td><td>~5 341 €</td><td><input class="uin" type="number" data-k="vols" placeholder="—"></td></tr>
     <tr><td>🚐 Van Île du Nord</td><td>~4-5 jours (avril = basse saison)</td><td>~700 €</td><td>~950 €</td><td><input class="uin" type="number" data-k="van" placeholder="—"></td></tr>
     <tr><td>🚗 Voiture Île du Sud</td><td>~11 jours</td><td>~600 €</td><td>~820 €</td><td><input class="uin" type="number" data-k="voiture" placeholder="—"></td></tr>
     <tr><td>⛴️ Ferry Cook (Wellington-Picton)</td><td>2 passagers</td><td>~120 €</td><td>~150 €</td><td><input class="uin" type="number" data-k="ferry" placeholder="—"></td></tr>
@@ -336,7 +336,7 @@
     <tr><td>🛡️ Assurance voyage</td><td><b>Rien à acheter</b> — la Visa Premier couvre médical, rapatriement et <b>5 000 € d'annulation par assuré</b> (10 000 € à deux). <span style="color:var(--muted)">Condition : régler les gros postes avec cette carte.</span></td><td>0 €</td><td>0 €</td><td><input class="uin" type="number" data-k="assurance" placeholder="—"></td></tr>
     <tr><td>📄 Formalités</td><td>NZeTA + IVL, permis international (PCI)</td><td>~100 €</td><td>~120 €</td><td><input class="uin" type="number" data-k="formalites" placeholder="—"></td></tr>
     <tr><td>🔌 Divers</td><td>SIM néo-zélandaise, adaptateurs, imprévus</td><td>~350 €</td><td>~500 €</td><td><input class="uin" type="number" data-k="divers" placeholder="—"></td></tr>
-    <tr class="tot"><td>TOTAL estimé (2 pers.)</td><td></td><td>~16 700 €</td><td>~19 700 €</td><td id="uTotalGlobal">—</td></tr>
+    <tr class="tot"><td>TOTAL estimé (2 pers.)</td><td></td><td>~16 600 €</td><td>~19 600 €</td><td id="uTotalGlobal">—</td></tr>
   </table>
   <div style="text-align:right;margin-top:6px"><button id="uReset" style="font-size:12.5px;background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;color:var(--muted);cursor:pointer">↺ Réinitialiser mes chiffres</button></div>
   <script>
@@ -559,7 +559,7 @@
   <p class="lead">La check-list, dans l'ordre de priorité. <b>Coche au fur et à mesure</b> — c'est sauvegardé dans ton navigateur. Le « quand » détaillé est dans le <a href="#retro">rétroplanning</a>.</p>
   <table>
     <tr><th>✓</th><th>À réserver</th><th>Quand</th><th>Astuce</th></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="vols"></td><td>✈️ <b>Bloc ① Toulouse → Auckland</b></td><td><b>dès maintenant</b></td><td>Certain quelle que soit la suite, et c'est le billet le plus cher (2 511 €).</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="vols"></td><td>✈️ <b>Bloc ① Toulouse → Auckland</b></td><td><b>dès maintenant</b></td><td>Vol identifié : <b>Lufthansa 17:55 → Auckland 08:25 le mardi 6</b>, 28 h 30, bagage 23 kg inclus, <b>2 548 €</b>. Poste le plus cher et le plus volatil (+278 € en deux jours au relevé). <a href="vols-2027-cdaf53f6.html">Détail</a></td></tr>
     <tr><td><input type="checkbox" class="rescheck" data-k="van"></td><td>🚐 <b>Van Île du Nord</b> (~4-5 j)</td><td>6-9 mois avant</td><td>Maui / Britz / Jucy · <b>exiger self-contained</b> (carte verte).</td></tr>
     <tr><td><input type="checkbox" class="rescheck" data-k="voiture"></td><td>🚗 <b>Voiture Île du Sud</b> (11 j, reprise Picton)</td><td>6-9 mois avant</td><td>Avril = dispo qui se tend, réserver tôt.</td></tr>
     <tr><td><input type="checkbox" class="rescheck" data-k="ferry"></td><td>⛴️ <b>Ferry Cook</b> Wellington-Picton (2 pax)</td><td>3-6 mois avant</td><td>Interislander / Bluebridge · sailing off-peak moins cher.</td></tr>
@@ -576,7 +576,7 @@
     <tr><td><input type="checkbox" class="rescheck" data-k="annul"></td><td>❌ <b>Annuler l'Îlot Maître</b> <span style="color:var(--muted)">(réservé pour la Nouvelle-Calédonie)</span></td><td><b>maintenant possible</b> ✅</td><td>Lobigili est verrouillé → le filet calédonien peut être libéré. Remboursable jusqu'au <b>21 avril 2027</b> : rien ne presse, mais plus besoin de le garder.</td></tr>
   </table>
   <div class="note"><b>Rappel noms.</b> Toutes les réservations au <b>nom de jeune fille</b> d'Anne-Catherine (nom du passeport au départ), jamais au nom d'épouse.</div>
-  <div class="note blue"><b>✈️ Billets d'avion — à quoi s'attendre.</b> On part sur <b>3 billets séparés</b> (Toulouse→Auckland · Christchurch→Malé · Malé→retour) : <b>5 453 € pour deux</b>, devis réels. Les blocs sont espacés de 19 et 6 jours, donc rien à protéger entre eux — et le premier se réserve seul. <b>Les trois blocs :</b> ① <b>Toulouse → Auckland</b> (Lufthansa + Air NZ, 28 h 30) — on quitte le brunch du mariage et on embarque ; ② <b>Christchurch → Malé</b> (Air NZ + Singapore), <b>départ dim. 25 à 20h10</b>, ce qui préserve la messe de Kaiapoi ; ③ <b>Malé → Paris</b> (Singapore, modifiable), départ sam. 1<sup>er</sup> mai 13h05, arrivée dim. 2 à 7h45 — messe à Paris, TGV l'après-midi, et <b>le second tour se vote en personne</b>. <span style="color:var(--muted)">Alternative sur ③ : un Turkish se pose <b>directement à Bordeaux</b> le dim. à 10h10 pour 1 714 €, avec la dernière journée entière au resort — mais non remboursable, et la pension s'arrête à 11 h le jour du départ.</span></div>
+  <div class="note blue"><b>✈️ Billets d'avion — à quoi s'attendre.</b> On part sur <b>3 billets séparés</b> (Toulouse→Auckland · Christchurch→Malé · Malé→<b>Bordeaux</b>) : <b>5 341 € pour deux</b>, train de retour compris, prix relevés <b>bagage en soute inclus sur les trois</b>. Les blocs sont espacés de 19 et 6 jours, donc rien à protéger entre eux — et le premier se réserve seul. <b>Les trois blocs :</b> ① <b>Toulouse → Auckland</b> (Lufthansa + Air NZ, <b>17h55 → 08h25 le mardi 6</b>, 28 h 30, 2 548 €) — on quitte le brunch du mariage et on embarque ; ② <b>Christchurch → Malé</b> (Air NZ + Singapore Airlines, <b>départ dim. 25 à 20h10</b>, arrivée lun. 26 à 11h50, 22 h 40, 1 072 €) <b>en billet unique</b>, ce qui préserve la messe de Kaiapoi <i>et</i> protège les correspondances ; ③ <b>Malé → Bordeaux</b> (Turkish, <b>départ sam. 1<sup>er</sup> mai 22h20</b>, arrivée dim. 2 à 10h10, 14 h 50, une seule escale de 2 h 35 à Istanbul, 1 651 €) — journée entière au resort le jour du check-out, aucune nuit d'hôtel à Malé. <span style="color:var(--muted)">Deux points de vigilance sur ③ : la pension s'arrête à 11 h le jour du départ, donc une longue journée sur place à négocier avec OBLU ; et le billet est <b>non remboursable</b>, donc à régler sur la Visa Premier. Alternative moins chère écartée : un Qatar à 1 137 € qui part à 10h05 et impose 9 h 45 d'escale à Madrid. <a href="vols-2027-cdaf53f6.html">Dossier vols complet</a></span></div>
   <script>
   (function(){
     document.querySelectorAll('.rescheck').forEach(function(c){
@@ -598,7 +598,7 @@
     <div class="tlitem">
       <div class="tldate">🔴 Sans délai — été 2026</div>
       <ul>
-        <li><b>Bloc ① Toulouse → Auckland</b> (2 511 €) : certain quelle que soit la suite → <b>à réserver sans attendre</b>.</li>
+        <li><b>Bloc ① Toulouse → Auckland</b> (<b>2 548 €</b>, Lufthansa de 17:55, bagage inclus) : certain quelle que soit la suite → <b>à réserver sans attendre</b>. Il a pris 278 € en deux jours.</li>
         <li>Poser l'<b>alerte prix</b> sur le combo long-courrier.</li>
         <li>Vérifier la <b>validité des 2 passeports</b> (≥ 6 mois après le retour, soit ~novembre 2027).</li>
         <li><b>NZeTA + taxe IVL</b> : faisables dès maintenant, valables 2 ans.</li>
@@ -609,7 +609,7 @@
     <div class="tlitem">
       <div class="tldate">⚠️ Verrouillage principal — oct-nov 2026</div>
       <ul>
-        <li><b>Vols long-courriers</b> (Qatar / Singapore) — comparer en direct avant achat.</li>
+        <li><b>Vols long-courriers</b> — les trois blocs sont identifiés : <b>Lufthansa + Air New Zealand</b> à l'aller, <b>Air NZ + Singapore Airlines</b> pour Christchurch→Malé, <b>Turkish</b> pour le retour sur Bordeaux. Comparer le vendeur avant achat : 57 € d'écart relevé sur le Turkish entre comparateur et vente directe. <a href="vols-2027-cdaf53f6.html">Voir le dossier vols</a></li>
         <li><b>🛫 Depuis Bordeaux</b> — d'abord tester <b>origine = Bordeaux sur un seul billet</b> (le tronçon BOD-CDG en correspondance est souvent bien moins cher qu'acheté seul, <b>et protégé</b>). Sinon TGVair (rail &amp; fly) ou billets séparés <b>avec une nuit à Paris la veille à l'aller</b> (jamais une correspondance serrée same-day).</li>
         <li><b>Bloc ② Christchurch → Malé</b> — vérifier que le départ est bien <b>le soir</b> (20h10) et non le matin : plusieurs vols partent à 10h10, incompatibles avec la messe de 11 h.</li>
         <li><b>Permis international (PCI)</b> — lancer la demande ANTS (délai long, plusieurs semaines à 2-3 mois).</li>
@@ -670,10 +670,10 @@
 <section id="aretenir" style="background:var(--sand)"><div class="wrap">
   <h2><span class="ic">✅</span> À trancher ensemble</h2>
   <ul style="font-size:15px;line-height:1.9">
-    <li><b>Nuits :</b> confirmer <b>19 nuits NZ</b> (2 nuits Christchurch) contre le billet — départ dim. 25 avril (vol Aircalin du dimanche).</li>
+    <li><b>Nuits :</b> confirmer <b>19 nuits NZ</b> (2 nuits Christchurch) contre le billet — départ dim. 25 avril à 20h10 (après la messe de Kaiapoi).</li>
     <li><b>Folie (optionnelle) :</b> base milieu de gamme retenue partout ; si on s'offre une nuit folie, une seule — Hapuku <b>ou</b> Matakauri, pas les deux.</li>
     <li><b>Van :</b> hôtel à Wellington OU van gardé jusqu'au ferry (holiday park Lower Hutt).</li>
-    <li><b>Vols :</b> combo via Brisbane (+ETA) vs dissocié via Auckland ; comparer un billet modifiable.</li>
+    <li><b>Vols :</b> <b>tranché</b> — trois billets séparés, 5 341 € train compris. Il reste deux arbitrages : le <b>vendeur</b> de chaque billet (57 € d'écart relevé sur le Turkish, 247 € sur le Lufthansa), et le <b>retour</b> : Turkish direct à 1 651 € ou Qatar à 1 137 € qui part 12 h plus tôt avec 9 h 45 d'escale à Madrid. <a href="vols-2027-cdaf53f6.html">Voir le dossier vols</a></li>
     <li><b>Lobigili :</b> écrire au resort (règle des 11h au départ, seuils sur 5 nuits, accès depuis Ailafushi) et faire chiffrer les dates avant la vente flash du 23 juillet.</li>
     <li><b>Messe d'arrivée :</b> caler ou non la messe latine FSSP en semaine le mer. 7 avril 7h (St Anne's, Auckland) selon le jet lag — la messe du dim. 11 (FSSPX Whanganui) est déjà intégrée. <span style="color:var(--muted)">(voir section Messes)</span></li>
   </ul>
@@ -688,7 +688,7 @@ function img(f){return f.indexOf('http')===0?f:(FP+encodeURIComponent(f)+'?width
 
 var nord = [
  {nn:'N1',date:'mar. 6 avril',pl:'Auckland — arrivée',emoji:'⛵',grad:['#2f6d8c','#1f4d6a'],photo:'Auckland Skyline at night.jpg',
-  route:'Vol arrivée 19h35 · hôtel',
+  route:'Vol arrivée 08h25 · hôtel',
   visit:['Rien au programme : encaisser le jet lag après ~30h de trajet.','Bonne nuit d\'hôtel, van récupéré le lendemain.'],
   stay:'<b>Hôtel Auckland</b> <span class="tag std">standard</span> · <span class="price">~120-160 €</span>'},
  {nn:'N2',date:'mer. 7 avril',pl:'Auckland',emoji:'🌆',grad:['#3a7d9c','#245776'],photo:'Auckland skyline from Viaduct Harbour.jpg',
