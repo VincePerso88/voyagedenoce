@@ -132,6 +132,15 @@
     .uin{width:80px;font-size:13px}
     nav.sticky a{font-size:12px;padding:4px 9px}
   }
+  /* --- colonne « Il reste » --- */
+  th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+  th.sortable:hover{text-decoration:underline}
+  th.sortable .car{opacity:.55;font-size:11px}
+  td.reste{font-family:var(--mono,ui-monospace,Consolas,monospace);white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:650}
+  td.reste.urgent{color:#a02c1f}
+  td.reste.bientot{color:#b8862f}
+  td.reste.calme{color:var(--muted)}
+  td.reste.fait{color:var(--green);font-weight:400}
 </style>
 </head>
 <body>
@@ -563,22 +572,22 @@
   <h2><span class="ic">🔒</span> Réservations à verrouiller</h2>
   <p class="lead">La check-list, dans l'ordre de priorité. <b>Coche au fur et à mesure</b> — c'est sauvegardé dans ton navigateur. Le « quand » détaillé est dans le <a href="#retro">rétroplanning</a>.</p>
   <table>
-    <tr><th>✓</th><th>À réserver</th><th>Quand</th><th>Astuce</th></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="vols"></td><td>✈️ <b>Bloc ① Toulouse → Auckland</b></td><td><b>dès maintenant</b></td><td>Vol identifié : <b>Lufthansa 17:55 → Auckland 08:25 le mardi 6</b>, 28 h 30, bagage 23 kg inclus, <b>2 548 €</b>. Poste le plus cher et le plus volatil (+278 € en deux jours au relevé). <a href="vols-2027-cdaf53f6.html">Détail</a></td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="van"></td><td>🚗 <b>Voiture Île du Nord</b> (~5 j)</td><td>3-6 mois avant</td><td>Auckland → Wellington en aller simple : <b>vérifier les frais de restitution</b>. Réserver les 4 nuits en même temps.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="voiture"></td><td>🚗 <b>Voiture Île du Sud</b> (11 j, reprise Picton)</td><td>6-9 mois avant</td><td>Avril = dispo qui se tend, réserver tôt.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="ferry"></td><td>⛴️ <b>Ferry Cook</b> Wellington-Picton (2 pax)</td><td>3-6 mois avant</td><td>Interislander / Bluebridge · sailing off-peak moins cher.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="hobbiton"></td><td>🧙 <b>Hobbiton</b> — session du matin</td><td>dès l'ouverture des résas 2027</td><td>Se remplit vite ; viser tôt.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="tepuia"></td><td>🔥 <b>Te Puia « Te Pō »</b> (soirée māori + hāngī, Rotorua)</td><td>2-3 mois avant</td><td>—</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="whales"></td><td>🐋 <b>Whale Watch Kaikōura</b></td><td>2-3 mois avant</td><td>Sensible météo → garder une marge / 2ᵉ créneau.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="milford"></td><td>🚢 <b>Croisière Milford</b></td><td>1-3 mois avant</td><td>Départ <b>après les groupes du matin</b>.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="otago"></td><td>🐦 <b>Taiaroa Head</b> (albatros royaux) + <b>manchots</b> (Penguin Place)</td><td>1-2 mois avant</td><td>Nouveau avec Otago ; tours à créneaux.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="glacier"></td><td>🚁 <b>Vol glacier Tasman</b> (Mount Cook Ski Planes)</td><td>sur place, selon météo</td><td>1 seule nuit à Mount Cook → guetter le bon créneau.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="hebnz"></td><td>🛏️ <b>Hébergements NZ phares</b> (Dunedin, Queenstown, Te Anau, Mount Cook)</td><td>3-6 mois avant</td><td>Spots prisés même en avril.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="idp" checked></td><td>🐠 <b>Lobigili</b> — SunNest Water Pool Villa <b>✅ RÉSERVÉ</b></td><td><b>fait le 23 juil. 2026</b></td><td>Confirmation <b>n° 561257439</b>. Acompte 975,94 $ <b>✅ payé</b>. Reste : solde 14 j avant l'arrivée + check-in appli OBLU + IMUGA + acte de mariage.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="blocs23"></td><td>✈️ <b>Blocs ② et ③</b> — Christchurch→Malé, Malé→retour</td><td><b>resort confirmé → à réserver</b></td><td>Le bloc ② part le <b>dim. 25 à 20h10</b> : c'est ce qui sauve la messe de Kaiapoi.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="formalites"></td><td>📄 <b>PCI</b> (permis intl) + NZeTA/IVL + <b>assurance</b></td><td>PCI = tôt (délai long)</td><td>Assurance : <b>troubles civils + rapatriement</b>.</td></tr>
-    <tr><td><input type="checkbox" class="rescheck" data-k="annul"></td><td>❌ <b>Annuler l'Îlot Maître</b> <span style="color:var(--muted)">(réservé pour la Nouvelle-Calédonie)</span></td><td><b>maintenant possible</b> ✅</td><td>Lobigili est verrouillé → le filet calédonien peut être libéré. Remboursable jusqu'au <b>21 avril 2027</b> : rien ne presse, mais plus besoin de le garder.</td></tr>
+    <tr><th>✓</th><th>À réserver</th><th>Quand</th><th class="sortable" id="thReste" title="Cliquer pour trier">Il reste <span class="car">⇅</span></th><th>Astuce</th></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="vols"></td><td>✈️ <b>Bloc ① Toulouse → Auckland</b></td><td><b>dès maintenant</b></td><td class="reste" data-dl="2026-11-30"></td><td>Vol identifié : <b>Lufthansa 17:55 → Auckland 08:25 le mardi 6</b>, 28 h 30, bagage 23 kg inclus, <b>2 548 €</b>. Poste le plus cher et le plus volatil (+278 € en deux jours au relevé). <a href="vols-2027-cdaf53f6.html">Détail</a></td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="van"></td><td>🚗 <b>Voiture Île du Nord</b> (~5 j)</td><td>3-6 mois avant</td><td class="reste" data-dl="2027-01-08"></td><td>Auckland → Wellington en aller simple : <b>vérifier les frais de restitution</b>. Réserver les 4 nuits en même temps.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="voiture"></td><td>🚗 <b>Voiture Île du Sud</b> (11 j, reprise Picton)</td><td>6-9 mois avant</td><td class="reste" data-dl="2026-10-12"></td><td>Avril = dispo qui se tend, réserver tôt.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="ferry"></td><td>⛴️ <b>Ferry Cook</b> Wellington-Picton (2 pax)</td><td>3-6 mois avant</td><td class="reste" data-dl="2027-01-12"></td><td>Interislander / Bluebridge · sailing off-peak moins cher.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="hobbiton"></td><td>🧙 <b>Hobbiton</b> — session du matin</td><td>dès l'ouverture des résas 2027</td><td class="reste" data-dl="2026-12-31"></td><td>Se remplit vite ; viser tôt.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="tepuia"></td><td>🔥 <b>Te Puia « Te Pō »</b> (soirée māori + hāngī, Rotorua)</td><td>2-3 mois avant</td><td class="reste" data-dl="2027-02-09"></td><td>—</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="whales"></td><td>🐋 <b>Whale Watch Kaikōura</b></td><td>2-3 mois avant</td><td class="reste" data-dl="2027-02-14"></td><td>Sensible météo → garder une marge / 2ᵉ créneau.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="milford"></td><td>🚢 <b>Croisière Milford</b></td><td>1-3 mois avant</td><td class="reste" data-dl="2027-03-20"></td><td>Départ <b>après les groupes du matin</b>.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="otago"></td><td>🐦 <b>Taiaroa Head</b> (albatros royaux) + <b>manchots</b> (Penguin Place)</td><td>1-2 mois avant</td><td class="reste" data-dl="2027-02-18"></td><td>Nouveau avec Otago ; tours à créneaux.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="glacier"></td><td>🚁 <b>Vol glacier Tasman</b> (Mount Cook Ski Planes)</td><td>sur place, selon météo</td><td class="reste" data-dl=""></td><td>1 seule nuit à Mount Cook → guetter le bon créneau.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="hebnz"></td><td>🛏️ <b>Hébergements NZ phares</b> (Dunedin, Queenstown, Te Anau, Mount Cook)</td><td>3-6 mois avant</td><td class="reste" data-dl="2027-01-04"></td><td>Spots prisés même en avril.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="idp" checked></td><td>🐠 <b>Lobigili</b> — SunNest Water Pool Villa <b>✅ RÉSERVÉ</b></td><td><b>fait le 23 juil. 2026</b></td><td class="reste" data-dl="fait"></td><td>Confirmation <b>n° 561257439</b>. Acompte 975,94 $ <b>✅ payé</b>. Reste : solde 14 j avant l'arrivée + check-in appli OBLU + IMUGA + acte de mariage.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="blocs23"></td><td>✈️ <b>Blocs ② et ③</b> — Christchurch→Malé, Malé→retour</td><td><b>resort confirmé → à réserver</b></td><td class="reste" data-dl="2026-11-30"></td><td>Le bloc ② part le <b>dim. 25 à 20h10</b> : c'est ce qui sauve la messe de Kaiapoi.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="formalites"></td><td>📄 <b>PCI</b> (permis intl) + NZeTA/IVL + <b>assurance</b></td><td>PCI = tôt (délai long)</td><td class="reste" data-dl="2026-11-15"></td><td>Assurance : <b>troubles civils + rapatriement</b>.</td></tr>
+    <tr><td><input type="checkbox" class="rescheck" data-k="annul"></td><td>❌ <b>Annuler l'Îlot Maître</b> <span style="color:var(--muted)">(réservé pour la Nouvelle-Calédonie)</span></td><td><b>maintenant possible</b> ✅</td><td class="reste" data-dl="2027-04-01"></td><td>Lobigili est verrouillé → le filet calédonien peut être libéré. Remboursable jusqu'au <b>21 avril 2027</b> : rien ne presse, mais plus besoin de le garder.</td></tr>
   </table>
   <div class="note"><b>Rappel noms.</b> Toutes les réservations au <b>nom de jeune fille</b> d'Anne-Catherine (nom du passeport au départ), jamais au nom d'épouse.</div>
   <div class="note blue"><b>✈️ Billets d'avion — à quoi s'attendre.</b> On part sur <b>3 billets séparés</b> (Toulouse→Auckland · Christchurch→Malé · Malé→<b>Bordeaux</b>) : <b>5 341 € pour deux</b>, train de retour compris, prix relevés <b>bagage en soute inclus sur les trois</b>. Les blocs sont espacés de 19 et 6 jours, donc rien à protéger entre eux — et le premier se réserve seul. <b>Les trois blocs :</b> ① <b>Toulouse → Auckland</b> (Lufthansa + Air NZ, <b>17h55 → 08h25 le mardi 6</b>, 28 h 30, 2 548 €) — on quitte le brunch du mariage et on embarque ; ② <b>Christchurch → Malé</b> (Air NZ + Singapore Airlines, <b>départ dim. 25 à 20h10</b>, arrivée lun. 26 à 11h50, 22 h 40, 1 072 €) <b>en billet unique</b>, ce qui préserve la messe de Kaiapoi <i>et</i> protège les correspondances ; ③ <b>Malé → Bordeaux</b> (Turkish, <b>départ sam. 1<sup>er</sup> mai 22h20</b>, arrivée dim. 2 à 10h10, 14 h 50, une seule escale de 2 h 35 à Istanbul, 1 651 €) — journée entière au resort le jour du check-out, aucune nuit d'hôtel à Malé. <span style="color:var(--muted)">Deux points de vigilance sur ③ : la pension s'arrête à 11 h le jour du départ, donc une longue journée sur place à négocier avec OBLU ; et le billet est <b>non remboursable</b>, donc à régler sur la Visa Premier. Alternative moins chère écartée : un Qatar à 1 137 € qui part à 10h05 et impose 9 h 45 d'escale à Madrid. <a href="vols-2027-cdaf53f6.html">Dossier vols complet</a></span></div>
@@ -879,6 +888,42 @@ L.polyline([[-36.848,174.763],[-37.809,175.746],[-38.137,176.249],[-39.198,175.5
 L.polyline([[-41.286,174.776],[-41.290,174.001]],{color:FERRY,weight:3,opacity:.8,dashArray:'8,8'}).addTo(map);
 L.polyline([[-41.290,174.001],[-42.400,173.680],[-45.345,170.826],[-45.874,170.504],[-45.414,167.717],[-44.671,167.926],[-45.414,167.717],[-45.031,168.662],[-44.847,168.383],[-45.031,168.662],[-43.735,170.097],[-44.006,170.477],[-43.531,172.637]],{color:SOUTH,weight:4,opacity:.85}).addTo(map);
 map.fitBounds(L.latLngBounds(stops.map(function(s){return [s[0],s[1]];})).pad(0.12));
+</script>
+
+<script>
+(function(){
+  var tb = document.getElementById('thReste'); if(!tb) return;
+  var table = tb.closest('table');
+  function j(d){ return Math.ceil((new Date(d+'T12:00:00') - new Date())/86400000); }
+  function fmt(n){
+    if(n<0) return 'dépassé';
+    if(n===0) return "aujourd'hui";
+    if(n<14) return n+' j';
+    if(n<70) return Math.round(n/7)+' sem.';
+    return Math.round(n/30.4)+' mois';
+  }
+  table.querySelectorAll('td.reste').forEach(function(td){
+    var d = td.dataset.dl;
+    if(d==='fait'){ td.textContent='✅ fait'; td.className='reste fait'; td.dataset.n='99999'; return; }
+    if(!d){ td.textContent='sur place'; td.className='reste calme'; td.dataset.n='99998'; return; }
+    var n=j(d);
+    td.textContent=fmt(n);
+    td.title='échéance conseillée : '+new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+    td.dataset.n=String(n);
+    td.className='reste '+(n<45?'urgent':n<120?'bientot':'calme');
+  });
+  var asc=true;
+  tb.addEventListener('click', function(){
+    var rows=[].slice.call(table.rows,1);
+    rows.sort(function(a,b){
+      var x=+a.querySelector('td.reste').dataset.n, y=+b.querySelector('td.reste').dataset.n;
+      return asc ? x-y : y-x;
+    });
+    rows.forEach(function(r){ table.tBodies[0].appendChild(r); });
+    tb.querySelector('.car').textContent = asc ? '↑' : '↓';
+    asc=!asc;
+  });
+})();
 </script>
 </body>
 </html>

@@ -7,6 +7,8 @@
 <meta name="referrer" content="no-referrer">
 <title>Plan détaillé — Nouvelle-Zélande &amp; Maldives</title>
 <link rel="preconnect" href="https://upload.wikimedia.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   :root{
     --paper:#faf7f0; --surface:#ffffff; --sand:#f4efe4;
@@ -144,6 +146,13 @@
     header.hero{padding:44px 18px 36px}
     .gal img{height:150px}
   }
+  /* --- carte du jour --- */
+  .daymap{height:320px;border:1px solid var(--line);border-radius:10px;margin:12px 0 8px;background:var(--sand);overflow:hidden}
+  .daymap .leaflet-container{font-family:var(--sans)}
+  .dmleg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin:0 0 6px}
+  .dmleg span{display:inline-flex;align-items:center;gap:5px}
+  .dmleg i{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+  .dmnote{font-size:11.5px;color:var(--muted);margin:0 0 4px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -265,6 +274,14 @@
           <li>Route vers Rotorua à travers les collines du Waikato.</li>
         </ul>
         <div class="sl"><b>Nuit</b> — Rotorua, motel avec bain thermal · ~110-140 €</div>
+        <div class="dmleg">
+          <span><i style="background:#b8862f"></i>Seigneur des Anneaux</span>
+          <span><i style="background:#1f4d3a"></i>Au programme</span>
+          <span><i style="background:#2f7d8c"></i>Détour nature</span>
+          <span><i style="background:#b06a3c"></i>Halte en chemin</span>
+        </div>
+        <div class="daymap" data-jour="j8"></div>
+        <p class="dmnote">Le tracé marron relie les étapes à vol d'oiseau — ce n'est pas le tracé routier. Les points sont à leur position réelle ; cliquez-les pour le détail et l'écart à l'axe.</p>
       </div>
     </details>
 
@@ -630,6 +647,96 @@
 <footer>
   Document personnel · chiffres relevés en juillet 2026 pour un voyage en avril 2027 · devis à revalider avant réservation<br>photos Wikimedia Commons
 </footer>
+
+<script>
+/* Cartes du jour — initialisées seulement à l'ouverture du volet.
+   Coordonnées vérifiées (Wikipédia / Nominatim), septembre 2026. */
+(function(){
+  var CAT = {
+    lotr:   {c:'#b8862f', l:'Seigneur des Anneaux'},
+    prog:   {c:'#1f4d3a', l:'Au programme'},
+    nature: {c:'#2f7d8c', l:'Détour nature'},
+    pause:  {c:'#b06a3c', l:'Halte en chemin'}
+  };
+
+  var JOURS = {
+    j8: {
+      titre: 'Auckland → Hobbiton → Rotorua',
+      route: [[-36.84920,174.76530],[-37.81667,175.76667],[-38.13778,176.25139]],
+      etapes: [['Auckland','départ'],['Matamata','Hobbiton'],['Rotorua','étape du soir']],
+      pts: [
+        {n:'Hobbiton Movie Set', c:[-37.85750,175.67972], t:'lotr',
+         d:'La Comté grandeur nature : 44 trous de hobbits, le Moulin, et le Green Dragon au bout du parcours. Session du matin réservée.'},
+        {n:'Wairere Falls', c:[-37.73400,175.88000], t:'nature',
+         d:'153 m — la plus haute chute de l\'Île du Nord. Belvédère à 45 min de marche, sommet à 1 h 30. Au nord-est de Matamata.'},
+        {n:'Blue Spring — Te Waihou', c:[-38.03634,175.83566], t:'nature',
+         d:'L\'eau la plus pure du pays, d\'un bleu irréel — elle alimente la moitié de l\'eau en bouteille néo-zélandaise. Passerelle de 1 h 15 aller-retour. Quasiment sur la route.'},
+        {n:'Fitzgerald Glade', c:[-37.99997,175.88492], t:'pause',
+         d:'Tunnel de fougères arborescentes sur la route de Rotorua. Ça se traverse en trente secondes, mais on ralentit.'},
+        {n:'Ōkere Falls', c:[-38.01433,176.34550], t:'nature',
+         d:'Chutes et gorge de la Kaituna, escaliers taillés dans la roche jusqu\'à une grotte. Au nord-est de Rotorua.'},
+        {n:'Te Puia', c:[-38.16429,176.24978], t:'prog',
+         d:'Le geyser Pōhutu et l\'institut d\'arts maoris. Au programme demain soir : Te Pō — soirée maorie et hāngī.'},
+        {n:'Lacs Bleu et Vert', c:[-38.20000,176.33333], t:'nature',
+         d:'Tikitapu et Rotokakahi côte à côte, séparés par une crête boisée — l\'un turquoise, l\'autre vert sombre. Point de vue au sud-est de Rotorua.'}
+      ]
+    }
+  };
+
+  /* distance d'un point au segment le plus proche de l'axe, en km (à vol d'oiseau) */
+  function distAxe(p, route){
+    function km(a,b){
+      var R=6371, dLat=(b[0]-a[0])*Math.PI/180, dLon=(b[1]-a[1])*Math.PI/180;
+      var la1=a[0]*Math.PI/180, la2=b[0]*Math.PI/180;
+      var h=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)*Math.sin(dLon/2);
+      return 2*R*Math.asin(Math.sqrt(h));
+    }
+    var best=Infinity;
+    for(var i=0;i<route.length-1;i++){
+      var a=route[i], b=route[i+1];
+      var ax=a[1], ay=a[0], bx=b[1], by=b[0], px=p[1], py=p[0];
+      var dx=bx-ax, dy=by-ay, L=dx*dx+dy*dy;
+      var t = L ? ((px-ax)*dx+(py-ay)*dy)/L : 0;
+      t = Math.max(0, Math.min(1, t));
+      best = Math.min(best, km(p, [ay+t*dy, ax+t*dx]));
+    }
+    return best;
+  }
+
+  function construire(el, cle){
+    var J = JOURS[cle]; if(!J || el.dataset.pret) return;
+    el.dataset.pret = '1';
+    var map = L.map(el, {scrollWheelZoom:false, zoomControl:true});
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+      {maxZoom:19, attribution:'Fonds de carte &copy; Esri'}).addTo(map);
+
+    var axe = L.polyline(J.route, {color:'#b06a3c', weight:3, opacity:.75, dashArray:'6 5'}).addTo(map);
+    J.route.forEach(function(c,i){
+      L.circleMarker(c,{radius:6,color:'#b06a3c',fillColor:'#b06a3c',fillOpacity:1,weight:2})
+        .addTo(map).bindPopup('<b>'+J.etapes[i][0]+'</b><br>'+J.etapes[i][1]);
+    });
+
+    J.pts.forEach(function(p){
+      var cat = CAT[p.t], d = distAxe(p.c, J.route);
+      var ecart = d < 1.5 ? 'sur la route' : '≈ '+(d<10? d.toFixed(1) : Math.round(d))+' km de l\'axe';
+      L.circleMarker(p.c, {radius:8, color:'#fff', weight:2, fillColor:cat.c, fillOpacity:1})
+        .addTo(map)
+        .bindPopup('<b>'+p.n+'</b><br><span style="color:'+cat.c+';font-size:11px;text-transform:uppercase;letter-spacing:.08em">'+cat.l+' · '+ecart+'</span><br>'+p.d);
+    });
+
+    map.fitBounds(L.featureGroup([axe].concat(J.pts.map(function(p){return L.marker(p.c);}))).getBounds(), {padding:[28,28]});
+    setTimeout(function(){ map.invalidateSize(); }, 60);
+  }
+
+  document.querySelectorAll('details').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(!d.open) return;
+      var el = d.querySelector('.daymap');
+      if(el) construire(el, el.dataset.jour);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
