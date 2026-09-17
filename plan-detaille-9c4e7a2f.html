@@ -268,7 +268,7 @@
 
     <details><summary><span class="dd">jeu. 8</span><span class="dp">Hobbiton → Rotorua</span><span class="dc">255 €</span></summary>
       <div class="db">
-        <div class="rt">Auckland → Matamata ~160 km / 2 h 15 · puis Rotorua ~65 km / 1 h</div>
+        <div class="rt">Auckland → Hobbiton <b>181 km / 2 h 27</b> · puis Rotorua <b>76 km / 1 h 17</b> — 257 km de conduite au total</div>
         <ul>
           <li><b>Hobbiton</b> — visite guidée de 2 h : les 44 trous de hobbit, Bag End, l'Arbre de la Fête, puis bière ou cidre au Green Dragon. <b>Réserver la session du matin.</b></li>
           <li>Route vers Rotorua à travers les collines du Waikato.</li>
@@ -649,91 +649,61 @@
 </footer>
 
 <script>
-/* Cartes du jour — initialisées seulement à l'ouverture du volet.
-   Coordonnées vérifiées (Wikipédia / Nominatim), septembre 2026. */
+/* Cartes du jour — tracé routier réel (OSRM, calculé le 17 sept. 2026 et embarqué :
+   la page ne fait aucun appel de calcul d'itinéraire). Coordonnées des points
+   vérifiées via Wikipédia et Nominatim. Carte construite à l'ouverture du volet. */
 (function(){
-  var CAT = {
-    lotr:   {c:'#b8862f', l:'Seigneur des Anneaux'},
-    prog:   {c:'#1f4d3a', l:'Au programme'},
-    nature: {c:'#2f7d8c', l:'Détour nature'},
-    pause:  {c:'#b06a3c', l:'Halte en chemin'}
-  };
+  var CAT={lotr:{c:'#b8862f',l:'Seigneur des Anneaux'},prog:{c:'#1f4d3a',l:'Au programme'},
+           nature:{c:'#2f7d8c',l:'Détour nature'},pause:{c:'#b06a3c',l:'Halte en chemin'}};
+  var JOURS={"j8":{"titre":"Auckland → Hobbiton → Rotorua","km":257,"min":224,"legs":[{"km":181,"min":147},{"km":76,"min":77}],"etapes":[[-36.8492,174.7653,"Auckland","départ"],[-37.8575,175.67972,"Hobbiton","la visite du matin"],[-38.13778,176.25139,"Rotorua","étape du soir"]],"geo":[[-36.8492,174.7652],[-36.8509,174.7645],[-36.8557,174.7698],[-36.8618,174.7644],[-36.8677,174.7686],[-36.8752,174.7802],[-36.8849,174.7898],[-36.8947,174.8059],[-36.9033,174.8114],[-36.9074,174.8191],[-36.9139,174.8246],[-36.9176,174.8371],[-36.9232,174.8474],[-36.9444,174.8549],[-36.96,174.8631],[-36.9727,174.879],[-36.9975,174.8908],[-37.0058,174.8972],[-37.0107,174.9041],[-37.0195,174.9094],[-37.0409,174.9106],[-37.0606,174.9238],[-37.0789,174.9314],[-37.0944,174.9437],[-37.1147,174.9487],[-37.1214,174.9568],[-37.1655,174.9838],[-37.1712,174.9847],[-37.1778,174.9813],[-37.1823,174.9805],[-37.1931,174.983],[-37.1986,174.9885],[-37.2032,174.9903],[-37.2075,174.9954],[-37.2202,175.0021],[-37.2323,175.0188],[-37.2394,175.0212],[-37.2452,175.0264],[-37.2512,175.0297],[-37.255,175.0379],[-37.2603,175.0401],[-37.2643,175.0445],[-37.2801,175.0481],[-37.2914,175.0588],[-37.3006,175.061],[-37.3092,175.0674],[-37.326,175.0662],[-37.3328,175.0626],[-37.3383,175.0628],[-37.3449,175.0691],[-37.35,175.0787],[-37.3657,175.092],[-37.3725,175.094],[-37.381,175.1023],[-37.3917,175.1081],[-37.4043,175.121],[-37.4137,175.1265],[-37.424,175.1253],[-37.4279,175.1268],[-37.4319,175.1326],[-37.4342,175.142],[-37.4444,175.1514],[-37.4694,175.1587],[-37.4894,175.1607],[-37.5081,175.1662],[-37.5224,175.1742],[-37.5249,175.1781],[-37.5276,175.1868],[-37.5327,175.1908],[-37.5399,175.1918],[-37.5502,175.1887],[-37.5588,175.1903],[-37.5698,175.1896],[-37.5761,175.186],[-37.5791,175.1856],[-37.5833,175.1881],[-37.5893,175.1991],[-37.5989,175.206],[-37.6101,175.2048],[-37.6348,175.2069],[-37.6574,175.2058],[-37.6717,175.2082],[-37.6769,175.2103],[-37.6895,175.2221],[-37.6933,175.2289],[-37.6983,175.2435],[-37.7119,175.2593],[-37.7225,175.2875],[-37.7263,175.2932],[-37.7548,175.3122],[-37.7693,175.3295],[-37.7863,175.3375],[-37.7978,175.3491],[-37.8042,175.3494],[-37.8128,175.3424],[-37.8157,175.3425],[-37.8183,175.3443],[-37.8275,175.3568],[-37.8405,175.3701],[-37.8548,175.3927],[-37.8672,175.4059],[-37.8685,175.4113],[-37.8685,175.4671],[-37.8703,175.4752],[-37.8739,175.4812],[-37.892,175.5004],[-37.9057,175.5233],[-37.9129,175.5402],[-37.9164,175.5545],[-37.927,175.569],[-37.9383,175.5765],[-37.9448,175.5863],[-37.947,175.596],[-37.9479,175.6129],[-37.9519,175.6243],[-37.9515,175.6317],[-37.9467,175.6451],[-37.9471,175.6549],[-37.9435,175.6596],[-37.9424,175.6673],[-37.9387,175.6707],[-37.9302,175.6745],[-37.9237,175.68],[-37.9186,175.6899],[-37.9142,175.69],[-37.9074,175.6934],[-37.8897,175.7119],[-37.8869,175.7167],[-37.8831,175.7329],[-37.8738,175.725],[-37.8779,175.7153],[-37.878,175.704],[-37.8769,175.7003],[-37.881,175.6949],[-37.8773,175.6859],[-37.8718,175.6861],[-37.8718,175.6828],[-37.8678,175.6825],[-37.8645,175.6781],[-37.8555,175.6783],[-37.8554,175.6815],[-37.8569,175.6805],[-37.8548,175.681],[-37.8556,175.6782],[-37.8645,175.6781],[-37.8678,175.6825],[-37.8718,175.6828],[-37.8718,175.6861],[-37.877,175.6856],[-37.8793,175.69],[-37.8792,175.6925],[-37.8809,175.6936],[-37.8802,175.6973],[-37.8769,175.7003],[-37.878,175.704],[-37.8779,175.7153],[-37.8738,175.725],[-37.8834,175.7329],[-37.8795,175.7548],[-37.8856,175.7668],[-37.8886,175.7759],[-37.8925,175.7765],[-37.9414,175.7565],[-37.961,175.754],[-37.9648,175.7548],[-37.9682,175.7528],[-37.9755,175.7543],[-37.9806,175.7601],[-37.9811,175.7629],[-37.9844,175.765],[-37.9859,175.7744],[-37.9953,175.7996],[-37.9962,175.809],[-38.0009,175.8184],[-37.9992,175.8222],[-37.9953,175.8254],[-37.9911,175.8449],[-37.9975,175.8649],[-38.0008,175.8708],[-38.0013,175.8855],[-37.9988,175.8951],[-38.0002,175.9031],[-38.0051,175.9175],[-38.0057,175.9235],[-38.0117,175.9347],[-38.0141,175.9454],[-38.0185,175.9541],[-38.0226,175.9578],[-38.0299,175.9723],[-38.0317,175.9948],[-38.0344,176.0096],[-38.0337,176.0186],[-38.0367,176.032],[-38.0361,176.0415],[-38.0384,176.0516],[-38.0451,176.0682],[-38.065,176.101],[-38.0717,176.122],[-38.0707,176.1446],[-38.076,176.1601],[-38.0725,176.1707],[-38.0728,176.1751],[-38.0779,176.1836],[-38.0871,176.1924],[-38.0892,176.2142],[-38.1017,176.2218],[-38.107,176.2217],[-38.1264,176.2321],[-38.1364,176.2352],[-38.1369,176.2515],[-38.1378,176.2514]],"pts":[{"n":"Hobbiton Movie Set","c":[-37.8575,175.67972],"t":"lotr","d":"La Comté grandeur nature : 44 trous de hobbits, le Moulin, et le Green Dragon au bout du parcours. Session du matin réservée."},{"n":"Wairere Falls","c":[-37.734,175.88],"t":"nature","d":"153 m — la plus haute chute de l'Île du Nord. Belvédère à 45 min de marche, sommet à 1 h 30."},{"n":"Blue Spring — Te Waihou","c":[-38.03634,175.83566],"t":"nature","d":"L'eau la plus pure du pays, d'un bleu irréel — elle alimente une bonne part de l'eau en bouteille néo-zélandaise. Passerelle de 1 h 15 aller-retour."},{"n":"Fitzgerald Glade","c":[-37.99997,175.88492],"t":"pause","d":"Tunnel de fougères arborescentes sur la route de Rotorua. Ça se traverse en trente secondes, mais on ralentit."},{"n":"Ōkere Falls","c":[-38.01433,176.3455],"t":"nature","d":"Chutes et gorge de la Kaituna, escaliers taillés dans la roche jusqu'à une grotte."},{"n":"Te Puia","c":[-38.16429,176.24978],"t":"prog","d":"Le geyser Pōhutu et l'institut d'arts maoris. Au programme demain soir : Te Pō — soirée maorie et hāngī."},{"n":"Lacs Bleu et Vert","c":[-38.2,176.33333],"t":"nature","d":"Tikitapu et Rotokakahi côte à côte, séparés par une crête boisée — l'un turquoise, l'autre vert sombre."}]}};
 
-  var JOURS = {
-    j8: {
-      titre: 'Auckland → Hobbiton → Rotorua',
-      route: [[-36.84920,174.76530],[-37.81667,175.76667],[-38.13778,176.25139]],
-      etapes: [['Auckland','départ'],['Matamata','Hobbiton'],['Rotorua','étape du soir']],
-      pts: [
-        {n:'Hobbiton Movie Set', c:[-37.85750,175.67972], t:'lotr',
-         d:'La Comté grandeur nature : 44 trous de hobbits, le Moulin, et le Green Dragon au bout du parcours. Session du matin réservée.'},
-        {n:'Wairere Falls', c:[-37.73400,175.88000], t:'nature',
-         d:'153 m — la plus haute chute de l\'Île du Nord. Belvédère à 45 min de marche, sommet à 1 h 30. Au nord-est de Matamata.'},
-        {n:'Blue Spring — Te Waihou', c:[-38.03634,175.83566], t:'nature',
-         d:'L\'eau la plus pure du pays, d\'un bleu irréel — elle alimente la moitié de l\'eau en bouteille néo-zélandaise. Passerelle de 1 h 15 aller-retour. Quasiment sur la route.'},
-        {n:'Fitzgerald Glade', c:[-37.99997,175.88492], t:'pause',
-         d:'Tunnel de fougères arborescentes sur la route de Rotorua. Ça se traverse en trente secondes, mais on ralentit.'},
-        {n:'Ōkere Falls', c:[-38.01433,176.34550], t:'nature',
-         d:'Chutes et gorge de la Kaituna, escaliers taillés dans la roche jusqu\'à une grotte. Au nord-est de Rotorua.'},
-        {n:'Te Puia', c:[-38.16429,176.24978], t:'prog',
-         d:'Le geyser Pōhutu et l\'institut d\'arts maoris. Au programme demain soir : Te Pō — soirée maorie et hāngī.'},
-        {n:'Lacs Bleu et Vert', c:[-38.20000,176.33333], t:'nature',
-         d:'Tikitapu et Rotokakahi côte à côte, séparés par une crête boisée — l\'un turquoise, l\'autre vert sombre. Point de vue au sud-est de Rotorua.'}
-      ]
-    }
-  };
+  function km(a,b){var R=6371,dLa=(b[0]-a[0])*Math.PI/180,dLo=(b[1]-a[1])*Math.PI/180,
+    l1=a[0]*Math.PI/180,l2=b[0]*Math.PI/180;
+    var h=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(l1)*Math.cos(l2)*Math.sin(dLo/2)*Math.sin(dLo/2);
+    return 2*R*Math.asin(Math.sqrt(h));}
 
-  /* distance d'un point au segment le plus proche de l'axe, en km (à vol d'oiseau) */
-  function distAxe(p, route){
-    function km(a,b){
-      var R=6371, dLat=(b[0]-a[0])*Math.PI/180, dLon=(b[1]-a[1])*Math.PI/180;
-      var la1=a[0]*Math.PI/180, la2=b[0]*Math.PI/180;
-      var h=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)*Math.sin(dLon/2);
-      return 2*R*Math.asin(Math.sqrt(h));
-    }
+  /* distance du point à la route réelle */
+  function ecart(p,geo){
     var best=Infinity;
-    for(var i=0;i<route.length-1;i++){
-      var a=route[i], b=route[i+1];
-      var ax=a[1], ay=a[0], bx=b[1], by=b[0], px=p[1], py=p[0];
-      var dx=bx-ax, dy=by-ay, L=dx*dx+dy*dy;
-      var t = L ? ((px-ax)*dx+(py-ay)*dy)/L : 0;
-      t = Math.max(0, Math.min(1, t));
-      best = Math.min(best, km(p, [ay+t*dy, ax+t*dx]));
+    for(var i=0;i<geo.length-1;i++){
+      var a=geo[i],b=geo[i+1];
+      var ax=a[1],ay=a[0],bx=b[1],by=b[0],dx=bx-ax,dy=by-ay,L=dx*dx+dy*dy;
+      var t=L?((p[1]-ax)*dx+(p[0]-ay)*dy)/L:0; t=Math.max(0,Math.min(1,t));
+      var d=km(p,[ay+t*dy,ax+t*dx]); if(d<best)best=d;
     }
     return best;
   }
+  function hm(m){return Math.floor(m/60)+' h '+String(m%60).padStart(2,'0');}
 
-  function construire(el, cle){
-    var J = JOURS[cle]; if(!J || el.dataset.pret) return;
-    el.dataset.pret = '1';
-    var map = L.map(el, {scrollWheelZoom:false, zoomControl:true});
+  function construire(el,cle){
+    var J=JOURS[cle]; if(!J||el.dataset.pret)return; el.dataset.pret='1';
+    var map=L.map(el,{scrollWheelZoom:true});
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-      {maxZoom:19, attribution:'Fonds de carte &copy; Esri'}).addTo(map);
+      {maxZoom:19,attribution:'Fonds de carte &copy; Esri · itinéraire OSRM/OpenStreetMap'}).addTo(map);
 
-    var axe = L.polyline(J.route, {color:'#b06a3c', weight:3, opacity:.75, dashArray:'6 5'}).addTo(map);
-    J.route.forEach(function(c,i){
-      L.circleMarker(c,{radius:6,color:'#b06a3c',fillColor:'#b06a3c',fillOpacity:1,weight:2})
-        .addTo(map).bindPopup('<b>'+J.etapes[i][0]+'</b><br>'+J.etapes[i][1]);
+    L.polyline(J.geo,{color:'#fff',weight:8,opacity:.55}).addTo(map);
+    var axe=L.polyline(J.geo,{color:'#b06a3c',weight:4,opacity:.9}).addTo(map);
+
+    J.etapes.forEach(function(e){
+      L.circleMarker([e[0],e[1]],{radius:7,color:'#fff',weight:2,fillColor:'#7a3f1d',fillOpacity:1})
+       .addTo(map).bindPopup('<b>'+e[2]+'</b><br>'+e[3]);
     });
-
     J.pts.forEach(function(p){
-      var cat = CAT[p.t], d = distAxe(p.c, J.route);
-      var ecart = d < 1.5 ? 'sur la route' : '≈ '+(d<10? d.toFixed(1) : Math.round(d))+' km de l\'axe';
-      L.circleMarker(p.c, {radius:8, color:'#fff', weight:2, fillColor:cat.c, fillOpacity:1})
-        .addTo(map)
-        .bindPopup('<b>'+p.n+'</b><br><span style="color:'+cat.c+';font-size:11px;text-transform:uppercase;letter-spacing:.08em">'+cat.l+' · '+ecart+'</span><br>'+p.d);
+      var cat=CAT[p.t],d=ecart(p.c,J.geo);
+      var e=d<0.7?'au bord de la route':'≈ '+(d<10?d.toFixed(1):Math.round(d))+' km de la route';
+      L.circleMarker(p.c,{radius:8,color:'#fff',weight:2,fillColor:cat.c,fillOpacity:1}).addTo(map)
+       .bindPopup('<b>'+p.n+'</b><br><span style="color:'+cat.c+';font-size:11px;text-transform:uppercase;letter-spacing:.08em">'+cat.l+' · '+e+'</span><br>'+p.d);
     });
+    map.fitBounds(axe.getBounds().extend(L.featureGroup(J.pts.map(function(p){return L.marker(p.c);})).getBounds()),{padding:[26,26]});
+    setTimeout(function(){map.invalidateSize();},60);
 
-    map.fitBounds(L.featureGroup([axe].concat(J.pts.map(function(p){return L.marker(p.c);}))).getBounds(), {padding:[28,28]});
-    setTimeout(function(){ map.invalidateSize(); }, 60);
+    var info=el.parentNode.querySelector('.dmnote');
+    if(info) info.innerHTML='<b>'+J.km+' km · '+hm(J.min)+' de conduite</b> ('+J.legs.map(function(l){return l.km+' km / '+hm(l.min);}).join(' puis ')+
+      '). Tracé routier réel, calculé sur OpenStreetMap. Les écarts annoncés sont mesurés depuis la route, en ligne directe.';
   }
-
   document.querySelectorAll('details').forEach(function(d){
-    d.addEventListener('toggle', function(){
-      if(!d.open) return;
-      var el = d.querySelector('.daymap');
-      if(el) construire(el, el.dataset.jour);
-    });
+    d.addEventListener('toggle',function(){ if(!d.open)return;
+      var el=d.querySelector('.daymap'); if(el)construire(el,el.dataset.jour); });
   });
 })();
 </script>
