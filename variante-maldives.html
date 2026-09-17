@@ -443,7 +443,7 @@
 
 <script>
 var map=L.map('map',{scrollWheelZoom:true}).setView([0,120],2);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Fonds de carte &copy; <a href="https://www.esri.com">Esri</a> — Esri, DeLorme, NAVTEQ, TomTom et la communauté SIG'}).addTo(map);
 
 var CHC=[-43.489,172.532], AKL=[-37.008,174.792], NOU=[-22.015,166.213], BKK=[13.690,100.750],
     SIN=[1.364,103.991], MLE=[4.192,73.529], DXB=[25.253,55.365], CDG=[49.010,2.548];

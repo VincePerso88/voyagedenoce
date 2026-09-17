@@ -844,7 +844,7 @@ document.getElementById('nc-list').innerHTML = nc.map(card).join('');
 
 /* ---------- MAP ---------- */
 var map = L.map('map', {scrollWheelZoom:true}).setView([-41.5,172.5], 5);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Fonds de carte &copy; <a href="https://www.esri.com">Esri</a> — Esri, DeLorme, NAVTEQ, TomTom et la communauté SIG'}).addTo(map);
 var NORTH='#b06a3c',SOUTH='#2f7d8c',FERRY='#2f7d8c',GOLD='#b8862f';
 var stops=[
  [-36.848,174.763,'N1-2 · Auckland',NORTH,false],

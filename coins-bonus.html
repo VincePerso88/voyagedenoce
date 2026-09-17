@@ -229,7 +229,7 @@ document.getElementById('sud-bonus').innerHTML  = spots.filter(function(s){retur
 document.getElementById('nc-bonus').innerHTML   = spots.filter(function(s){return s.region==='Nouvelle-Calédonie';}).map(card).join('');
 
 var map = L.map('map',{scrollWheelZoom:true}).setView([-41,173],5);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Fonds de carte &copy; <a href="https://www.esri.com">Esri</a> — Esri, DeLorme, NAVTEQ, TomTom et la communauté SIG'}).addTo(map);
 var pts=[];
 spots.forEach(function(s){
   var color=s.region==='Île du Nord'?'#b06a3c':(s.region==='Nouvelle-Calédonie'?'#c2743a':'#2f7d8c');
