@@ -1,0 +1,7 @@
+
+# captures de debug : ne jamais publier
+page-*.png
+*-debug.png
+kayak*.png
+probe*.png
+mc*.png
