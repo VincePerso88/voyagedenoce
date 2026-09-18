@@ -146,6 +146,11 @@
   #budget tr.sub td{background:var(--green-soft);font-weight:700;border-top:1px solid var(--green)}
   #budget tr.perj td{background:var(--green-soft);color:var(--muted);font-size:13px}
   #budget tr.perj td:nth-child(2),#budget tr.perj td:nth-child(3){font-weight:700;color:var(--green)}
+  /* --- priorités de réservation --- */
+  .bk{display:inline-block;font-size:12px;font-weight:700;white-space:nowrap}
+  .bk.hi{color:#a02c1f}
+  .bk.md{color:#b8862f}
+  .bk.lo{color:var(--green)}
 </style>
 </head>
 <body>
@@ -388,19 +393,27 @@
   <h2 style="margin-top:34px"><span class="ic">🛏️</span> Détail hébergement NZ</h2>
   <p class="lead">Base retenue : milieu de gamme partout. La nuit « folie » (Hapuku ou Matakauri) devient une option à ajouter. Prix indicatifs 2 personnes.</p>
   <table>
-    <tr><th>Poste</th><th>Nuits</th><th>Milieu de gamme (priorité)</th><th>Option 1 folie</th></tr>
-    <tr><td>Auckland (hôtel)</td><td>2</td><td>~300 €</td><td>~300 €</td></tr>
-    <tr><td>Île du Nord (hôtels)</td><td>4</td><td>~440 €</td><td>~560 €</td></tr>
-    <tr><td>Wellington (hôtel)</td><td>2</td><td>~320 €</td><td>~320 €</td></tr>
-    <tr><td>Kaikōura</td><td>2</td><td>~500 €</td><td><span class="splurge">~1 195 €</span> (1 nuit Hapuku) + 250 €</td></tr>
-    <tr><td>Ōamaru / Moeraki</td><td>1</td><td>~120 €</td><td>~120 €</td></tr>
-    <tr><td>Dunedin</td><td>2</td><td>~300 €</td><td>~300 €</td></tr>
-    <tr><td>Te Anau</td><td>2</td><td>~300 €</td><td>~300 €</td></tr>
-    <tr><td>Queenstown</td><td>2</td><td>~550 €</td><td>~550 € <span style="color:var(--muted)">(Matakauri en option : ~700-1 000 €)</span></td></tr>
-    <tr><td>Mount Cook</td><td>1</td><td>~260 €</td><td>~260 €</td></tr>
-    <tr><td>Christchurch</td><td>1</td><td>~140 €</td><td>~140 €</td></tr>
-    <tr class="tot"><td>Total hébergement NZ</td><td>19</td><td>~3 230 €</td><td>~4 295 €</td></tr>
+    <tr><th>Étape</th><th>Nuits</th><th>Milieu de gamme</th><th>Option folie</th><th>Réserver</th></tr>
+    <tr><td><b>Auckland</b><br><span style="font-size:12px;color:var(--muted)">mar. 6 – mer. 7 avril</span></td><td>2</td><td>~300 €</td><td>~300 €</td><td><span class="bk lo">🟢 tranquille</span><br><span style="font-size:12px;color:var(--muted)">Grande ville, offre abondante, et on est encore avant les vacances scolaires.</span></td></tr>
+    <tr><td><b>Rotorua</b><br><span style="font-size:12px;color:var(--muted)">jeu. 8 – ven. 9 avril</span></td><td>2</td><td>~230 €</td><td>~290 €</td><td><span class="bk md">🟠 tôt</span><br><span style="font-size:12px;color:var(--muted)">La destination familiale néo-zélandaise par excellence. La nuit du 9 est la veille des vacances.</span></td></tr>
+    <tr><td><b>Tongariro — National Park</b><br><span style="font-size:12px;color:var(--muted)">sam. 10 avril</span></td><td>1</td><td>~130 €</td><td>~165 €</td><td><span class="bk hi">🔴 en priorité</span><br><span style="font-size:12px;color:var(--muted)"><b>Une poignée d'adresses</b> dans tout le secteur, et c'est le premier samedi des vacances scolaires.</span></td></tr>
+    <tr><td><b>Whanganui</b><br><span style="font-size:12px;color:var(--muted)">dim. 11 avril</span></td><td>1</td><td>~80 €</td><td>~105 €</td><td><span class="bk lo">🟢 tranquille</span><br><span style="font-size:12px;color:var(--muted)">Peu de demande, mais viser le centre pour être à pied du prieuré.</span></td></tr>
+    <tr><td><b>Wellington</b><br><span style="font-size:12px;color:var(--muted)">lun. 12 – mar. 13 avril</span></td><td>2</td><td>~320 €</td><td>~320 €</td><td><span class="bk lo">🟢 tranquille</span><br><span style="font-size:12px;color:var(--muted)">Ville, en semaine : l'offre suit.</span></td></tr>
+    <tr><td><b>Kaikōura</b><br><span style="font-size:12px;color:var(--muted)">mer. 14 – jeu. 15 avril</span></td><td>2</td><td>~500 €</td><td>~1 195 €</td><td><span class="bk md">🟠 tôt</span><br><span style="font-size:12px;color:var(--muted)">Petit bourg, en pleines vacances, et tout le monde y vient pour les cachalots.</span></td></tr>
+    <tr><td><b>Ōamaru / Moeraki</b><br><span style="font-size:12px;color:var(--muted)">ven. 16 avril</span></td><td>1</td><td>~120 €</td><td>~120 €</td><td><span class="bk md">🟠 tôt</span><br><span style="font-size:12px;color:var(--muted)">Offre limitée, surtout du côté de Moeraki.</span></td></tr>
+    <tr><td><b>Dunedin</b><br><span style="font-size:12px;color:var(--muted)">sam. 17 – dim. 18 avril</span></td><td>2</td><td>~300 €</td><td>~300 €</td><td><span class="bk md">🟠 tôt</span><br><span style="font-size:12px;color:var(--muted)">Ville, donc de la marge — mais le samedi en vacances se remplit.</span></td></tr>
+    <tr><td><b>Te Anau</b><br><span style="font-size:12px;color:var(--muted)">lun. 19 – mar. 20 avril</span></td><td>2</td><td>~300 €</td><td>~300 €</td><td><span class="bk hi">🔴 en priorité</span><br><span style="font-size:12px;color:var(--muted)">Village-porte du Fiordland : tout le monde y dort pour Milford, et il n'y a pas d'alternative à moins d'une heure.</span></td></tr>
+    <tr><td><b>Queenstown</b><br><span style="font-size:12px;color:var(--muted)">mer. 21 – jeu. 22 avril</span></td><td>2</td><td>~550 €</td><td>~550 €</td><td><span class="bk hi">🔴 en priorité</span><br><span style="font-size:12px;color:var(--muted)">La ville la plus demandée du pays, en vacances scolaires.</span></td></tr>
+    <tr><td><b>Aoraki / Mount Cook</b><br><span style="font-size:12px;color:var(--muted)">ven. 23 avril</span></td><td>1</td><td>~260 €</td><td>~260 €</td><td><span class="bk hi">🔴 en priorité</span><br><span style="font-size:12px;color:var(--muted)"><b>Le point le plus tendu du voyage.</b> Trois établissements dans tout le parc, et rien d'autre avant Twizel, à 1 h de route.</span></td></tr>
+    <tr><td><b>Christchurch</b><br><span style="font-size:12px;color:var(--muted)">sam. 24 avril</span></td><td>1</td><td>~140 €</td><td>~140 €</td><td><span class="bk hi">🔴 en priorité</span><br><span style="font-size:12px;color:var(--muted)"><b>Samedi du week-end de l'ANZAC</b> et dernier week-end des vacances : la nuit la plus disputée des dix-neuf.</span></td></tr>
+    <tr class="tot"><td>Total hébergement NZ</td><td>19</td><td>~3 230 €</td><td>~4 295 €</td><td></td></tr>
   </table>
+  <div class="note gold"><b>⚠️ Deux dates que le dossier n'avait pas vues.</b>
+  <br><b>1. Les vacances scolaires néo-zélandaises courent du samedi 10 avril au lundi 26 avril 2027</b> (ministère de l'Éducation). Autrement dit, <b>15 de vos 19 nuits tombent dedans</b> — seules celles des 6, 7, 8 et 9 avril sont avant. « Avril = basse saison » reste vrai pour les touristes étrangers, mais la clientèle néo-zélandaise, elle, part en famille exactement à ce moment-là, et elle vise Rotorua, Taupo, le Tongariro, Queenstown, Tekapo et Mount Cook.
+  <br><b>2. L'ANZAC Day tombe le dimanche 25 avril et est reporté au lundi 26</b> : le 24-26 avril forme donc un long week-end, qui clôt les vacances. Votre nuit du <b>samedi 24 à Christchurch</b> est prise entre les deux.
+  <br><span style="color:var(--muted)">À noter aussi pour le dernier jour : le 25 avril, les commerces néo-zélandais restent fermés jusqu'à 13 h. Les cafés et restaurants, eux, sont exemptés — le déjeuner après la messe de Kaiapoi n'est pas menacé.</span></div>
+
+  <div class="note"><b>L'ordre dans lequel réserver.</b> Si vous ne deviez en bloquer que trois, ce serait <b>Mount Cook (ven. 23)</b>, <b>Tongariro (sam. 10)</b> et <b>Christchurch (sam. 24)</b> : ce sont les trois nuits où l'offre est soit minuscule, soit prise dans un long week-end. Viennent ensuite Te Anau et Queenstown, puis Kaikōura et Ōamaru. Auckland, Wellington et Whanganui peuvent attendre sans risque.</div>
   <div class="note"><b>Lecture :</b> la base retenue est le milieu de gamme partout (~3 570 €). Une nuit « folie » reste possible en option — Hapuku (~+945 €) <b>ou</b> Matakauri (~+500-750 €) — mais une seule pour rester sous la cible &lt;14 000 €. À ajouter : vols (~5 300 €), voitures, activités, repas. <span class="todo">Chiffrage complet à consolider.</span></div>
 </div></section>
 
