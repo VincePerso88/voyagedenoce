@@ -918,7 +918,7 @@
     [-43.5306,172.636,"Christchurch","sam. 24 avril",1]];
   function construireGlobale(el){
     if(!el||el.dataset.pret)return; el.dataset.pret='1';
-    var map=L.map(el,{scrollWheelZoom:false});
+    var map=L.map(el,{scrollWheelZoom:true});
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
       {maxZoom:19,attribution:'Fonds de carte &copy; Esri · itinéraire OSRM/OpenStreetMap'}).addTo(map);
     var ordre=["j8","j10","j11","j12","j14","j16","j17","j18","j19","j20","j21","j22","j23","j24","j25"];
