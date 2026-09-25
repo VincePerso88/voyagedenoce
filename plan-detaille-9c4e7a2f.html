@@ -133,9 +133,9 @@
     .db{padding-left:16px}
   }
 
-  .lev{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;
+  .lev{display:flex;flex-wrap:wrap;gap:1px;
        background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:16px}
-  .lev>div{background:var(--surface);padding:15px 17px}
+  .lev>div{flex:1 1 160px;background:var(--surface);padding:15px 17px}
   .lev .a{font-family:var(--mono);font-size:18px;font-weight:600;margin-bottom:3px}
   .lev .down{color:var(--green)}
   .lev .up{color:var(--gold)}
