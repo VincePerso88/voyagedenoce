@@ -119,7 +119,27 @@
   .db{padding:2px 16px 16px 43px;display:flex;flex-direction:column;gap:11px;font-size:14.5px}
   .db ul{padding-left:18px;gap:6px;font-size:14.5px}
   .rt{font-size:12.5px;color:var(--green2);font-weight:650;letter-spacing:.01em}
-  .sl{background:var(--sand);border-radius:7px;padding:9px 12px;font-size:13.5px}
+  .nuit{background:var(--sand);border-radius:8px;padding:10px 13px;font-size:13.5px;
+        display:flex;flex-direction:column;gap:7px}
+  .nh{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 10px}
+  .nk{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .nn{font-weight:650;color:var(--ink)}
+  .nm{font-size:12.5px;color:var(--muted)}
+  .nb{font-size:11.5px;font-weight:650;padding:1px 8px;border-radius:999px;
+      background:var(--green-soft);color:var(--green);white-space:nowrap}
+  .nb.todo{background:var(--gold-soft);color:var(--gold)}
+  .np{margin-left:auto;font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .nd{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:3px 14px;margin:0}
+  .nd dt{color:var(--muted);font-size:12.5px;padding-top:1px}
+  .nd dd{margin:0;min-width:0}
+  .nd .ref{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .nt{margin:0;color:var(--muted);font-size:13px}
+  .nt b{color:var(--ink)}
+  @media (max-width:420px){
+    .nd{grid-template-columns:minmax(0,1fr);gap:0}
+    .nd dt{margin-top:5px}
+    .np{margin-left:0}
+  }
   .ml{background:var(--green-soft);border-left:3px solid var(--green);
       border-radius:0 7px 7px 0;padding:9px 12px;font-size:13.5px}
   .days details.m summary .dp::after{content:" · messe";font-family:var(--mono);font-size:10.5px;
@@ -279,7 +299,7 @@
           <li>Rien au programme : encaisser le décalage après 28 h 30 de trajet.</li>
           <li>Arrivée le matin — la journée entière pour se poser, contrairement à un vol du soir.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Cordis, 83 Symonds Street · Chambre Deluxe, très grand lit · ✅ réservé, 438 NZD les deux nuits ≈ 241 €, payés sur place · <b>arrivée à partir de 15 h</b> pour un atterrissage à 8 h 25 : demander une arrivée anticipée, ou au moins déposer les bagages en arrivant</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Cordis Auckland</b><span class="nb">✓ Réservé</span></div><dl class="nd"><dt>Chambre</dt><dd>Deluxe, très grand lit</dd><dt>Adresse</dt><dd>83 Symonds Street</dd><dt>Prix</dt><dd>438 NZD les deux nuits ≈ 241 € · payé sur place · caution de 100 NZD par nuit</dd><dt>Annulation</dt><dd>gratuite jusqu'au lun. 5 avril, 15 h (heure locale), soit pendant le vol : décider avant l'embarquement du 4</dd><dt>Horaires</dt><dd>arrivée à partir de 15 h · départ jeu. 8 à 11 h</dd><dt>Réf.</dt><dd><span class="ref">Hotels.com 72079396647599</span></dd></dl><p class="nt">Atterrissage à 8 h 25 : <b>demander une arrivée anticipée</b>, ou au moins déposer les bagages. Demander un étage élevé.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j6"></div>
@@ -296,7 +316,7 @@
           <li>Éventuellement Sky Tower ou musée d'Auckland (Domain).</li>
         </ul>
         <div class="ml"><b>Messe possible</b> — FSSP (latin), chapelle St Anne, 3 Cole Place, Te Atatu South · en semaine 7 h, selon la forme.</div>
-        <div class="sl"><b>Nuit</b> — Cordis, 2<sup>e</sup> nuit · départ jeu. 8 à 11 h ; voiture à 10 h chez Budget, 206 Victoria Street West, à 1,9 km : Uber ou prise en charge Budget (appeler 24 h avant), pas à pied avec les valises</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Cordis Auckland</b><span class="nm">2<sup>e</sup> nuit</span><span class="nb">✓ Réservé</span></div><p class="nt">Voiture jeu. 8 à 10 h chez Budget, 206 Victoria Street West, à 1,9 km : Uber ou prise en charge Budget (appeler 24 h avant). Pas à pied avec les valises.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j7"></div>
@@ -311,7 +331,7 @@
           <li><b>Hobbiton</b> — visite guidée de 2 h : les 44 trous de hobbit, Bag End, l'Arbre de la Fête, puis bière ou cidre au Green Dragon. <b>Réserver la session du matin.</b></li>
           <li>Route vers Rotorua à travers les collines du Waikato.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Rotorua, motel avec bain thermal · ~115-145 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Rotorua, motel avec bain thermal privatif</b><span class="nb todo">À réserver</span><span class="np">~115-145 €</span></div><p class="nt">Veille des vacances scolaires : à réserver tôt.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j8"></div>
@@ -327,7 +347,7 @@
           <li>Soirée culturelle māori avec <b>hangi</b> — repas cuit sous terre.</li>
           <li>Polynesian Spa en fin de journée : bains chauds face au lac.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Rotorua, 2<sup>e</sup> nuit · ~115-145 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Rotorua</b><span class="nm">2<sup>e</sup> nuit</span><span class="nb todo">À réserver</span><span class="np">~115-145 €</span></div></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j9"></div>
@@ -344,7 +364,7 @@
           <li>Le Mont Ngauruhoe, c'est le <b>Mont Destin</b> : vue sur les trois volcans.</li>
           <li>Marche de Taranaki Falls (2 h) selon la météo. ⚠️ On évite l'Alpine Crossing en avril — neige.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Mountain Heights Lodge, National Park Village · Chambre Deluxe vue montagne, petit déjeuner et spa compris · ✅ réservé, 120,64 € payés · arrivée de 14 h à 21 h · petit déjeuner au lodge, puis <b>départ vers 8 h</b> pour la messe de 11 h à Whanganui</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Mountain Heights Lodge</b><span class="nb">✓ Réservé et payé</span></div><dl class="nd"><dt>Chambre</dt><dd>Deluxe vue montagne, salle de bain privée · <b>petit déjeuner et spa compris</b></dd><dt>Adresse</dt><dd>4576 SH 4, National Park Village</dd><dt>Prix</dt><dd>120,64 € · déjà payé</dd><dt>Annulation</dt><dd>gratuite jusqu'au lun. 5 avril, 14 h (heure locale), soit pendant le vol : décider avant l'embarquement du 4</dd><dt>Horaires</dt><dd>arrivée 14 h-21 h · départ 10 h</dd><dt>Réf.</dt><dd><span class="ref">Hotels.com 72079670689918</span></dd></dl><p class="nt">Petit déjeuner au lodge, puis <b>départ vers 8 h</b> pour la messe de 11 h à Whanganui. Demander une chambre à l'arrière, loin de la SH4.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j10"></div>
@@ -360,7 +380,7 @@
           <li>Après-midi : le fleuve — le plus long navigable du pays — l'ascenseur de Durie Hill, la Sarjeant Gallery, le quartier victorien.</li>
           <li>Ville-étape qui coupe en deux la longue liaison vers Wellington.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Whanganui, motel centre-ville · ~80-105 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Whanganui, motel du centre</b><span class="nb todo">À réserver</span><span class="np">~80-105 €</span></div><p class="nt">Près du fleuve et du quartier victorien. La messe a lieu en arrivant, avant l'hôtel.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j11"></div>
@@ -376,7 +396,7 @@
           <li>Arrivée l'après-midi. <b>On garde la voiture</b> — elle traversera le détroit avec nous. Deux nuits au parking de l'hôtel : Wellington se fait à pied.</li>
           <li>Waterfront et Cuba Street en fin de journée.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Hôtel Wellington centre · ~130-180 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Wellington, hôtel du centre</b><span class="nb todo">À réserver</span><span class="np">~130-180 €</span></div></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j12"></div>
@@ -392,7 +412,7 @@
           <li>Te Papa, le musée national — gratuit, ferme à 18 h.</li>
           <li>Téléphérique de Kelburn, jardin botanique, Embassy Theatre.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Hôtel Wellington, 2<sup>e</sup> nuit · ~130-180 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Wellington</b><span class="nm">2<sup>e</sup> nuit</span><span class="nb todo">À réserver</span><span class="np">~130-180 €</span></div></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j13"></div>
@@ -409,7 +429,7 @@
           <li>Colonie de phoques à fourrure à Point Kean.</li>
           <li>Coucher de soleil sur la péninsule.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Kaikōura, lodge milieu de gamme · ~200-300 €<br><span style="color:var(--muted)">Folie possible : Hapuku Lodge &amp; Tree Houses, ~1 195 €</span></div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Kaikōura, lodge ou hôtel</b><span class="nb todo">À réserver</span><span class="np">~200-300 €</span></div><p class="nt">Folie possible : Hapuku Lodge &amp; Tree Houses, ~1 195 € la nuit.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j14"></div>
@@ -425,7 +445,7 @@
           <li>Possible nage avec les dauphins d'Hector ; albatros.</li>
           <li>Marche de la péninsule (2-3 h) ; crayfish — la langouste locale.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Kaikōura, 2<sup>e</sup> nuit · ~200-300 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Kaikōura</b><span class="nm">2<sup>e</sup> nuit</span><span class="nb todo">À réserver</span><span class="np">~200-300 €</span></div></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j15"></div>
@@ -441,7 +461,7 @@
           <li>Ōamaru : quartier victorien et steampunk.</li>
           <li>Colonie de <b>manchots bleus</b> qui rentrent au crépuscule.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Ōamaru, hôtel ou motel · ~120-160 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Ōamaru, hôtel ou motel</b><span class="nb todo">À réserver</span><span class="np">~120-160 €</span></div></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j16"></div>
@@ -456,7 +476,7 @@
           <li>Dunedin, « l'Édimbourg du Sud » : la gare édouardienne — bâtiment le plus photographié du pays — l'âme écossaise, Baldwin Street.</li>
           <li><b>Larnach Castle</b> : le seul château de Nouvelle-Zélande, bâti par amour, jardins primés. Thé ou dîner possible.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Dunedin, hôtel de charme · ~130-170 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Dunedin, hôtel de charme</b><span class="nb todo">À réserver</span><span class="np">~130-170 €</span></div><p class="nt">Au centre, <b>à pied de la cathédrale</b> : messe latine dim. 18 à 9 h, 288 Rattray Street.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j17"></div>
@@ -472,7 +492,7 @@
           <li>Plages sauvages de Sandfly Bay : manchots aux yeux jaunes, otaries, lions de mer, manchots bleus au crépuscule.</li>
           <li>Le coin le plus « lune de miel » du Sud : sauvage, intime, hors des foules.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Dunedin, 2<sup>e</sup> nuit · ~130-170 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Dunedin</b><span class="nm">2<sup>e</sup> nuit</span><span class="nb todo">À réserver</span><span class="np">~130-170 €</span></div></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j18"></div>
@@ -488,7 +508,7 @@
           <li>Soirée calme. <b>Dernière station-service avant Milford</b> — faire le plein ici.</li>
           <li>Option : grottes de vers luisants de Te Anau.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Te Anau, hôtel vue lac · ~120-180 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Te Anau</b><span class="nb todo">À réserver</span><span class="np">~120-180 €</span></div><p class="nt">Repéré : Parklands Motel, 16 Mokoroa Street, Studio vue montagne, 277 € les deux nuits.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j19"></div>
@@ -504,7 +524,7 @@
           <li><b>Croisière dans le fjord</b> : Mitre Peak, cascades, phoques, dauphins. On part après les groupes du matin.</li>
           <li>Arrêts photo : Mirror Lakes, The Chasm.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Te Anau, 2<sup>e</sup> nuit · ~120-180 €</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Te Anau</b><span class="nm">2<sup>e</sup> nuit</span><span class="nb todo">À réserver</span><span class="np">~120-180 €</span></div></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j20"></div>
@@ -519,7 +539,7 @@
           <li><b>Arrowtown</b> : village de chercheurs d'or, rivière Arrow.</li>
           <li>Téléphérique de Bob's Peak au coucher du soleil, dîner face au lac Wakatipu.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Kamana Lakehouse, 139 Fernhill Road · chambre Remarkables King, petit déjeuner compris · ✅ réservé, 1 307 NZD les deux nuits ≈ 719 € payés sur place · arrivée à partir de 15 h · sur la colline, loin des bars du centre ; spas privés à réserver à l'avance</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Kamana Lakehouse</b><span class="nb">✓ Réservé</span></div><dl class="nd"><dt>Chambre</dt><dd>Remarkables King, vue sur les montagnes · <b>petit déjeuner compris</b></dd><dt>Adresse</dt><dd>139 Fernhill Road, sur la colline</dd><dt>Prix</dt><dd>1 307 NZD les deux nuits ≈ 719 € · payé sur place</dd><dt>Annulation</dt><dd>gratuite jusqu'au lun. 19 avril, 14 h (heure locale)</dd><dt>Horaires</dt><dd>arrivée à partir de 15 h · départ ven. 23 à 11 h</dd><dt>Réf.</dt><dd><span class="ref">Hotels.com 72079672311128</span></dd></dl><p class="nt">Loin des bars du centre. Spas privés sur réservation, payants à l'heure.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j21"></div>
@@ -535,7 +555,7 @@
           <li><b>Paradise</b> : forêts de hêtres, Lothlórien et Isengard. Balades tranquilles, kayak possible.</li>
           <li>⚠️ <b>La fin de l'accès à Paradise est une piste gravillonnée</b> — le seul tronçon non revêtu de tout le voyage. Les contrats de location <b>excluent les dommages sous caisse</b>, y compris avec un rachat de franchise à zéro. <b>On se gare au début de la piste et on finit à pied</b> : un SUV n'y changerait rien, le risque est contractuel.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Kamana Lakehouse, 2<sup>e</sup> nuit · Glenorchy à 37 min, déjà sur la bonne route · départ ven. 23 à 11 h</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Kamana Lakehouse</b><span class="nm">2<sup>e</sup> nuit</span><span class="nb">✓ Réservé</span></div><p class="nt">Glenorchy à 37 min, déjà sur la bonne route.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j22"></div>
@@ -552,7 +572,7 @@
           <li><b>En option</b> : le vol panoramique sur le glacier Tasman, ~550 € pour deux. À décider sur place le matin, selon le ciel.</li>
           <li>En soirée, ciel étoilé : réserve Dark Sky.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Aoraki Court Motel, Studio Exécutif balcon et spa · ✅ réservé, 813 NZD ≈ 447 € payés sur place · arrivée de 14 h 30 à 18 h 30, réception fermée à 18 h : <b>prévenir le motel si on arrive après 17 h</b></div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Aoraki Court Motel</b><span class="nb">✓ Réservé</span></div><dl class="nd"><dt>Chambre</dt><dd>Studio Exécutif, balcon et spa</dd><dt>Adresse</dt><dd>26 Bowen Drive, Mount Cook</dd><dt>Prix</dt><dd>813 NZD ≈ 447 € · payé sur place, prélevé le 20 avril</dd><dt>Annulation</dt><dd>gratuite jusqu'au mar. 20 avril, 14 h 30 (heure locale)</dd><dt>Horaires</dt><dd>arrivée 14 h 30-18 h 30 · départ 10 h</dd><dt>Réf.</dt><dd><span class="ref">Hotels.com 72079507261150</span></dd></dl><p class="nt">Réception fermée à 18 h : <b>prévenir le motel si on arrive après 17 h</b>. La dernière chambre libre du parc au 29 sept.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j23"></div>
@@ -567,7 +587,7 @@
           <li><b>Lac Tekapo</b> : eau turquoise, Church of the Good Shepherd.</li>
           <li>Route vers Christchurch, nuit sur place avant le départ.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — Cranford Oak Motel, 116 McFaddens Road, St Albans · King Studio avec baignoire spa · ✅ réservé, 154 NZD ≈ 85 € payés sur place · arrivée de 14 h à 21 h · au nord de la ville : 15 min de Kaiapoi, 15 min de l'aéroport</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">Cranford Oak Motel</b><span class="nb">✓ Réservé</span></div><dl class="nd"><dt>Chambre</dt><dd>King Studio, baignoire spa</dd><dt>Adresse</dt><dd>116 McFaddens Road, St Albans</dd><dt>Prix</dt><dd>154 NZD ≈ 85 € · payé sur place</dd><dt>Annulation</dt><dd>gratuite jusqu'au ven. 23 avril, 14 h (heure locale)</dd><dt>Horaires</dt><dd>arrivée 14 h-21 h · départ 10 h</dd><dt>Réf.</dt><dd><span class="ref">Hotels.com 72079670887562</span></dd></dl><p class="nt">Au nord de la ville : 15 min de Kaiapoi, 15 min de l'aéroport. Demander une chambre loin de Cranford Street.</p></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j24"></div>
@@ -582,7 +602,7 @@
           <li>Déjeuner, puis restitution du véhicule à Christchurch.</li>
           <li><b>Envol à 20 h 10 vers Malé</b>, via Auckland et Singapour. Le vol du soir est ce qui permet de garder la messe.</li>
         </ul>
-        <div class="sl"><b>Nuit</b> — en vol</div>
+        <div class="nuit"><div class="nh"><span class="nk">Nuit</span><b class="nn">En vol</b><span class="nm">Christchurch → Auckland → Singapour → Malé</span></div></div>
       
         <div class="dmleg"><span><i style="background:#1f6f4a">&#9733;</i>Au programme</span><span><i style="background:#1a6ea8">&#9650;</i>Détour nature</span><span><i style="background:#b8862f">&#9670;</i>Seigneur des Anneaux</span><span><i style="background:#9e2b20">&#9679;</i>Halte en chemin</span><span><i style="background:#7b4bab">&#10010;</i>Messe</span><span><i class="jal"></i>Étape de la route</span></div>
         <div class="daymap" data-jour="j25"></div>
